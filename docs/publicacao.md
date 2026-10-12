@@ -3,6 +3,10 @@
 A homepage comercial usa **https://luna.cometki.app/**. O conteúdo e o contato
 aprovados permanecem estáticos; criação de trials não participa deste deploy.
 
+Publicada em 12 de outubro de 2026, versão de container `homepage-1.0.1`.
+O [relatório de validação](validacao.md#publicação-na-cometki-em-12-de-outubro-de-2026)
+registra o digest, verificações realizadas e limites do ensaio.
+
 ## Componentes e responsabilidades
 
 | Item | Configuração |
