@@ -28,6 +28,11 @@ def pagina():
 
 
 class ConteudoPublico(unittest.TestCase):
+    def test_titulo_clientes_preserva_espaco_na_quebra_responsiva(self):
+        html = (ROOT / 'index.html').read_text()
+        self.assertIn('Quem volta merece <br>ser lembrada.', html)
+        self.assertNotIn('merece<br>ser', html)
+
     def test_metadados_apontam_para_dominio_definitivo(self):
         elementos = pagina()
         self.assertEqual([x.get('href') for tag, x in elementos
@@ -89,6 +94,7 @@ class EntregaHTTP(unittest.TestCase):
             html = resposta.read().decode()
             self.assertIn('<title>LUNA', html)
             self.assertIn('https://luna.cometki.app/', html)
+            self.assertIn('Quem volta merece <br>ser lembrada.', html)
         with self.obter('/saude') as resposta:
             self.assertEqual(resposta.status, 200)
             self.assertEqual(resposta.read(), b'ok\n')

@@ -28,6 +28,10 @@ if (!base) throw new Error('Informe BASE_URL.');
           await page.locator('#aba-' + nome).click();
           const painel = page.locator('#painel-' + nome);
           assert.ok(await painel.isVisible());
+          if (nome === 'clientes') {
+            const titulo = (await painel.locator('h3').innerText()).replace(/\s+/g, ' ').trim();
+            assert.equal(titulo, 'Quem volta merece ser lembrada.');
+          }
           const origem = painel.locator('.ampliavel');
           await origem.click();
           assert.ok(await page.locator('#visualizador').isVisible());
