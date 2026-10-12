@@ -115,7 +115,9 @@ class EntregaHTTP(unittest.TestCase):
         with self.obter('/') as resposta:
             self.assertEqual(resposta.headers['X-Content-Type-Options'], 'nosniff')
             self.assertIn("frame-ancestors 'none'", resposta.headers['Content-Security-Policy'])
-            self.assertIn('no-cache', resposta.headers['Cache-Control'])
+            cache = ', '.join(resposta.headers.get_all('Cache-Control', []))
+            self.assertIn('no-cache', cache)
+            self.assertIn('no-transform', cache)
         with self.obter('/assets/js/configuracao.js') as resposta:
             self.assertIn('no-cache', resposta.headers['Cache-Control'])
         with self.obter('/assets/css/site.css', {'Accept-Encoding': 'gzip'}) as resposta:

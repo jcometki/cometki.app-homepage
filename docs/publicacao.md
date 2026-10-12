@@ -3,7 +3,9 @@
 A homepage comercial usa **https://luna.cometki.app/**. O conteúdo e o contato
 aprovados permanecem estáticos; criação de trials não participa deste deploy.
 
-Publicada em 12 de outubro de 2026, versão de container `homepage-1.0.1`.
+Publicada em 12 de outubro de 2026. A versão `homepage-1.0.2` acrescenta
+`Cache-Control: no-transform` para impedir injeção automática de Analytics no
+HTML pela Cloudflare, mantendo a CSP restrita e o visual aprovado.
 O [relatório de validação](validacao.md#publicação-na-cometki-em-12-de-outubro-de-2026)
 registra o digest, verificações realizadas e limites do ensaio.
 
@@ -64,7 +66,9 @@ curl -I https://luna.cometki.app/api/trials
 ```
 
 Esperado: página, assets e saúde 200; `/api/` e rotas privadas 404; configuração
-comercial e HTML revalidáveis. Conferir menu, abas, imagens ampliadas e layout
+comercial e HTML revalidáveis. Nginx envia cache de uma hora para assets; a
+política de cache da Cloudflare pode aplicar TTL maior na borda/navegador.
+Conferir menu, abas, imagens ampliadas e layout
 móvel. Verificar o link do WhatsApp sem enviar mensagens no teste.
 
 Para testar HTTP contra Nginx, usar `BASE_URL` com a suíte Python. Para validar
@@ -86,3 +90,7 @@ variáveis do Manager, credenciais de banco ou volumes persistentes.
 Não há dados novos a restaurar em PVC. Código, versões e manifests pertencem
 ao Git; exports Kubernetes existentes também incluem esta configuração. A
 imagem depende do registro Docker Hub, assim como as aplicações atuais.
+
+[No-transform e Analytics da Cloudflare](https://developers.cloudflare.com/web-analytics/get-started/):
+o proxy não deve alterar o payload para injetar o beacon. Isso não muda regras
+de segurança de outros hosts nem libera scripts externos na CSP.
