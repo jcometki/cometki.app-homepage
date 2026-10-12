@@ -8,7 +8,7 @@ aprovados permanecem estáticos; criação de trials não participa deste deploy
 | Item | Configuração |
 | --- | --- |
 | Código | `jcometki/cometki.app-homepage`, branch `main` |
-| Imagem | `jcometki/cometki-app-homepage`, Docker Hub, `linux/amd64` |
+| Imagem | `jcometki/luna:homepage-X.Y.Z`, Docker Hub, `linux/amd64` |
 | Publicação da imagem | Tag `vX.Y.Z`, workflow `Publicar imagem da homepage` |
 | Deploy | `cometki-apps/apps/luna-homepage`, namespace `apps`, Flux |
 | Aplicação | Nginx 8080; GET `/saude` retorna 200 |
@@ -33,7 +33,7 @@ de processar a requisição. [Cobertura SSL](https://developers.cloudflare.com/s
 3. Aguardar o workflow da tag concluir construção, upload e testes HTTP da imagem.
 4. Obter o digest publicado e atualizar somente `image` em
    `cometki-apps/apps/luna-homepage/deployment.yaml`, no formato
-   `jcometki/cometki-app-homepage:X.Y.Z@sha256:<digest>`.
+   `jcometki/luna:homepage-X.Y.Z@sha256:<digest>`.
 5. Publicar esse manifesto na `main` de `cometki-apps`. O webhook e a consulta
    de cinco minutos do Flux aplicam a versão com rollout gradual.
 6. Conferir Deployment disponível, Kustomization Ready, página/saúde/arquivos
@@ -43,6 +43,12 @@ Não sobrescrever tags publicadas; criar uma nova versão. O digest prende o
 conteúdo efetivamente aprovado mesmo se uma tag for alterada no registro.
 As Actions estão fixadas por SHA; a base Nginx também tem digest fixo. Atualizar
 esses pins exige uma nova validação, não apenas trocar a tag base para `latest`.
+
+O repositório Docker Hub é o mesmo da LUNA. O prefixo `homepage-` também é
+usado nas tags de commit; nunca publicar `X.Y.Z`, `latest` ou `migracoes-X.Y.Z`
+por este workflow. O Manager filtra versões semânticas com migrações
+correspondentes e ignora as tags da homepage. A imagem preliminar 1.0.0 no
+repositório separado não é usada pelo deploy final.
 
 ## Verificação
 

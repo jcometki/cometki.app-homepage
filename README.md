@@ -45,7 +45,7 @@ og:image já usam esse endereço. O domínio raiz cometki.app permanece livre
 para outro serviço; não há alias www.luna.cometki.app neste deploy.
 
 O workflow **Publicar imagem da homepage** segue o padrão da aplicação LUNA:
-uma tag `vX.Y.Z` publica `jcometki/cometki-app-homepage:X.Y.Z` no Docker Hub,
+uma tag `vX.Y.Z` publica `jcometki/luna:homepage-X.Y.Z` no Docker Hub,
 com uma tag adicional do commit e imagem `linux/amd64`. Usa os Secrets
 `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN`. Não publica `latest`, não usa banco,
 build frontend ou artefatos de cache do GitHub.
@@ -55,6 +55,10 @@ registrado explicitamente em
 [`cometki-apps/apps/luna-homepage`](https://github.com/jcometki/cometki-apps/tree/main/apps/luna-homepage),
 com versão e digest fixos, e aplicado pelo Flux. A homepage não recebe chave
 de escrita do GitOps nem acesso ao Manager.
+
+O registro é compartilhado com a aplicação, mas as tags `homepage-…` não
+sobrescrevem suas versões e são ignoradas pelo catálogo do Manager. Não usar
+tags de versão sem esse prefixo para imagens da homepage.
 
 Atualização e rollback estão no [guia de publicação](docs/publicacao.md).
 

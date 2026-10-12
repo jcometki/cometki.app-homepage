@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  IMAGEM: jcometki/cometki-app-homepage
+  IMAGEM: jcometki/luna
   DOCKER_BUILD_RECORD_UPLOAD: false
   DOCKER_BUILD_SUMMARY: false
 
@@ -51,8 +51,8 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ env.IMAGEM }}:${{ steps.versao.outputs.valor }}
-            ${{ env.IMAGEM }}:sha-${{ github.sha }}
+            ${{ env.IMAGEM }}:homepage-${{ steps.versao.outputs.valor }}
+            ${{ env.IMAGEM }}:homepage-sha-${{ github.sha }}
           labels: |
             org.opencontainers.image.title=LUNA · Homepage comercial
             org.opencontainers.image.source=https://github.com/jcometki/cometki.app-homepage
@@ -80,7 +80,7 @@ jobs:
           DIGEST: ${{ steps.imagem.outputs.digest }}
           VERSAO: ${{ steps.versao.outputs.valor }}
         run: |
-          printf 'Imagem validada: %s:%s@%s\n' "$IMAGEM" "$VERSAO" "$DIGEST"
+          printf 'Imagem validada: %s:homepage-%s@%s\n' "$IMAGEM" "$VERSAO" "$DIGEST"
           printf 'Atualizar somente apps/luna-homepage/deployment.yaml em cometki-apps.\n'
       - name: Encerrar o contêiner de conferência
         if: always()

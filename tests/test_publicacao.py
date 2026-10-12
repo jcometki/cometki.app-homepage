@@ -70,6 +70,13 @@ class ConteudoPublico(unittest.TestCase):
         self.assertNotRegex(dockerfile, r'COPY\s+\.\s')
         self.assertIn('COPY assets ', dockerfile)
 
+    def test_publicacao_separa_tags_da_aplicacao(self):
+        workflow = (ROOT / '.github/workflows/imagem.yml').read_text()
+        self.assertIn('IMAGEM: jcometki/luna', workflow)
+        self.assertIn('${{ env.IMAGEM }}:homepage-${{ steps.versao.outputs.valor }}', workflow)
+        self.assertIn('${{ env.IMAGEM }}:homepage-sha-${{ github.sha }}', workflow)
+        self.assertNotIn('${{ env.IMAGEM }}:${{ steps.versao.outputs.valor }}', workflow)
+
 
 @unittest.skipUnless(BASE_URL, 'Informe BASE_URL para conferir a entrega HTTP.')
 class EntregaHTTP(unittest.TestCase):
