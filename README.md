@@ -40,11 +40,23 @@ O site não promete duração de trial, preços, quantidade de clientes nem resu
 
 ## Publicação
 
-1. Construir a imagem e publicar no registro da infraestrutura.
-2. Apontar o serviço para a porta 8080 e a verificação de saúde para /saude.
-3. Configurar domínio e HTTPS no proxy ou Ingress.
-4. Informar o domínio definitivo em uma URL canônica e usar URL absoluta em og:image.
-5. Conferir contato, privacidade e condições comerciais antes de divulgar.
+Domínio definitivo: **https://luna.cometki.app/**. A URL canônica, og:url e
+og:image já usam esse endereço. O domínio raiz cometki.app permanece livre
+para outro serviço; não há alias www.luna.cometki.app neste deploy.
+
+O workflow **Publicar imagem da homepage** segue o padrão da aplicação LUNA:
+uma tag `vX.Y.Z` publica `jcometki/cometki-app-homepage:X.Y.Z` no Docker Hub,
+com uma tag adicional do commit e imagem `linux/amd64`. Usa os Secrets
+`DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN`. Não publica `latest`, não usa banco,
+build frontend ou artefatos de cache do GitHub.
+
+O workflow valida a imagem publicada; ele não altera o cluster. O deploy é
+registrado explicitamente em
+[`cometki-apps/apps/luna-homepage`](https://github.com/jcometki/cometki-apps/tree/main/apps/luna-homepage),
+com versão e digest fixos, e aplicado pelo Flux. A homepage não recebe chave
+de escrita do GitOps nem acesso ao Manager.
+
+Atualização e rollback estão no [guia de publicação](docs/publicacao.md).
 
 O cache dos assets é de uma hora. HTML e configuração comercial revalidam a cada acesso. Ao atualizar imagens ou estilos durante uma campanha, altere o nome do arquivo ou sua versão na URL para invalidar caches já existentes.
 
@@ -57,5 +69,20 @@ O desenvolvimento inclui revisão visual em celular e desktop, verificação das
 Para conferir o Nginx da imagem:
 
     docker compose exec homepage nginx -t
+
+Testes sem dependências de frontend:
+
+    python3 -B -m unittest discover -s tests -v
+    BASE_URL=http://127.0.0.1:8080 python3 -B -m unittest discover -s tests -v
+
+Com `BASE_URL`, os testes conferem saúde, assets, cache, compressão, cabeçalhos
+e isolamento das rotas privadas. O workflow **Validar homepage** faz essa
+conferência em contêiner sem root e filesystem somente leitura. Playwright é
+opcional para a revisão de navegador, somente no ambiente de desenvolvimento:
+
+    BASE_URL=http://localhost:8080 node tests/validar-navegadores.cjs
+
+Fornecer `PLAYWRIGHT_MODULE` se a instalação de Playwright estiver fora do
+checkout. Nenhum módulo Node ou teste é incluído na imagem de produção.
 
 Capturas, conteúdo ilustrativo e limites de integração estão documentados em docs/.

@@ -1,0 +1,87 @@
+name: Publicar imagem da homepage
+
+# Como na aplicação LUNA, somente tags versionadas publicam imagens.
+# A atualização do manifesto de cometki-apps é uma etapa explícita do operador.
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: read
+
+env:
+  IMAGEM: jcometki/cometki-app-homepage
+  DOCKER_BUILD_RECORD_UPLOAD: false
+  DOCKER_BUILD_SUMMARY: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Obter código
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Validar versão e conteúdo
+        id: versao
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Use uma tag vX.Y.Z."
+            exit 1
+          fi
+          printf 'valor=%s\n' "${TAG#v}" >> "$GITHUB_OUTPUT"
+          python3 -B -m unittest discover -s tests -v
+      - name: Preparar Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Autenticar no Docker Hub
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Construir e publicar
+        id: imagem
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          provenance: false
+          tags: |
+            ${{ env.IMAGEM }}:${{ steps.versao.outputs.valor }}
+            ${{ env.IMAGEM }}:sha-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.title=LUNA · Homepage comercial
+            org.opencontainers.image.source=https://github.com/jcometki/cometki.app-homepage
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.versao.outputs.valor }}
+      - name: Conferir a imagem publicada
+        env:
+          REFERENCIA: ${{ env.IMAGEM }}@${{ steps.imagem.outputs.digest }}
+          BASE_URL: http://127.0.0.1:8080
+        run: |
+          set -euo pipefail
+          docker pull "$REFERENCIA"
+          docker run --rm --entrypoint nginx "$REFERENCIA" -t
+          docker run -d --name homepage-publicacao --user 101:101 --read-only \
+            --tmpfs /var/cache/nginx:uid=101,gid=101 --tmpfs /var/run:uid=101,gid=101 \
+            --tmpfs /tmp:uid=101,gid=101 --cap-drop ALL --security-opt no-new-privileges \
+            -p 127.0.0.1:8080:8080 "$REFERENCIA"
+          for tentativa in {1..20}; do
+            if curl -fsS "$BASE_URL/saude"; then break; fi
+            sleep 1
+          done
+          python3 -B -m unittest discover -s tests -v
+      - name: Registrar referência para o GitOps
+        env:
+          DIGEST: ${{ steps.imagem.outputs.digest }}
+          VERSAO: ${{ steps.versao.outputs.valor }}
+        run: |
+          printf 'Imagem validada: %s:%s@%s\n' "$IMAGEM" "$VERSAO" "$DIGEST"
+          printf 'Atualizar somente apps/luna-homepage/deployment.yaml em cometki-apps.\n'
+      - name: Encerrar o contêiner de conferência
+        if: always()
+        run: docker rm -f homepage-publicacao || true

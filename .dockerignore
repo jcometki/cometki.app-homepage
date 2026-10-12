@@ -1,6 +1,7 @@
 .git
 .github
 docs
+tests
 README.md
 AGENTS.md
 node_modules
