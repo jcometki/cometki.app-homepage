@@ -6,6 +6,8 @@ aprovados permanecem estáticos; criação de trials não participa deste deploy
 Publicada em 12 de outubro de 2026. A versão `homepage-1.0.2` acrescenta
 `Cache-Control: no-transform` para impedir injeção automática de Analytics no
 HTML pela Cloudflare, mantendo a CSP restrita e o visual aprovado.
+A versão `homepage-1.0.3` corrige o espaço de “merece ser” na aba Clientes,
+preservando a quebra de linha no desktop e a leitura contínua no celular.
 O [relatório de validação](validacao.md#publicação-na-cometki-em-12-de-outubro-de-2026)
 registra o digest, verificações realizadas e limites do ensaio.
 

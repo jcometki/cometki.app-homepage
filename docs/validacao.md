@@ -58,9 +58,12 @@ A auditoria automatizada não equivale a certificação nem substitui testes com
 ## Publicação na Cometki em 12 de outubro de 2026
 
 Endereço definitivo: **https://luna.cometki.app/**. A imagem implantada é
-`jcometki/luna:homepage-1.0.1`, fixada no GitOps pelo digest
-`sha256:00d4ac1b94f3724e64d4edb8fa22b4fed6fffb0b51aff99fc60de16dfd7093f6`.
-Fonte da imagem: commit `b8464bb`; entrega original preservada: `6a04a92`.
+`jcometki/luna:homepage-1.0.3`, fixada no GitOps pelo digest
+`sha256:afdfa1ed0f889aea899a2665c94549d8a5016d8415bbec326116824189ddfd76`.
+Fonte da imagem: commit `1597124`; entrega original: `6a04a92`.
+O visual e o conteúdo foram preservados, com a correção solicitada do espaço
+em “merece ser” no item 04 da aba Clientes, inclusive quando a quebra de linha
+fica oculta no celular.
 
 - CI de validação e publicação concluídos; Actions e base Nginx fixadas por SHA/digest.
 - Deployment disponível sem reinícios; as 25 Kustomizations Flux ficaram Ready.
@@ -73,9 +76,13 @@ Fonte da imagem: commit `b8464bb`; entrega original preservada: `6a04a92`.
 - `/api/`, documentação, arquivos ocultos e rotas administrativas não publicados.
 - Testes locais repetidos em Chromium nas oito larguras e WebKit nas três
   larguras da tabela, com menu, abas, diálogos, imagens e WhatsApp.
-- Chromium repetiu as oito larguras no endereço HTTPS de produção. O WebKit
-  de automação encontrou erro de conexão na navegação HTTPS; sua validação
-  local não é apresentada como teste público concluído nem teste em iPhone físico.
+- Chromium repetiu as oito larguras e WebKit as três larguras no endereço HTTPS
+  de produção, sem erros de JavaScript, assets ou CSP. O texto da aba Clientes
+  foi conferido nas 11 combinações. Automação WebKit não equivale a teste em
+  iPhone físico.
+- `Cache-Control: no-transform` conferido no origin e no edge público. O HTML
+  mantém apenas os scripts locais, sem injeção automática do Analytics da
+  Cloudflare; a CSP continua restrita.
 
 As capturas do WebKit são isoladas da validação de segurança: o mecanismo de
 screenshot injeta CSS interno e pode provocar aviso de CSP. Os testes da página
