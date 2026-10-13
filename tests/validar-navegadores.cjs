@@ -24,13 +24,21 @@ if (!base) throw new Error('Informe BASE_URL.');
           await page.keyboard.press('Escape');
           assert.equal(await page.locator('.abrir-menu').getAttribute('aria-expanded'), 'false');
         }
-        for (const nome of ['agenda', 'financeiro', 'equipe', 'clientes']) {
+        const titulos = {
+          agenda: 'Cada horário, no seu lugar.',
+          financeiro: 'Clareza para decidir melhor.',
+          equipe: 'Contas claras. Equipe tranquila.',
+          clientes: 'Quem volta merece ser lembrada.'
+        };
+        for (const [nome, esperado] of Object.entries(titulos)) {
           await page.locator('#aba-' + nome).click();
           const painel = page.locator('#painel-' + nome);
           assert.ok(await painel.isVisible());
-          if (nome === 'clientes') {
-            const titulo = (await painel.locator('h3').innerText()).replace(/\s+/g, ' ').trim();
-            assert.equal(titulo, 'Quem volta merece ser lembrada.');
+          const titulo = (await painel.locator('h3').innerText()).replace(/\s+/g, ' ').trim();
+          assert.equal(titulo, esperado);
+          if (largura <= 700) {
+            const duvidas = (await page.locator('#titulo-duvidas').innerText()).replace(/\s+/g, ' ').trim();
+            assert.equal(duvidas, 'Antes do primeiro “oi”.');
           }
           const origem = painel.locator('.ampliavel');
           await origem.click();

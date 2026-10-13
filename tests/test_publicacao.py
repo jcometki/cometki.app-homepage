@@ -28,6 +28,11 @@ def pagina():
 
 
 class ConteudoPublico(unittest.TestCase):
+    def test_quebras_editoriais_nao_colam_palavras_quando_ocultas(self):
+        html = (ROOT / 'index.html').read_text()
+        self.assertIn('Clareza para <br>decidir melhor.', html)
+        self.assertNotRegex(html, r'\S<br\s*/?>')
+
     def test_titulo_clientes_preserva_espaco_na_quebra_responsiva(self):
         html = (ROOT / 'index.html').read_text()
         self.assertIn('Quem volta merece <br>ser lembrada.', html)
@@ -95,6 +100,7 @@ class EntregaHTTP(unittest.TestCase):
             self.assertIn('<title>LUNA', html)
             self.assertIn('https://luna.cometki.app/', html)
             self.assertIn('Quem volta merece <br>ser lembrada.', html)
+            self.assertIn('Clareza para <br>decidir melhor.', html)
         with self.obter('/saude') as resposta:
             self.assertEqual(resposta.status, 200)
             self.assertEqual(resposta.read(), b'ok\n')
