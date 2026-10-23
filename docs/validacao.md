@@ -21,6 +21,25 @@
 - Kit de divulgação fora da imagem Nginx; sem dependências novas em produção.
 
 
+### Publicação da revisão 1.2.0
+
+Confirmada em 23/10/2026 no endereço `https://luna.cometki.app/`:
+
+- Código `96eec0b`, tag `v1.2.0`; validação GitHub `39960551414` e
+  publicação `39960651398`, ambas concluídas com sucesso.
+- Imagem `jcometki/luna:homepage-1.2.0`, digest
+  `sha256:2c31718307afd4b08fd7bbe878af19a46390c8b33fe2e614566cec67dae7830d`.
+- GitOps `1f9c4ee`: somente versão/digest do campo `image` alterados,
+  com controle de concorrência pelo SHA do arquivo. Três testes de contrato
+  do manifesto aprovados; checkout compartilhado da infraestrutura preservado.
+- HTML público idêntico ao aprovado; 22 assets referenciados conferidos
+  byte a byte, pelas URLs versionadas. `/saude` respondeu `ok`; TLS validado.
+- Navegador público em 390 e 1440 px: logo decodificada, metadados LUNA,
+  assinatura institucional única, sem rolagem horizontal ou erros JS/CSP.
+- A verificação operacional foi feita pelo HTTPS público. Não houve nova
+  consulta aos estados internos Ready do Kubernetes nesta rodada.
+
+
 ## Atualização comercial 1.1 — 23/10/2026
 
 Capturas renovadas a partir da LUNA v1.21.0 (`0ab68d1`) em ambiente isolado,
