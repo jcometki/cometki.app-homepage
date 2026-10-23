@@ -41,9 +41,9 @@ h3{font-size:25px;font-weight:500;line-height:1.25;letter-spacing:-.6px}
 /* Navegação discreta: a marca e a ação comercial permanecem claras. */
 .cabecalho{height:92px;border-bottom:1px solid var(--borda);background:#3b3129;position:relative;z-index:20}
 .navegacao{height:100%;display:flex;align-items:center;justify-content:space-between;gap:32px}
-.marca{display:flex;align-items:center;gap:11px;line-height:1;font-size:28px;font-weight:400;letter-spacing:4px}
-.marca img{flex-shrink:0}
-.marca small{display:block;margin-top:7px;font:500 7px/1 var(--fonte);letter-spacing:2px;color:var(--suave)}
+.marca{display:inline-flex;align-items:center;flex-shrink:0;min-height:44px}
+.marca img{width:160px;height:auto}
+.assinatura-produto{margin-top:24px;color:var(--suave);font-size:11px}
 .links-navegacao{display:flex;gap:30px;font-size:12px;color:var(--suave)}
 .links-navegacao a{padding-block:12px}
 .links-navegacao a:hover{color:var(--creme)}
@@ -232,7 +232,7 @@ dialog::backdrop{background:#070605e8;backdrop-filter:blur(8px)}
 }
 @media(max-width:700px){
   html{scroll-padding-top:25px}.limite{width:calc(100% - 40px)}.secao{padding-block:68px}.cabecalho{height:78px}.navegacao{gap:16px}
-  .marca{font-size:25px;gap:9px}.marca img{width:29px;height:29px}.marca small{font-size:6px;letter-spacing:1.7px;margin-top:6px}
+  .marca img{width:125px;height:auto}
   .cabecalho-contato{display:inline-flex;margin-left:auto;padding:10px 12px;font-size:10px;gap:9px;min-height:42px}.cabecalho-contato .icone{width:15px}
   .abrir-menu{display:flex;background:transparent;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:40px;height:44px;margin-right:-10px}
   .abrir-menu span{height:1px;width:18px;background:var(--creme);transition:transform .2s}
@@ -286,7 +286,7 @@ dialog::backdrop{background:#070605e8;backdrop-filter:blur(8px)}
   .privacidade{padding:26px}.privacidade h2{font-size:38px}.privacidade p:not(.sobretitulo){font-size:13px}
 }
 @media(max-width:360px){
-  .limite{width:calc(100% - 32px)}.navegacao{gap:8px}.cabecalho-contato{font-size:9px;gap:7px}.marca{font-size:23px}.marca img{width:27px}
+  .limite{width:calc(100% - 32px)}.navegacao{gap:8px}.cabecalho-contato{font-size:9px;gap:7px}.marca img{width:105px}
   h1{font-size:43px}.abertura-visual{height:508px}.telefone-hero{width:203px;right:15px}.mini-agenda{width:265px;left:0}.orbita{width:290px;height:290px;left:calc(50% - 145px)}
   .selo-ia{font-size:10px;padding:12px;gap:8px}.selo-ia>.ponto{display:none}.ia-explicacao{padding:25px 20px}.recurso-print{padding:18px}.circulo-mobile{width:270px;height:270px;left:calc(50% - 135px)}
   .barra-celular{padding-inline:13px}.barra-celular strong{font-size:9px}.barra-celular .botao{font-size:9px}.convite h2{font-size:44px}

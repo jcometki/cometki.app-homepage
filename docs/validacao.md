@@ -1,5 +1,26 @@
 # Validação da homepage
 
+## Identidade oficial — revisão 1.2.0, 23/10/2026
+
+- Monograma aprovado aplicado ao cabeçalho, rodapé, favicon, ícone Apple Touch
+  e imagem de compartilhamento. Logo em SVG com contornos e PNGs transparentes.
+- Uma única menção institucional no texto da página: “produto cometki.cloud”,
+  no fim do rodapé; endereços técnicos preservados.
+- Kit de marca com 12 SVGs, 12 PNGs transparentes, três perfis em SVG/PNG,
+  duas artes de feed, story, capa e compartilhamento, modelos HTML e guia de uso.
+- Revisão visual da marca, perfis e cinco peças exportadas; fonte e vazados
+  conferidos, incluindo o interior da letra A.
+- Nginx sem root e com filesystem somente leitura: `nginx -t` e 11 testes
+  Python aprovados, incluindo conteúdo, assets, saúde, cabeçalhos e rotas privadas.
+- Chromium em 320, 360, 390, 430, 768, 1024, 1440 e 1920 px; WebKit em 390,
+  768 e 1440 px. Sem rolagem horizontal, recursos ausentes ou erros JS/CSP.
+  Menu, abas, ampliação, retorno de foco, privacidade e WhatsApp aprovados.
+- Conteúdo e contato conferidos sem JavaScript nos dois motores.
+- Axe-core WCAG 2/2.1 A/AA em 390 e 1440 px nos dois motores: zero violações
+  detectadas. Não substitui validação em aparelho físico ou leitor de tela.
+- Kit de divulgação fora da imagem Nginx; sem dependências novas em produção.
+
+
 ## Atualização comercial 1.1 — 23/10/2026
 
 Capturas renovadas a partir da LUNA v1.21.0 (`0ab68d1`) em ambiente isolado,

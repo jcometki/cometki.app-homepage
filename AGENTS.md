@@ -3,6 +3,7 @@
 - Explicações, comentários e commits em Português do Brasil.
 - Preservar HTML, CSS e JavaScript nativos, sem build e sem dependências de execução.
 - LUNA é o produto; Cometki é a empresa. Élevé é o tema visual, não o nome do produto.
+- Usar o monograma oficial de marca/. Não incluir assinatura da empresa na logo. No site, manter somente “produto cometki.cloud” ao final do rodapé, conforme docs/identidade-luna.md.
 - Recursos comerciais devem existir no catálogo do aplicativo LUNA.
 - Usar capturas reais do aplicativo com dados fictícios, nunca informações de clientes reais.
 - Não publicar números de resultados, depoimentos, preços ou condições de trial sem confirmação.

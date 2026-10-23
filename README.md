@@ -24,7 +24,8 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 - assets/css/site.css: tema Élevé e layouts responsivos.
 - assets/js/configuracao.js: WhatsApp e destino futuro de trial.
 - assets/js/site.js: menu, abas, ampliação, privacidade e chamada móvel.
-- assets/imagens/: capturas reais do aplicativo com dados demonstrativos.
+- assets/imagens/: capturas reais do aplicativo com dados demonstrativos e marca otimizada.
+- marca/: vetores, logos transparentes, perfis e peças de divulgação; fora da imagem pública.
 - assets/fontes/: fontes locais e licenças OFL.
 - deploy/nginx.conf: cache, compressão, cabeçalhos e rota de saúde.
 - docs/integracao-manager.md: caminho proposto para trial.
@@ -33,7 +34,7 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 
 ## Conteúdo e contato
 
-A marca principal é LUNA. Cometki aparece na assinatura e no atendimento comercial.
+A marca principal é LUNA. A identidade oficial usa o monograma aprovado, sem assinatura empresarial. A única menção institucional visível é “produto cometki.cloud”, ao final do rodapé. Veja o [kit de marca](marca/README.md) e a [decisão de identidade](docs/identidade-luna.md).
 
 O contato atual é **+55 67 99293-8193**, configurado em assets/js/configuracao.js. Os links do HTML também têm esse destino para funcionar sem JavaScript. Ao trocar o contato, atualize os dois locais, incluindo o texto de privacidade.
 
