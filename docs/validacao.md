@@ -28,6 +28,11 @@ escureceu o destaque pequeno da seção areia para atingir contraste AA.
 Os testes de navegação e contraste foram repetidos depois dessas correções.
 Não foram enviados contatos pelo WhatsApp nem realizadas chamadas pagas de IA.
 
+A revisão 1.1.1 reforçou a autonomia da IA no título, na abertura, na explicação
+de campanhas e na FAQ. Os 11 testes HTTP e as 11 combinações de navegador/tela
+foram repetidos após a alteração de texto e da imagem de compartilhamento,
+sem falhas. A abertura foi revisada visualmente em 390 e 1440 px.
+
 ## Histórico da primeira versão
 
 Executada em 12/10/2026 sobre o site servido pela imagem Nginx, em ambiente local.

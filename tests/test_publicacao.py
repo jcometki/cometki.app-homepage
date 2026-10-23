@@ -43,7 +43,7 @@ class ConteudoPublico(unittest.TestCase):
         self.assertEqual([x.get('href') for tag, x in elementos
                           if tag == 'link' and x.get('rel') == 'canonical'], [PUBLICA])
         for campo, esperado in [('og:url', PUBLICA),
-                                ('og:image', PUBLICA + 'assets/imagens/compartilhamento.png?v=1.1.0')]:
+                                ('og:image', PUBLICA + 'assets/imagens/compartilhamento.png?v=1.1.1')]:
             self.assertEqual([x.get('content') for tag, x in elementos
                               if tag == 'meta' and x.get('property') == campo], [esperado])
 

@@ -49,3 +49,18 @@ a referência imutável deve ser promovida pelo GitOps conforme
 Deployment não precisam mudar.
 
 Procedência das imagens: [capturas](capturas.md).
+
+## Ênfase na autonomia — revisão 1.1.1
+
+A pedido do usuário, IA e WhatsApp passam para o título principal:
+“Sua IA no WhatsApp. Seu tempo de volta.” A abertura explica que, depois
+de configurada, a LUNA atende e conduz agendamentos mesmo sem o responsável
+online. A seção de IA explica a configuração inicial, o atendimento
+automático, a confirmação de quem agenda e a possibilidade de a equipe assumir.
+
+Nas campanhas, a divisão fica explícita: a pessoa prepara oferta, público
+e ativação; a LUNA realiza os envios e conduz o atendimento com IA. A FAQ
+“A LUNA trabalha sozinha?” reúne essa explicação. A autonomia não é apresentada
+como ausência de configuração, ativação de campanhas ou acompanhamento.
+
+A revisão usa cache `?v=1.1.1` e imagem `homepage-1.1.1`.
