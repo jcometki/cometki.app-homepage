@@ -1,6 +1,6 @@
 # LUNA · Homepage comercial
 
-Página de apresentação da LUNA, uma solução **Cometki** para gestão de salões e atendimento automático com IA no WhatsApp.
+Página de apresentação da LUNA, uma solução **Cometki** com atendimento autônomo, agendamentos e campanhas com IA no WhatsApp, conectados à gestão do salão.
 
 HTML sem build, CSS próprio, JavaScript nativo e Nginx. Fontes, ícones e imagens são locais. Nenhum framework, serviço de analytics ou recurso de CDN é necessário para a página funcionar.
 
@@ -29,6 +29,7 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 - deploy/nginx.conf: cache, compressão, cabeçalhos e rota de saúde.
 - docs/integracao-manager.md: caminho proposto para trial.
 - docs/capturas.md: origem e atualização das telas.
+- docs/atualizacao-comercial-1.1.md: seleção dos novos recursos e decisões de leitura e autonomia.
 
 ## Conteúdo e contato
 

@@ -33,6 +33,29 @@ de campanhas e na FAQ. Os 11 testes HTTP e as 11 combinações de navegador/tela
 foram repetidos após a alteração de texto e da imagem de compartilhamento,
 sem falhas. A abertura foi revisada visualmente em 390 e 1440 px.
 
+### Publicação da revisão 1.1.1
+
+Confirmada em 23/10/2026 no endereço `https://luna.cometki.app/`:
+
+- Imagem `jcometki/luna:homepage-1.1.1`, digest
+  `sha256:b1f9bf4bb2112ffc143c48c6efbaeb8116591123e9c5f6705ac7826cc39e9225`.
+- Código `b54ea1b`; validação GitHub `39956580207` e publicação `39956692858`,
+  ambas concluídas com sucesso.
+- GitOps `c847f0f`: somente o campo de imagem do Deployment foi alterado,
+  usando o SHA anterior do arquivo como controle de concorrência. O checkout
+  compartilhado da infraestrutura foi preservado.
+- Os três testes do contrato GitOps passaram com o novo manifesto.
+- HTML público idêntico ao arquivo aprovado; os 19 assets referenciados
+  conferidos byte a byte pelas URLs usadas na página, incluindo suas versões
+  de cache. `/saude` respondeu `ok`; TLS validado sem exceção de certificado.
+
+A versão 1.1.0 com o novo visual passou também pelas 11 combinações no domínio
+público. A revisão 1.1.1 mantém esse layout e teve a abertura conferida no
+navegador público em 390 e 1440 px. A conferência operacional desta entrega
+foi feita por HTTPS; não foi possível consultar a API Kubernetes a partir
+do contexto local disponível, portanto não se afirma uma leitura interna
+dos estados Ready do Deployment ou da Kustomization nesta rodada.
+
 ## Histórico da primeira versão
 
 Executada em 12/10/2026 sobre o site servido pela imagem Nginx, em ambiente local.

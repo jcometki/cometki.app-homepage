@@ -3,6 +3,13 @@
 A homepage comercial usa **https://luna.cometki.app/**. O conteúdo e o contato
 aprovados permanecem estáticos; criação de trials não participa deste deploy.
 
+Atualização vigente em 23/10/2026: **`homepage-1.1.1`**, com campanhas, nova
+paleta e ênfase na autonomia da IA no WhatsApp. Código `b54ea1b`; promoção
+GitOps `c847f0f`. Digest da imagem:
+`sha256:b1f9bf4bb2112ffc143c48c6efbaeb8116591123e9c5f6705ac7826cc39e9225`.
+HTML, assets referenciados e saúde conferidos no endereço HTTPS publicado.
+Veja o [registro da entrega](validacao.md).
+
 Publicada em 12 de outubro de 2026. A versão `homepage-1.0.2` acrescenta
 `Cache-Control: no-transform` para impedir injeção automática de Analytics no
 HTML pela Cloudflare, mantendo a CSP restrita e o visual aprovado.
