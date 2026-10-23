@@ -1,4 +1,34 @@
-# Validação da primeira versão
+# Validação da homepage
+
+## Atualização comercial 1.1 — 23/10/2026
+
+Capturas renovadas a partir da LUNA v1.21.0 (`0ab68d1`) em ambiente isolado,
+com dados fictícios e integrações externas desligadas. Incluídos campanhas
+com IA, contas a pagar, taxas/repasses e relatórios; veja as
+[decisões comerciais e visuais](atualizacao-comercial-1.1.md).
+
+- Chromium: 320, 360, 390, 430, 768, 1024, 1440 e 1920 px.
+- WebKit: 390, 768 e 1440 px.
+- Nas 11 combinações: sem rolagem horizontal, erro JavaScript, erro de CSP
+  ou recurso ausente. Menu, quatro abas, imagens ampliadas, retorno de foco,
+  privacidade e links comerciais conferidos.
+- Ampliação da nova captura de campanhas validada com `currentSrc`, tanto
+  no desktop quanto na seleção da imagem móvel pelo `picture`.
+- Conteúdo principal e contato conferidos com JavaScript desligado.
+- axe-core / WCAG 2 A/AA e 2.1 A/AA: nenhuma violação detectada em 390 e
+  1440 px, nos dois motores. Auditoria automática não é certificação.
+- Revisão visual de abertura, campanhas, atendimento com IA e gestão,
+  nas capturas completas e nas seções em desktop e celular.
+- Nginx validado em contêiner sem privilégios e com filesystem somente leitura.
+  Os 11 testes Python passaram com HTTP, incluindo saúde, assets, cache,
+  compressão, CSP e bloqueio das rotas privadas.
+
+A revisão corrigiu uma decoração que extrapolava a largura de 1024 px e
+escureceu o destaque pequeno da seção areia para atingir contraste AA.
+Os testes de navegação e contraste foram repetidos depois dessas correções.
+Não foram enviados contatos pelo WhatsApp nem realizadas chamadas pagas de IA.
+
+## Histórico da primeira versão
 
 Executada em 12/10/2026 sobre o site servido pela imagem Nginx, em ambiente local.
 

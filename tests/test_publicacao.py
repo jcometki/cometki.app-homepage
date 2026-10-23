@@ -35,15 +35,15 @@ class ConteudoPublico(unittest.TestCase):
 
     def test_titulo_clientes_preserva_espaco_na_quebra_responsiva(self):
         html = (ROOT / 'index.html').read_text()
-        self.assertIn('Quem volta merece <br>ser lembrada.', html)
-        self.assertNotIn('merece<br>ser', html)
+        self.assertIn('Cada visita, <br>uma história.', html)
+        self.assertNotIn('visita,<br>uma', html)
 
     def test_metadados_apontam_para_dominio_definitivo(self):
         elementos = pagina()
         self.assertEqual([x.get('href') for tag, x in elementos
                           if tag == 'link' and x.get('rel') == 'canonical'], [PUBLICA])
         for campo, esperado in [('og:url', PUBLICA),
-                                ('og:image', PUBLICA + 'assets/imagens/compartilhamento.png')]:
+                                ('og:image', PUBLICA + 'assets/imagens/compartilhamento.png?v=1.1.0')]:
             self.assertEqual([x.get('content') for tag, x in elementos
                               if tag == 'meta' and x.get('property') == campo], [esperado])
 
@@ -99,7 +99,7 @@ class EntregaHTTP(unittest.TestCase):
             html = resposta.read().decode()
             self.assertIn('<title>LUNA', html)
             self.assertIn('https://luna.cometki.app/', html)
-            self.assertIn('Quem volta merece <br>ser lembrada.', html)
+            self.assertIn('Cada visita, <br>uma história.', html)
             self.assertIn('Clareza para <br>decidir melhor.', html)
         with self.obter('/saude') as resposta:
             self.assertEqual(resposta.status, 200)

@@ -28,7 +28,7 @@ if (!base) throw new Error('Informe BASE_URL.');
           agenda: 'Cada horário, no seu lugar.',
           financeiro: 'Clareza para decidir melhor.',
           equipe: 'Contas claras. Equipe tranquila.',
-          clientes: 'Quem volta merece ser lembrada.'
+          clientes: 'Cada visita, uma história.'
         };
         for (const [nome, esperado] of Object.entries(titulos)) {
           await page.locator('#aba-' + nome).click();
@@ -47,6 +47,14 @@ if (!base) throw new Error('Informe BASE_URL.');
           await page.keyboard.press('Escape');
           assert.ok(await origem.evaluate(el => el === document.activeElement));
         }
+        // A novidade precisa funcionar também com a imagem móvel selecionada pelo picture.
+        const campanha = page.locator('#campanhas .ampliavel');
+        await campanha.click();
+        assert.ok(await page.locator('#visualizador').isVisible());
+        await page.locator('#imagem-ampliada').evaluate(img => img.decode());
+        assert.equal(await page.locator('#imagem-ampliada').getAttribute('src'), await campanha.locator('img').evaluate(img => img.currentSrc));
+        await page.keyboard.press('Escape');
+        assert.ok(await campanha.evaluate(el => el === document.activeElement));
         await page.locator('#abrir-privacidade').click();
         assert.ok(await page.locator('#privacidade').isVisible());
         await page.keyboard.press('Escape');
