@@ -48,7 +48,7 @@ para outro serviço; não há alias www.luna.cometki.app neste deploy.
 
 O workflow **Publicar imagem da homepage** segue o padrão da aplicação LUNA:
 uma tag `vX.Y.Z` publica `jcometki/luna:homepage-X.Y.Z` no Docker Hub,
-com uma tag adicional do commit e imagem `linux/amd64`. Usa os Secrets
+com uma tag adicional do commit e imagens `linux/amd64` e `linux/arm64`. Usa os Secrets
 `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN`. Não publica `latest`, não usa banco,
 build frontend ou artefatos de cache do GitHub.
 
