@@ -2,7 +2,7 @@
 
 O cadastro fica em https://luna.cometki.app/experimentar. A homepage permanece
 HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
-é a API pública do LUNA Manager 0.14.0, em porta distinta do painel administrativo.
+é a API pública do LUNA Manager 0.15.0, em porta distinta do painel administrativo.
 
 ## Experiência
 
@@ -25,6 +25,14 @@ minutos para confirmar o e-mail. Um conflito no envio mantém o formulário aber
 e oferece novas opções, sem trocar a escolha automaticamente. Clientes e pedidos
 anteriores continuam com seus endereços originais. A duração
 e a cota são registradas no pedido; o prazo começa com o ambiente pronto.
+
+Ao vencer, a vaga ativa é liberada e a LUNA permanece online com as restrições da
+assinatura por 30 dias. O acompanhamento público retorna `restrito` e mantém o
+link do salão. A retenção tem limite separado e reserva espaço também para os
+trials ativos. Ao terminar, o Manager inicia a remoção protegida por backup.
+As condições atuais usam `trial-2026-10-28.2`; uma página com condições antigas
+precisa ser recarregada antes de enviar um novo pedido. Pedidos anteriores
+preservam as condições registradas.
 
 ## Contrato HTTP
 

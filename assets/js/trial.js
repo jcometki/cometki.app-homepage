@@ -88,6 +88,7 @@
       aguardando_verificacao: ['Confira seu e-mail', 'Vamos enviar um link para você confirmar o cadastro. Se não encontrar, confira também o spam.'],
       provisionando: ['Estamos preparando sua LUNA', 'Você pode fechar esta página. Vamos enviar o endereço e seu código de acesso por e-mail assim que estiver tudo pronto.'],
       pronto: ['Sua LUNA está pronta', 'Seu e-mail tem o endereço e o código para começar. Lá você termina o cadastro e conecta seu WhatsApp.'],
+      restrito: ['Seu teste terminou', 'Você ainda pode consultar seus dados na LUNA. Para continuar usando todos os recursos, converse com nossa equipe.'],
       expirado: ['Seu link não é mais válido', 'Peça um novo e-mail para continuar.'],
       falhou: ['Vamos ajudar você a começar', 'Seu pedido está salvo. Fale com nossa equipe para continuarmos; não precisa fazer outro cadastro.'],
       suspenso: ['Seu acesso está pausado', 'Fale com nossa equipe para continuar usando a LUNA.'],
@@ -96,7 +97,7 @@
     const texto = textos[p.estado] || textos.falhou; $('estado-titulo').textContent = texto[0]; $('estado-texto').textContent = texto[1];
     if (['aguardando_verificacao', 'expirado'].includes(p.estado) && configuracao.habilitado) { $('reenviar').hidden = false; seguranca(true); }
     if (p.emailConfirmacao === 'erro' || p.emailConfirmacao === 'incerto') mostrarMensagem('O envio da confirmação teve uma falha. Você pode solicitar outro e-mail.', true);
-    if (p.estado === 'pronto' && /^https:\/\/[a-z0-9-]+\.cometki\.app$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
+    if (['pronto', 'restrito'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.cometki\.app$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
     clearTimeout(consulta);
     if (['aguardando_verificacao', 'provisionando'].includes(p.estado)) consulta = setTimeout(acompanhar, 15000);
   };
