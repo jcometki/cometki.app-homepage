@@ -21,7 +21,7 @@
     <section class="convite-trial" aria-labelledby="titulo">
       <p class="sobretitulo">SEU SALÃO, COM INTELIGÊNCIA</p>
       <h1 id="titulo">Um novo ritmo<br>para o <em>seu salão.</em></h1>
-      <p>Experimente a LUNA no dia a dia do seu salão. Para começar, só precisamos de duas informações.</p>
+      <p>Experimente a LUNA no dia a dia do seu salão. Preencha o cadastro abaixo e deixe o restante com a gente.</p>
       <ol class="passos-trial"><li><span>01</span> Informe o nome do salão e seu e-mail.</li><li><span>02</span> Confirme o e-mail para preparar sua LUNA.</li><li><span>03</span> Receba o endereço e o código para começar.</li></ol>
       <p class="ajuda-trial">Prefere conversar primeiro? <a href="https://wa.me/5567992938193" target="_blank" rel="noopener noreferrer">Fale com a Cometki.</a></p>
     </section>
@@ -32,9 +32,16 @@
       <form id="form-trial" hidden>
         <label for="nome">Nome do salão<input id="nome" name="nome" autocomplete="organization" minlength="2" maxlength="150" placeholder="Ex.: Studio Aurora" required></label>
         <label for="email">Seu e-mail<input id="email" name="email" type="email" autocomplete="email" maxlength="255" placeholder="voce@exemplo.com" required></label>
-        <p class="nota-trial">Seu salão terá um endereço próprio, como <strong>studio-aurora.cometki.app</strong>.</p>
+        <div class="campo-endereco">
+          <label for="identificador">Endereço do seu salão</label>
+          <div class="entrada-endereco"><input id="identificador" name="identificador" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" minlength="2" maxlength="48" pattern="[a-z0-9][a-z0-9\-]{0,46}[a-z0-9]" placeholder="studio-aurora" aria-describedby="endereco-previa endereco-estado" required><span>-luna.cometki.app</span></div>
+          <p class="nota-trial" id="endereco-previa">Escolha como as pessoas vão encontrar seu salão.</p>
+          <p class="estado-endereco" id="endereco-estado" role="status" aria-live="polite"></p>
+          <div id="endereco-sugestoes" class="sugestoes-endereco" aria-label="Endereços disponíveis" hidden></div>
+          <button id="tentar-endereco" class="tentar-endereco" type="button" hidden>Verificar novamente</button>
+        </div>
         <label class="aceite-trial"><input id="aceite" type="checkbox" required><span>Li e aceito as <a href="#condicoes">condições do teste e de privacidade</a>.</span></label>
-        <button class="botao" id="solicitar" type="submit">Começar meu teste</button>
+        <button class="botao" id="solicitar" type="submit" disabled>Começar meu teste</button>
       </form>
       <div id="confirmacao" hidden><p>Falta só confirmar seu e-mail para começarmos.</p><button class="botao" id="confirmar" type="button">Confirmar e começar</button></div>
       <div id="acompanhamento" hidden><h3 id="estado-titulo">Confira seu e-mail</h3><p id="estado-texto"></p><button class="botao botao-secundario" id="reenviar" type="button" hidden>Reenviar confirmação</button><a class="botao" id="abrir-luna" hidden>Abrir minha LUNA</a></div>

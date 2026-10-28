@@ -12,7 +12,9 @@ const raiz = path.resolve(__dirname, '..');
     try {
       const page = await browser.newPage();
       const erros = [], envios = [];
-      let aberto = true, estado = 'aguardando_verificacao', expirado = false;
+      let aberto = true, estado = 'aguardando_verificacao', expirado = false, disputar = true;
+      const ocupados = new Set(['studio-aurora', 'novo']);
+      const consultas = [];
       page.on('pageerror', e => erros.push(e.message));
       await page.route('**/*', async rota => {
         const r = rota.request(), u = new URL(r.url());
@@ -21,10 +23,16 @@ const raiz = path.resolve(__dirname, '..');
         if (u.pathname.startsWith('/api/trials')) {
           let payload = {}, status = 200;
           if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', versaoTermos: 'trial-2026-10-28' };
+          else if (u.pathname.endsWith('/endereco')) {
+            const base = u.searchParams.get('identificador'); consultas.push(base);
+            if (base === 'antigo') await new Promise(r => setTimeout(r, 1100));
+            payload = { identificador: base, endereco: base + '-luna.cometki.app', disponivel: !ocupados.has(base), sugestoes: ocupados.has(base) ? [2, 3, 4].map(n => ({ identificador: base + '-' + n, endereco: base + '-' + n + '-luna.cometki.app' })) : [] };
+          }
           else if (r.method() === 'POST') {
             envios.push({ caminho: u.pathname, dados: r.postDataJSON() });
             status = 202;
             if (u.pathname.endsWith('/confirmar')) { estado = 'provisionando'; if (expirado) { status = 410; payload = { mensagem: 'A confirmação expirou.' }; } }
+            else if (u.pathname === '/api/trials' && disputar) { disputar = false; ocupados.add(r.postDataJSON().identificador); status = 409; payload = { codigo: 'endereco_ocupado', mensagem: 'Esse endereço já está em uso. Escolha outra opção.' }; }
             else payload = { mensagem: 'Confira seu e-mail.', estado: 'aguardando_verificacao' };
             if (status === 202 && u.pathname.endsWith('/confirmar')) payload = { estado: 'provisionando' };
           } else payload = { estado, endereco: 'https://studio-aurora-ficticio.cometki.app' };
@@ -48,12 +56,40 @@ const raiz = path.resolve(__dirname, '..');
         }
       }
       await page.locator('#nome').fill('Studio Aurora');
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'ocupado');
+      assert.equal(await page.locator('#identificador').inputValue(), 'studio-aurora');
+      assert.equal(await page.locator('#endereco-sugestoes button').count(), 3);
+      await page.locator('#endereco-sugestoes button').first().click();
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
+      assert.equal(await page.locator('#identificador').inputValue(), 'studio-aurora-2');
+      await page.locator('#nome').fill('Outro nome');
+      assert.equal(await page.locator('#identificador').inputValue(), 'studio-aurora-2', 'Nome sobrescreveu escolha manual');
+      await page.locator('#nome').fill('Studio Aurora');
+      await page.locator('#identificador').fill('antigo');
+      await page.waitForRequest(r => r.url().includes('identificador=antigo'));
+      await page.locator('#identificador').fill('novo');
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'ocupado');
+      await page.waitForTimeout(800);
+      assert.equal(await page.locator('#endereco-estado').getAttribute('data-estado'), 'ocupado', 'Resposta atrasada substituiu a atual');
+      const antesInvalidos = consultas.length;
+      await page.locator('#identificador').fill('invalido.com');
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'erro');
+      assert.equal(consultas.length, antesInvalidos, 'Enviou endereço inválido à API');
+      assert.equal(await page.locator('#solicitar').isDisabled(), true);
+      await page.locator('#identificador').fill('studio-aurora-2');
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
       await page.locator('#email').fill('pessoa@example.com');
       await page.locator('#aceite').check();
       await page.locator('#solicitar').click();
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'ocupado');
+      assert.equal(await page.locator('#form-trial').isVisible(), true, 'Conflito no envio ocultou o formulário');
+      await page.locator('#endereco-sugestoes button').first().click();
+      await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
+      await page.locator('#solicitar').click();
       await page.locator('#acompanhamento').waitFor({ state: 'visible' });
       assert.equal(envios[0].dados.nome, 'Studio Aurora');
-      assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
+      assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
+      assert.equal(envios[0].dados.identificador, 'studio-aurora-2');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0);
       await page.goto('https://luna.cometki.app/experimentar#confirmar=token-ficticio');
       await page.locator('#confirmar').waitFor({ state: 'visible' });
@@ -75,7 +111,7 @@ const raiz = path.resolve(__dirname, '..');
       assert.ok(await page.locator('#resumo-trial').innerText().then(t => t.includes('pausadas')));
       assert.equal(await page.locator('#form-trial').isVisible(), false);
       assert.deepEqual(erros, []);
-      console.log(`OK (${nome}): cadastro mínimo, confirmação por clique, estado pronto, link expirado, inscrições pausadas e 320–1440px.`);
+      console.log(`OK (${nome}): sugestões, escolha manual, consulta atrasada, endereço inválido, disputa no envio, confirmação, legado, pausa e 320–1440px.`);
     } finally { await browser.close(); }
   }
 })().catch(e => { console.error(e); process.exitCode = 1; });

@@ -2,11 +2,11 @@
 
 O cadastro fica em https://luna.cometki.app/experimentar. A homepage permanece
 HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
-é a API pública do LUNA Manager 0.13.0, em porta distinta do painel administrativo.
+é a API pública do LUNA Manager 0.14.0, em porta distinta do painel administrativo.
 
 ## Experiência
 
-1. Informar nome do salão, e-mail e aceitar as condições apresentadas.
+1. Informar nome do salão, e-mail, escolher o endereço e aceitar as condições.
 2. Resolver o widget Cloudflare Turnstile Managed.
 3. Receber um link de confirmação válido por 30 minutos.
 4. Abrir o link e clicar em **Confirmar e criar meu teste**. Abrir por GET,
@@ -16,15 +16,24 @@ HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 
 O cliente conecta seu WhatsApp na própria LUNA; o Manager cria uma instância
 desconectada. Duração, versão, IA, credenciais e domínio são definidos no servidor.
-O endereço deriva do nome do salão e recebe sufixo para evitar colisões. A duração
+O endereço sugerido deriva do nome, com parte inicial editável e final fixo
+`-luna.cometki.app`. A consulta acontece 500 ms depois de parar de digitar e é
+cancelada ao alterar novamente o campo. Respostas antigas não podem substituir
+o resultado atual. A escolha manual é preservada ao mudar o nome; sugestões
+numéricas são exibidas quando há conflito. O envio revalida e reserva por 30
+minutos para confirmar o e-mail. Um conflito no envio mantém o formulário aberto
+e oferece novas opções, sem trocar a escolha automaticamente. Clientes e pedidos
+anteriores continuam com seus endereços originais. A duração
 e a cota são registradas no pedido; o prazo começa com o ambiente pronto.
 
 ## Contrato HTTP
 
-Somente cinco caminhos exatos do host luna.cometki.app chegam à porta pública:
+Somente seis caminhos exatos do host luna.cometki.app chegam à porta pública:
 
 - GET /api/trials/configuracao: disponibilidade, duração, revisão e Site Key pública.
-- POST /api/trials: nome, email, aceiteTermos, versaoTermos, revisao e turnstile.
+- GET /api/trials/endereco?identificador=studio: disponibilidade e até três
+  sugestões livres, sem reservar nem devolver dados dos ocupantes.
+- POST /api/trials: nome, email, identificador, aceiteTermos, versaoTermos, revisao e turnstile.
   Retorna 202 e cookie restrito de acompanhamento. A revisão impede cadastrar
   com condições alteradas depois de abrir o formulário.
 - POST /api/trials/confirmar: token assinado recebido no fragmento do link.
