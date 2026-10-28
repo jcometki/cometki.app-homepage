@@ -16,9 +16,10 @@
   const identificador = $('identificador'), estadoEndereco = $('endereco-estado');
   const formatoEndereco = /^[a-z0-9][a-z0-9-]{0,46}[a-z0-9]$/;
   let enderecoEditado = false, enderecoDisponivel = '', consultaEndereco, atrasoEndereco, revisaoEndereco = 0, enviando = false;
-  const atualizarBotaoCadastro = () => { $('solicitar').disabled = enviando || enderecoDisponivel !== identificador.value || !enderecoDisponivel; };
+  const atualizarBotaoCadastro = () => { $('solicitar').disabled = enviando || Boolean(identificador && (enderecoDisponivel !== identificador.value || !enderecoDisponivel)); };
   const indicarEndereco = (texto, estado = '') => { estadoEndereco.textContent = texto; estadoEndereco.dataset.estado = estado; };
   const verificarEndereco = async () => {
+    if (!identificador) return true;
     clearTimeout(atrasoEndereco); consultaEndereco?.abort();
     const revisao = ++revisaoEndereco, base = identificador.value;
     enderecoDisponivel = ''; atualizarBotaoCadastro();
@@ -58,12 +59,12 @@
     atrasoEndereco = setTimeout(verificarEndereco, 500);
   };
   $('nome').addEventListener('input', () => {
-    if (enderecoEditado) return;
+    if (!identificador || enderecoEditado) return;
     const base = $('nome').value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s_-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40).replace(/-+$/g, '');
     identificador.value = base; agendarEndereco();
   });
-  identificador.addEventListener('input', () => { enderecoEditado = true; agendarEndereco(); });
-  $('tentar-endereco').addEventListener('click', verificarEndereco);
+  identificador?.addEventListener('input', () => { enderecoEditado = true; agendarEndereco(); });
+  $('tentar-endereco')?.addEventListener('click', verificarEndereco);
   const limparDesafio = () => { desafio = ''; if (widget !== undefined) window.turnstile?.reset(widget); };
   const seguranca = visivel => { $('turnstile').hidden = !visivel; $('nota-seguranca').hidden = !visivel; };
   window.lunaTrialTurnstilePronto = () => {
@@ -109,8 +110,8 @@
   form.addEventListener('submit', async evento => {
     evento.preventDefault(); if (!form.reportValidity()) return;
     if (enviando) return;
-    const escolhido = identificador.value;
-    if (!await verificarEndereco() || escolhido !== identificador.value) return;
+    const escolhido = identificador?.value;
+    if (!await verificarEndereco() || escolhido !== identificador?.value) return;
     if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para continuar.', true); return; }
     enviando = true; atualizarBotaoCadastro(); mostrarMensagem('');
     try { const p = await api('', { nome: $('nome').value.trim(), email: $('email').value.trim(), identificador: escolhido, aceiteTermos: $('aceite').checked, versaoTermos: configuracao.versaoTermos, revisao: configuracao.revisao, turnstile: desafio }); lembrar(); exibirEstado(p); aguardarReenvio(); }
