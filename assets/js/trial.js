@@ -16,10 +16,10 @@
   const limparDesafio = () => { desafio = ''; if (widget !== undefined) window.turnstile?.reset(widget); };
   const seguranca = visivel => { $('turnstile').hidden = !visivel; $('nota-seguranca').hidden = !visivel; };
   window.lunaTrialTurnstilePronto = () => {
-    widget = window.turnstile.render('#turnstile', { sitekey: configuracao.siteKey, action: 'luna_trial', language: 'pt-br', size: 'flexible', callback: token => { desafio = token; }, 'expired-callback': () => { desafio = ''; }, 'error-callback': () => { desafio = ''; mostrarMensagem('A verificação de segurança não carregou. Tente atualizar a página ou fale com nossa equipe.', true); } });
+    widget = window.turnstile.render('#turnstile', { sitekey: configuracao.siteKey, action: 'luna_trial', language: 'pt-br', size: 'compact', callback: token => { desafio = token; }, 'expired-callback': () => { desafio = ''; }, 'error-callback': () => { desafio = ''; mostrarMensagem('A verificação de segurança não carregou. Tente atualizar a página ou fale com nossa equipe.', true); } });
   };
   const carregarTurnstile = () => {
-    if (!configuracao.siteKey || scriptCarregado) return;
+    if (!configuracao.siteKey || scriptCarregado || $('turnstile').hidden) return;
     scriptCarregado = true;
     const script = document.createElement('script');
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=lunaTrialTurnstilePronto&render=explicit';

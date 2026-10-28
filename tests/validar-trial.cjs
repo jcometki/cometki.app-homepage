@@ -16,7 +16,7 @@ const raiz = path.resolve(__dirname, '..');
       page.on('pageerror', e => erros.push(e.message));
       await page.route('**/*', async rota => {
         const r = rota.request(), u = new URL(r.url());
-        if (u.hostname === 'challenges.cloudflare.com') return rota.fulfill({ contentType: 'application/javascript', body: `window.turnstile={render:()=>{window.lunaTrialToken('token-ficticio');return 'widget';},reset:()=>window.lunaTrialToken('token-ficticio')};window.turnstile.render=(el,op)=>{window.lunaTrialToken=op.callback;op.callback('token-ficticio');return 'widget';};window.lunaTrialTurnstilePronto();` });
+        if (u.hostname === 'challenges.cloudflare.com') return rota.fulfill({ contentType: 'application/javascript', body: `window.turnstile={reset:()=>window.lunaTrialToken('token-ficticio')};window.turnstile.render=(el,op)=>{if(op.size!=='compact')throw new Error('Widget deve caber em celular');const bloco=document.createElement('div');bloco.style.width='150px';bloco.style.height='140px';bloco.textContent='Verificação de segurança simulada';document.querySelector(el).append(bloco);window.lunaTrialToken=op.callback;op.callback('token-ficticio');return 'widget';};window.lunaTrialTurnstilePronto();` });
         assert.equal(u.hostname, 'luna.cometki.app');
         if (u.pathname.startsWith('/api/trials')) {
           let payload = {}, status = 200;

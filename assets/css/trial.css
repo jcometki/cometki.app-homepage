@@ -26,7 +26,7 @@
 .cartao-trial .nota-trial { font-size: .78rem; line-height: 1.65; overflow-wrap: anywhere; }
 .mensagem-trial { padding: 14px; margin: 20px 0; border-radius: 10px; background: #f1eadf; line-height: 1.65; font-size: .9rem; overflow-wrap: anywhere; }
 .mensagem-trial.erro { background: #fff0ed; color: #8d3025; }
-#turnstile { margin-top: 20px; min-width: 0; }
+#turnstile { margin-top: 20px; min-width: 0; display: flex; justify-content: center; }
 #acompanhamento h3 { font-size: 1.4rem; margin-top: 24px; }
 #acompanhamento .botao { margin-top: 16px; }
 .condicoes-trial { grid-column: 1 / -1; border-top: 1px solid #e0d7c9; padding-top: 30px; max-width: 900px; }
