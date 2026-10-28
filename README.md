@@ -31,6 +31,7 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 - docs/integracao-manager.md: contrato do cadastro público de trial.
 - docs/capturas.md: origem e atualização das telas.
 - docs/atualizacao-comercial-1.1.md: seleção dos novos recursos e decisões de leitura e autonomia.
+- docs/seguranca-comercial.md: afirmações de infraestrutura e os quatro perfis de acesso.
 
 ## Conteúdo e contato
 

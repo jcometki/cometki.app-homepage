@@ -40,6 +40,10 @@
     <symbol id="ampliar" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7-7 7M3 14v7h7m-7 0 7-7"/></symbol>
     <symbol id="mais" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="fechar" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="protecao" viewBox="0 0 24 24"><path d="m12 2 8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="cadeado" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></symbol>
+    <symbol id="banco" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></symbol>
+    <symbol id="monitoramento" viewBox="0 0 24 24"><path d="M2 12h5l3-8 4 16 3-8h5"/></symbol>
   </svg>
 
   <header class="cabecalho">
@@ -51,6 +55,7 @@
         <a href="#inteligencia">Atendimento com IA</a>
         <a href="#campanhas">Campanhas</a>
         <a href="#por-dentro">Gestão</a>
+        <a href="#seguranca">Segurança</a>
         <a href="#duvidas">Dúvidas</a>
       </nav>
       <a class="botao botao-pequeno contato acao-produto cabecalho-contato" href="https://wa.me/5567992938193?text=Ol%C3%A1!%20Quero%20conhecer%20a%20LUNA%20para%20o%20meu%20sal%C3%A3o." target="_blank" rel="noopener noreferrer">Quero conhecer <svg class="icone" aria-hidden="true"><use href="#seta"/></svg></a>
@@ -71,6 +76,7 @@
           <a class="link-texto" href="#por-dentro">Ver a LUNA por dentro <span aria-hidden="true">↗</span></a>
         </div>
         <div class="abertura-notas"><span><svg class="icone" aria-hidden="true"><use href="#check"/></svg> No seu WhatsApp</span><span><svg class="icone" aria-hidden="true"><use href="#check"/></svg> No celular e no computador</span></div>
+        <a class="abertura-confianca" href="#seguranca"><svg class="icone" aria-hidden="true"><use href="#protecao"/></svg><span><strong>Um ambiente individual para o seu salão.</strong><small>Dados separados · Backups criptografados</small></span><span aria-hidden="true">↗</span></a>
       </div>
       <div class="abertura-visual">
         <div class="orbita" aria-hidden="true"></div>
@@ -213,9 +219,43 @@
       </div>
     </section>
 
+    <section class="secao seguranca" id="seguranca" aria-labelledby="titulo-seguranca">
+      <div class="limite">
+        <div class="seguranca-cabecalho">
+          <div><p class="sobretitulo">TECNOLOGIA MODERNA. CUIDADO COM SEUS DADOS.</p><h2 id="titulo-seguranca">Seu salão tem <br>o próprio <em>espaço.</em></h2></div>
+          <p class="texto-secao">Sua agenda, suas conversas e os dados dos seus clientes merecem cuidado. Cada salão recebe uma aplicação individual e uma base de dados exclusiva, com configurações e credenciais próprias.</p>
+        </div>
+        <div class="seguranca-grade">
+          <div class="ambiente-individual" role="group" aria-label="Como os dados do salão ficam separados">
+            <div class="ambiente-titulo"><svg class="icone" aria-hidden="true"><use href="#protecao"/></svg><span>SEU AMBIENTE LUNA</span></div>
+            <div class="ambiente-camada"><svg class="icone" aria-hidden="true"><use href="#celular"/></svg><div><strong>Sua aplicação</strong><span>O jeito de atender e as configurações do seu salão.</span></div></div>
+            <div class="ambiente-camada"><svg class="icone" aria-hidden="true"><use href="#banco"/></svg><div><strong>Sua base de dados</strong><span>Agenda, clientes, conversas e financeiro separados dos outros salões.</span></div></div>
+            <p><svg class="icone" aria-hidden="true"><use href="#check"/></svg> Acesso ao banco com credenciais individuais.</p>
+          </div>
+          <div class="cuidados-dados">
+            <div><svg class="icone" aria-hidden="true"><use href="#cadeado"/></svg><div><h3>Acesso protegido</h3><p>Conexão HTTPS e contas individuais para a equipe. Cada perfil acessa as informações e ações permitidas para sua função.</p></div></div>
+            <div><svg class="icone" aria-hidden="true"><use href="#banco"/></svg><div><h3>Backups criptografados</h3><p>Cópias de segurança protegidas por criptografia, com rotina de backup e procedimentos de recuperação dos dados.</p></div></div>
+            <div><svg class="icone" aria-hidden="true"><use href="#monitoramento"/></svg><div><h3>Infraestrutura monitorada</h3><p>Tecnologia em nuvem, atualizações controladas e verificações automáticas de saúde para identificar falhas e reiniciar a aplicação quando necessário.</p></div></div>
+          </div>
+        </div>
+        <div class="equipe-acessos" aria-labelledby="titulo-acessos">
+          <div class="perfis-abertura"><div><p class="sobretitulo">QUATRO PERFIS DE ACESSO</p><h3 id="titulo-acessos">Uma equipe. <em>O acesso certo para cada pessoa.</em></h3></div><p>Cada pessoa entra com sua conta. Você mantém a visão do salão e a equipe encontra o que precisa para trabalhar.</p></div>
+          <dl class="perfis-grade">
+            <div><dt>Proprietário</dt><dd>Administra o salão, a equipe, o financeiro e as integrações.</dd></div>
+            <div><dt>Gerente</dt><dd>Cuida da gestão, do financeiro, dos relatórios e da equipe. As integrações ficam com o proprietário.</dd></div>
+            <div><dt>Recepcionista</dt><dd>Organiza agenda e clientes, opera os atendimentos e acompanha as conversas.</dd></div>
+            <div><dt>Profissional</dt><dd>Acompanha a própria agenda, seus atendimentos, comissões e pagamentos.</dd></div>
+          </dl>
+          <p class="perfis-nota"><svg class="icone" aria-hidden="true"><use href="#protecao"/></svg> As permissões são conferidas a cada ação. Informações de gestão ficam com quem tem acesso a elas.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="secao limite duvidas" id="duvidas" aria-labelledby="titulo-duvidas">
       <div><p class="sobretitulo">VAMOS CONVERSAR?</p><h2 id="titulo-duvidas">Antes do <br>primeiro <em>“oi”.</em></h2><p class="texto-secao">Algumas respostas para você <br>conhecer melhor a LUNA.</p><a class="link-texto contato" href="https://wa.me/5567992938193?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20a%20LUNA." target="_blank" rel="noopener noreferrer">Falar com nossa equipe <svg class="icone" aria-hidden="true"><use href="#seta"/></svg></a></div>
       <div class="perguntas">
+        <details><summary>Meus dados ficam separados dos outros salões?<svg class="icone" aria-hidden="true"><use href="#mais"/></svg></summary><p>Sim. Cada salão recebe uma instância própria da LUNA e uma base de dados exclusiva, com credenciais individuais. A infraestrutura de hospedagem é compartilhada, mas a aplicação e a base de dados são separadas por cliente. Também há backups criptografados e monitoramento da infraestrutura.</p></details>
+        <details><summary>Posso dar acessos diferentes para minha equipe?<svg class="icone" aria-hidden="true"><use href="#mais"/></svg></summary><p>Sim. A LUNA tem quatro perfis: Proprietário, Gerente, Recepcionista e Profissional. O proprietário administra toda a operação, incluindo integrações. O gerente cuida da gestão, do financeiro e da equipe. A recepção organiza a agenda, os clientes, os atendimentos e as conversas. O profissional acompanha a própria agenda, seus atendimentos e seus pagamentos. Cada pessoa entra com sua conta e usa as funções permitidas para seu perfil.</p></details>
         <details open><summary>A LUNA trabalha sozinha?<svg class="icone" aria-hidden="true"><use href="#mais"/></svg></summary><p>Em boa parte da rotina de atendimento, sim. Depois de configurada e conectada ao WhatsApp do salão, a LUNA responde mensagens, entende áudios, consulta horários e conduz agendamentos automaticamente. Também envia confirmações e lembretes. Nas campanhas, você prepara a oferta e ativa; ela cuida dos envios e do atendimento de quem responde. A equipe acompanha e assume quando necessário.</p></details>
         <details><summary>A IA agenda sozinha? Eu continuo no controle?<svg class="icone" aria-hidden="true"><use href="#mais"/></svg></summary><p>A assistente consulta os horários e apresenta uma proposta. O agendamento, a remarcação ou o cancelamento só acontece com a confirmação de quem está agendando. A equipe acompanha as conversas e pode assumir o atendimento a qualquer momento.</p></details>
         <details><summary>Como funcionam as campanhas com IA?<svg class="icone" aria-hidden="true"><use href="#mais"/></svg></summary><p>Você escolhe o público, os serviços, o desconto e o período da oferta. A IA pode personalizar a abertura da mensagem e gerar fundos para a arte. Depois do teste no seu WhatsApp e da ativação, a LUNA envia aos poucos. Quem toca em “Quero agendar” conversa com a assistente, que reconhece a oferta. Você acompanha as respostas e os agendamentos pelo painel.</p></details>

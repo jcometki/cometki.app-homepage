@@ -4,12 +4,23 @@ const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE || 'playwrigh
 const base = process.env.BASE_URL;
 if (!base) throw new Error('Informe BASE_URL.');
 
+// O Nginx local não inclui a API do Manager. O cenário mantém o contato
+// comercial no WhatsApp, sem consultar ou modificar inscrições reais.
+async function prepararPaginaLocal(page) {
+  if (['localhost', '127.0.0.1'].includes(new URL(base).hostname)) {
+    await page.route('**/api/trials/configuracao', rota => rota.fulfill({
+      contentType: 'application/json', body: JSON.stringify({ habilitado: false })
+    }));
+  }
+}
+
 (async () => {
   for (const [motor, larguras] of [[chromium, [320, 360, 390, 430, 768, 1024, 1440, 1920]], [webkit, [390, 768, 1440]]]) {
     const browser = await motor.launch({ headless: true });
     try {
       for (const largura of larguras) {
         const page = await browser.newPage({ viewport: { width: largura, height: 900 } });
+        await prepararPaginaLocal(page);
         const erros = [];
         page.on('pageerror', e => erros.push(e.message));
         page.on('console', m => { if (m.type() === 'error') erros.push(m.text()); });
@@ -78,6 +89,7 @@ if (!base) throw new Error('Informe BASE_URL.');
           const captura = await browser.newContext({ viewport: { width: largura, height: 900 }, bypassCSP: true });
           try {
             const foto = await captura.newPage();
+            await prepararPaginaLocal(foto);
             await foto.goto(base, { waitUntil: 'networkidle' });
             await foto.evaluate(async () => {
               await document.fonts.ready;
