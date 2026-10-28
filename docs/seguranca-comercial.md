@@ -71,3 +71,22 @@ O teste geral de navegação agora simula inscrições pausadas somente em local
 ou 127.0.0.1, porque a imagem estática não contém a API do Manager. Testes contra
 um domínio público não recebem essa simulação. As capturas visuais são isoladas
 da verificação estrita da CSP; o site mantém sua política original.
+
+## Publicação confirmada — 1.5.0
+
+Publicada em 28/10/2026 em `https://luna.cometki.app/#seguranca`.
+
+- Código `8b56f9e`, tag `v1.5.0`.
+- Validação GitHub `40777119917` e publicação `40777260923`: sucesso.
+- Imagem `jcometki/luna:homepage-1.5.0`, amd64/arm64, digest
+  `sha256:9dbfe4447b1f5c31cd615eaff1c7f5193b4d421f873f54695c0d4e38fd2333a6`.
+- GitOps `8d9e190`: somente o campo de imagem da homepage, com atualização
+  condicionada ao SHA do arquivo. Checkout compartilhado da infraestrutura preservado.
+- Três testes do contrato GitOps e renderização do overlay Oracle aprovados.
+- HTML e 22 assets públicos idênticos ao pacote Nginx validado. A página
+  `/experimentar` também corresponde ao pacote; saúde `ok` e TLS válido.
+- Chromium público em 390, 901 e 1440 px: seção, quatro perfis, menu,
+  âncora de segurança e CTA aprovados, sem erros JS/CSP ou rolagem horizontal.
+
+A verificação operacional foi pelo HTTPS público. Não foi usada a configuração
+Kubernetes local, que aponta para ambientes diferentes do cluster comercial.

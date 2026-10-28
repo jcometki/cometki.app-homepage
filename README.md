@@ -87,7 +87,7 @@ a cada 30 segundos enquanto estiver visível. Mudanças no Manager não exigem
 republicar a homepage. Falha da API ou falta de vagas preservam o WhatsApp.
 
 O Nginx serve a homepage, `/experimentar` e a saúde. `/api/` permanece em 404 no
-contêiner estático; em produção, o Traefik encaminha somente os cinco caminhos
+contêiner estático; em produção, o Traefik encaminha somente os seis caminhos
 exatos do cadastro para a porta pública do Manager. O painel administrativo
 continua protegido. Não há proxy genérico do Nginx para o Manager.
 

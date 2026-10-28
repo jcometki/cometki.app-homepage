@@ -1,14 +1,15 @@
 # Publicação da homepage LUNA na Cometki
 
-A homepage comercial usa **https://luna.cometki.app/**. O conteúdo e o contato
-aprovados permanecem estáticos; criação de trials não participa deste deploy.
+A homepage comercial usa **https://luna.cometki.app/**. A apresentação é estática; o
+cadastro público consulta a API separada do Manager, conforme
+[contrato de integração](integracao-manager.md).
 
-Atualização vigente em 23/10/2026: **`homepage-1.2.0`**, com a identidade
-oficial da LUNA e assinatura institucional somente no fim do rodapé.
-Código `96eec0b`; promoção GitOps `1f9c4ee`. Digest da imagem:
-`sha256:2c31718307afd4b08fd7bbe878af19a46390c8b33fe2e614566cec67dae7830d`.
-HTML, 22 assets referenciados e saúde conferidos no endereço HTTPS publicado.
-Veja o [registro da entrega](validacao.md) e o [kit de marca](../marca/README.md).
+Atualização vigente em 28/10/2026: **`homepage-1.5.0`**, com destaque para
+segurança, ambiente individual por cliente e os quatro perfis de acesso.
+Código `8b56f9e`; promoção GitOps `8d9e190`. Digest da imagem:
+`sha256:9dbfe4447b1f5c31cd615eaff1c7f5193b4d421f873f54695c0d4e38fd2333a6`.
+HTML, 22 assets, cadastro e saúde conferidos no endereço HTTPS publicado.
+Veja o [registro da entrega](seguranca-comercial.md) e o [kit de marca](../marca/README.md).
 
 Publicada em 12 de outubro de 2026. A versão `homepage-1.0.2` acrescenta
 `Cache-Control: no-transform` para impedir injeção automática de Analytics no
@@ -23,15 +24,15 @@ registra o digest, verificações realizadas e limites do ensaio.
 | Item | Configuração |
 | --- | --- |
 | Código | `jcometki/cometki.app-homepage`, branch `main` |
-| Imagem | `jcometki/luna:homepage-X.Y.Z`, Docker Hub, `linux/amd64` |
+| Imagem | `jcometki/luna:homepage-X.Y.Z`, Docker Hub, `linux/amd64` e `linux/arm64` |
 | Publicação da imagem | Tag `vX.Y.Z`, workflow `Publicar imagem da homepage` |
-| Deploy | `cometki-apps/apps/luna-homepage`, namespace `apps`, Flux |
+| Deploy | Base `apps/luna-homepage`, overlay `clusters/oracle/luna-homepage`, namespace `apps`, Flux |
 | Aplicação | Nginx 8080; GET `/saude` retorna 200 |
 | Entrada | Service ClusterIP 80 → 8080; Ingress público no Traefik `websecure` |
 | DNS | Wildcard existente `*.cometki.app`, apontando ao túnel com proxy Cloudflare |
 | Túnel | Wildcard existente → HTTPS `localhost:443`, Origin Server Name `cometki.app` |
 | TLS do origin | Certificado existente `cometki-app-wildcard-tls`, mantido pelo cert-manager |
-| Comercial | WhatsApp `+55 67 99293-8193`; `urlTrial` vazia |
+| Comercial | WhatsApp `+55 67 99293-8193`; `urlTrial` aponta para `/experimentar`, condicionado à disponibilidade |
 
 Não é necessário novo registro DNS, rota de túnel ou certificado para este
 hostname. A resolução interna usa o DNS da LAN e o mesmo certificado público
@@ -71,10 +72,10 @@ repositório separado não é usada pelo deploy final.
 curl -fsS https://luna.cometki.app/saude
 curl -I https://luna.cometki.app/
 curl -I https://luna.cometki.app/assets/js/configuracao.js
-curl -I https://luna.cometki.app/api/trials
+curl -I https://luna.cometki.app/api/admin
 ```
 
-Esperado: página, assets e saúde 200; `/api/` e rotas privadas 404; configuração
+Esperado: página, assets e saúde 200; `/api/` genérico e rotas privadas 404; configuração
 comercial e HTML revalidáveis. Nginx envia cache de uma hora para assets; a
 política de cache da Cloudflare pode aplicar TTL maior na borda/navegador.
 Conferir menu, abas, imagens ampliadas e layout
@@ -94,7 +95,9 @@ fazer rollback.
 O contêiner roda sem root, com capacidades removidas, filesystem somente
 leitura e diretórios efêmeros do Nginx. Não recebe token de ServiceAccount,
 variáveis do Manager, credenciais de banco ou volumes persistentes.
-`/api/` permanece 404; não há proxy para rotas administrativas.
+O Nginx mantém `/api/` em 404. No Ingress público, somente os seis caminhos
+exatos do cadastro chegam à porta pública do Manager; não há proxy genérico
+para rotas administrativas.
 
 Não há dados novos a restaurar em PVC. Código, versões e manifests pertencem
 ao Git; exports Kubernetes existentes também incluem esta configuração. A
