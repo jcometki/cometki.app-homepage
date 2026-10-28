@@ -138,7 +138,7 @@ class EntregaHTTP(unittest.TestCase):
             self.assertIn('no-cache', resposta.headers['Cache-Control'])
         with self.obter('/assets/css/site.css', {'Accept-Encoding': 'gzip'}) as resposta:
             self.assertEqual(resposta.headers['Content-Encoding'], 'gzip')
-            self.assertIn('max-age=3600', resposta.headers['Cache-Control'])
+            self.assertIn('no-store', resposta.headers['Cache-Control'])
 
 
 if __name__ == '__main__':

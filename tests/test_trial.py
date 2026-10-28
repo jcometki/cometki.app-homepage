@@ -18,6 +18,11 @@ class Campos(HTMLParser):
 
 
 class TrialPublico(unittest.TestCase):
+    def test_textos_do_cadastro_sem_explicacoes_internas(self):
+        texto = (RAIZ / 'experimentar/index.html').read_text()
+        for trecho in ['Resend', 'Cloudflare', 'Registros técnicos', 'rotina de exclusão', 'trial-2026-10-28', 'protege as vagas']:
+            self.assertNotIn(trecho, texto)
+
     def test_somente_nome_email_e_aceite(self):
         p = Campos()
         p.feed((RAIZ / 'experimentar/index.html').read_text())

@@ -94,16 +94,34 @@
     }
   });
   if (destinoTrial) {
-    fetch('/api/trials/configuracao', { credentials: 'omit', cache: 'no-store' })
-      .then(resposta => resposta.ok ? resposta.json() : null)
-      .then(dados => {
-        if (!dados?.habilitado || !dados?.disponivel) return;
-        document.querySelectorAll('a.acao-produto').forEach(link => {
-          link.href = destinoTrial;
-          link.removeAttribute('target');
-          if (configuracao.textoAcao) link.childNodes[0].textContent = configuracao.textoAcao + ' ';
-        });
-      }).catch(() => { /* O WhatsApp permanece disponível se a API falhar. */ });
+    const acoes = [...document.querySelectorAll('a.acao-produto')].map(link => ({
+      link, texto: link.childNodes[0].textContent, href: link.href, target: link.getAttribute('target')
+    }));
+    let atual;
+    const atualizarAcao = async () => {
+      if (document.hidden) return;
+      atual?.abort();
+      const controle = new AbortController();
+      atual = controle;
+      const limite = setTimeout(() => controle.abort(), 8000);
+      let dados;
+      try {
+        const resposta = await fetch('/api/trials/configuracao', { credentials: 'omit', cache: 'no-store', signal: controle.signal });
+        dados = resposta.ok ? await resposta.json() : null;
+      } catch { /* O contato comercial continua disponível. */ }
+      finally { clearTimeout(limite); }
+      if (atual !== controle) return;
+      const aberto = dados?.habilitado && dados?.disponivel;
+      acoes.forEach(({ link, texto, href, target }) => {
+        link.href = aberto ? destinoTrial : href;
+        link.childNodes[0].textContent = aberto && configuracao.textoAcao ? configuracao.textoAcao + ' ' : texto;
+        if (aberto || !target) link.removeAttribute('target'); else link.setAttribute('target', target);
+      });
+    };
+    atualizarAcao();
+    document.addEventListener('visibilitychange', atualizarAcao);
+    window.addEventListener('pageshow', atualizarAcao);
+    window.setInterval(atualizarAcao, 30000);
   }
   document.getElementById('ano').textContent = new Date().getFullYear();
 

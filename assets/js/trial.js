@@ -16,7 +16,7 @@
   const limparDesafio = () => { desafio = ''; if (widget !== undefined) window.turnstile?.reset(widget); };
   const seguranca = visivel => { $('turnstile').hidden = !visivel; $('nota-seguranca').hidden = !visivel; };
   window.lunaTrialTurnstilePronto = () => {
-    widget = window.turnstile.render('#turnstile', { sitekey: configuracao.siteKey, action: 'luna_trial', language: 'pt-br', size: 'compact', callback: token => { desafio = token; }, 'expired-callback': () => { desafio = ''; }, 'error-callback': () => { desafio = ''; mostrarMensagem('A verificação de segurança não carregou. Tente atualizar a página ou fale com nossa equipe.', true); } });
+    widget = window.turnstile.render('#turnstile', { sitekey: configuracao.siteKey, action: 'luna_trial', language: 'pt-br', size: 'compact', callback: token => { desafio = token; }, 'expired-callback': () => { desafio = ''; }, 'error-callback': () => { desafio = ''; mostrarMensagem('Não conseguimos confirmar agora. Atualize a página e tente novamente.', true); } });
   };
   const carregarTurnstile = () => {
     if (!configuracao.siteKey || scriptCarregado || $('turnstile').hidden) return;
@@ -24,7 +24,7 @@
     const script = document.createElement('script');
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=lunaTrialTurnstilePronto&render=explicit';
     script.async = true; script.defer = true;
-    script.onerror = () => mostrarMensagem('Não foi possível carregar a verificação de segurança. Atualize a página ou fale com nossa equipe.', true);
+    script.onerror = () => mostrarMensagem('Algo não carregou. Atualize a página ou fale com nossa equipe.', true);
     document.head.append(script);
   };
   const lembrar = () => { try { sessionStorage.setItem('luna-trial-pendente', 'sim'); } catch {} };
@@ -33,12 +33,12 @@
   const exibirEstado = p => {
     form.hidden = true; $('confirmacao').hidden = true; status.hidden = false; $('abrir-luna').hidden = true; $('reenviar').hidden = true; seguranca(false);
     const textos = {
-      aguardando_verificacao: ['Confira seu e-mail', 'Enviaremos o link de confirmação em instantes. Confira também o spam. O ambiente só será criado após você confirmar.'],
-      provisionando: ['Estamos preparando sua LUNA', 'Você pode fechar esta página. Quando estiver pronta, enviaremos o endereço e o código de configuração inicial por e-mail.'],
-      pronto: ['Sua LUNA está pronta', 'Confira seu e-mail para obter o código inicial. Dentro da LUNA você termina a configuração e conecta seu WhatsApp.'],
-      expirado: ['O link de confirmação expirou', 'Solicite um novo e-mail e use o link mais recente.'],
-      falhou: ['Precisamos conferir seu ambiente', 'Sua solicitação está registrada. Fale com nossa equipe; você não precisa fazer outro cadastro.'],
-      suspenso: ['Seu ambiente está suspenso', 'Fale com nossa equipe para continuar usando a LUNA.'],
+      aguardando_verificacao: ['Confira seu e-mail', 'Vamos enviar um link para você confirmar o cadastro. Se não encontrar, confira também o spam.'],
+      provisionando: ['Estamos preparando sua LUNA', 'Você pode fechar esta página. Vamos enviar o endereço e seu código de acesso por e-mail assim que estiver tudo pronto.'],
+      pronto: ['Sua LUNA está pronta', 'Seu e-mail tem o endereço e o código para começar. Lá você termina o cadastro e conecta seu WhatsApp.'],
+      expirado: ['Seu link não é mais válido', 'Peça um novo e-mail para continuar.'],
+      falhou: ['Vamos ajudar você a começar', 'Seu pedido está salvo. Fale com nossa equipe para continuarmos; não precisa fazer outro cadastro.'],
+      suspenso: ['Seu acesso está pausado', 'Fale com nossa equipe para continuar usando a LUNA.'],
       encerrado: ['Este teste foi encerrado', 'Fale com nossa equipe para saber como continuar.']
     };
     const texto = textos[p.estado] || textos.falhou; $('estado-titulo').textContent = texto[0]; $('estado-texto').textContent = texto[1];
@@ -57,7 +57,7 @@
   const acompanhar = async () => { try { exibirEstado(await api('/estado')); } catch (erro) { if (erro.status === 410) { novoFormulario(); mostrarMensagem('O acompanhamento expirou. Confira seu e-mail de acesso ou faça uma nova solicitação.', true); } else mostrarMensagem('Não foi possível atualizar o estado. Seu pedido continua registrado; tente atualizar a página.', true); } };
   form.addEventListener('submit', async evento => {
     evento.preventDefault(); if (!form.reportValidity()) return;
-    if (!desafio) { mostrarMensagem('Conclua a verificação de segurança para continuar.', true); return; }
+    if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para continuar.', true); return; }
     $('solicitar').disabled = true; mostrarMensagem('');
     try { const p = await api('', { nome: $('nome').value.trim(), email: $('email').value.trim(), aceiteTermos: $('aceite').checked, versaoTermos: configuracao.versaoTermos, revisao: configuracao.revisao, turnstile: desafio }); lembrar(); exibirEstado(p); aguardarReenvio(); }
     catch (erro) { mostrarMensagem(erro.message, true); }
@@ -70,7 +70,7 @@
     finally { $('confirmar').disabled = false; }
   });
   $('reenviar').addEventListener('click', async () => {
-    if (!desafio) { mostrarMensagem('Refaça a verificação de segurança antes de reenviar.', true); return; }
+    if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para pedir outro e-mail.', true); return; }
     $('reenviar').disabled = true;
     try { const p = await api('/reenviar', { turnstile: desafio }); mostrarMensagem(p.mensagem); aguardarReenvio(); }
     catch (erro) { mostrarMensagem(erro.message, true); $('reenviar').disabled = false; }
@@ -81,8 +81,8 @@
     if (confirmacao) history.replaceState(null, '', location.pathname);
     try {
       configuracao = await api('/configuracao');
-      $('resumo-trial').textContent = configuracao.habilitado ? `Experimente por ${configuracao.dias} dias a partir do ambiente pronto. Sem cartão e sem cobrança automática.` : 'As inscrições estão pausadas no momento. Fale com nossa equipe para conhecer a LUNA.';
-      if (confirmacao) { $('resumo-trial').textContent = 'Confirme o e-mail para preparar o teste solicitado. O prazo começa com o ambiente pronto.'; $('confirmacao').hidden = false; $('confirmar').disabled = !configuracao.habilitado; }
+      $('resumo-trial').textContent = configuracao.habilitado ? `Você terá ${configuracao.dias} dias para conhecer a LUNA. Sem cartão e sem cobrança automática.` : 'As inscrições estão pausadas no momento. Fale com nossa equipe para conhecer a LUNA.';
+      if (confirmacao) { $('resumo-trial').textContent = 'Confirme seu e-mail e deixe o restante com a gente.'; $('confirmacao').hidden = false; $('confirmar').disabled = !configuracao.habilitado; }
       else if (temPedido()) await acompanhar();
       else if (configuracao.disponivel) { form.hidden = false; seguranca(true); }
       else if (configuracao.habilitado) mostrarMensagem('As vagas de teste estão ocupadas. Tente mais tarde ou fale com nossa equipe.');
@@ -98,7 +98,7 @@
     if (!configuracao) return;
     form.hidden = true; status.hidden = true; $('confirmacao').hidden = false;
     $('confirmar').disabled = !configuracao.habilitado; seguranca(false); mostrarMensagem('');
-    $('resumo-trial').textContent = 'Confirme o e-mail para preparar o teste solicitado. O prazo começa com o ambiente pronto.';
+    $('resumo-trial').textContent = 'Confirme seu e-mail e deixe o restante com a gente.';
   });
   iniciar();
 })();
