@@ -2,8 +2,8 @@
 window.LUNA_CONFIG = Object.freeze({
   whatsapp: '5567992938193',
   mensagem: 'Olá! Quero conhecer a LUNA para o meu salão.',
-  // Quando houver cadastro de trial, informe sua URL pública HTTPS.
+  // O botão de teste só é ativado após a API confirmar inscrições e vagas abertas.
   // As regras, credenciais e o provisionamento permanecem no servidor.
-  urlTrial: '',
-  textoAcao: 'Quero conhecer a LUNA'
+  urlTrial: 'https://luna.cometki.app/experimentar',
+  textoAcao: 'Começar meu teste'
 });

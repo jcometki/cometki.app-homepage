@@ -22,13 +22,13 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 
 - index.html: conteúdo comercial, acessibilidade e metadados.
 - assets/css/site.css: tema Élevé e layouts responsivos.
-- assets/js/configuracao.js: WhatsApp e destino futuro de trial.
+- assets/js/configuracao.js: WhatsApp e destino do cadastro público de trial.
 - assets/js/site.js: menu, abas, ampliação, privacidade e chamada móvel.
 - assets/imagens/: capturas reais do aplicativo com dados demonstrativos e marca otimizada.
 - marca/: vetores, logos transparentes, perfis e peças de divulgação; fora da imagem pública.
 - assets/fontes/: fontes locais e licenças OFL.
 - deploy/nginx.conf: cache, compressão, cabeçalhos e rota de saúde.
-- docs/integracao-manager.md: caminho proposto para trial.
+- docs/integracao-manager.md: contrato do cadastro público de trial.
 - docs/capturas.md: origem e atualização das telas.
 - docs/atualizacao-comercial-1.1.md: seleção dos novos recursos e decisões de leitura e autonomia.
 
@@ -38,7 +38,11 @@ A marca principal é LUNA. A identidade oficial usa o monograma aprovado, sem as
 
 O contato atual é **+55 67 99293-8193**, configurado em assets/js/configuracao.js. Os links do HTML também têm esse destino para funcionar sem JavaScript. Ao trocar o contato, atualize os dois locais, incluindo o texto de privacidade.
 
-O site não promete duração de trial, preços, quantidade de clientes nem resultados numéricos. O CTA atual abre o WhatsApp. A criação automática de trials ainda não está implementada.
+O site não publica preços, quantidade de clientes nem resultados numéricos. A
+página `/experimentar` consulta a duração e disponibilidade no backend. Os CTAs
+só promovem o teste quando houver inscrições e vagas abertas; o WhatsApp é o
+fallback comercial. O formulário coleta nome do salão, e-mail e aceite, usa
+Turnstile e exige confirmação por e-mail antes de provisionar.
 
 ## Publicação
 
@@ -66,7 +70,15 @@ Atualização e rollback estão no [guia de publicação](docs/publicacao.md).
 
 O cache dos assets é de uma hora. HTML e configuração comercial revalidam a cada acesso. Ao atualizar imagens ou estilos durante uma campanha, altere o nome do arquivo ou sua versão na URL para invalidar caches já existentes.
 
-Somente a rota estática e a verificação de saúde estão ativas. /api/ retorna 404 enquanto a integração não existir. A homepage não expõe o manager.
+O Nginx serve a homepage, `/experimentar` e a saúde. `/api/` permanece em 404 no
+contêiner estático; em produção, o Traefik encaminha somente os cinco caminhos
+exatos do cadastro para a porta pública do Manager. O painel administrativo
+continua protegido. Não há proxy genérico do Nginx para o Manager.
+
+Somente a página de cadastro usa um recurso externo: o widget Cloudflare
+Turnstile. Sua CSP autoriza scripts e frames de `challenges.cloudflare.com`.
+A página de apresentação mantém imagens e fontes locais e sua CSP original.
+As inscrições começam pausadas e são abertas pelo Manager após a validação.
 
 ## Validação
 

@@ -79,7 +79,7 @@
   });
   document.getElementById('abrir-privacidade').addEventListener('click', evento => abrirDialogo(document.getElementById('privacidade'), evento.currentTarget));
 
-  // O trial futuro usa um destino público; nenhum acesso administrativo vai para o navegador.
+  // O cadastro público só é promovido quando há inscrições e vagas disponíveis.
   let destinoTrial = null;
   if (configuracao.urlTrial) {
     try {
@@ -89,14 +89,22 @@
   }
   const telefone = String(configuracao.whatsapp || '').replace(/\D/g, '');
   document.querySelectorAll('a.contato').forEach(link => {
-    if (destinoTrial && link.classList.contains('acao-produto')) {
-      link.href = destinoTrial;
-      // O rótulo pode mudar para "Começar meu teste" somente após o fluxo existir.
-      if (configuracao.textoAcao) link.childNodes[0].textContent = configuracao.textoAcao + ' ';
-    } else if (telefone.length >= 10 && telefone.length <= 15) {
+    if (telefone.length >= 10 && telefone.length <= 15) {
       link.href = 'https://wa.me/' + telefone + '?text=' + encodeURIComponent(configuracao.mensagem || 'Olá! Quero conhecer a LUNA.');
     }
   });
+  if (destinoTrial) {
+    fetch('/api/trials/configuracao', { credentials: 'omit', cache: 'no-store' })
+      .then(resposta => resposta.ok ? resposta.json() : null)
+      .then(dados => {
+        if (!dados?.habilitado || !dados?.disponivel) return;
+        document.querySelectorAll('a.acao-produto').forEach(link => {
+          link.href = destinoTrial;
+          link.removeAttribute('target');
+          if (configuracao.textoAcao) link.childNodes[0].textContent = configuracao.textoAcao + ' ';
+        });
+      }).catch(() => { /* O WhatsApp permanece disponível se a API falhar. */ });
+  }
   document.getElementById('ano').textContent = new Date().getFullYear();
 
   const barra = document.getElementById('barra-celular');

@@ -3,6 +3,7 @@ FROM nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed4307
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/index.html
+COPY experimentar /usr/share/nginx/html/experimentar
 COPY assets /usr/share/nginx/html/assets
 
 EXPOSE 8080

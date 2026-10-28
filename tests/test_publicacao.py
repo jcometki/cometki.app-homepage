@@ -57,9 +57,12 @@ class ConteudoPublico(unittest.TestCase):
                 if ref.startswith('#'):
                     self.assertIn(ref[1:], ids)
                 elif ref and not urlparse(ref).scheme:
-                    self.assertTrue((ROOT / ref.split('?', 1)[0].lstrip('/')).is_file(), ref)
+                    destino = ROOT / urlparse(ref).path.lstrip('/')
+                    if destino.is_dir():
+                        destino = destino / 'index.html'
+                    self.assertTrue(destino.is_file(), ref)
 
-    def test_contato_atual_e_trial_desativado(self):
+    def test_contato_atual_e_trial_condicionado_a_disponibilidade(self):
         contatos = [x for tag, x in pagina() if tag == 'a' and 'contato' in x.get('class', '').split()]
         self.assertGreaterEqual(len(contatos), 3)
         for contato in contatos:
@@ -68,7 +71,8 @@ class ConteudoPublico(unittest.TestCase):
             self.assertIn('noopener', contato.get('rel', ''))
         configuracao = (ROOT / 'assets/js/configuracao.js').read_text()
         self.assertRegex(configuracao, r"whatsapp:\s*'5567992938193'")
-        self.assertRegex(configuracao, r"urlTrial:\s*''")
+        self.assertRegex(configuracao, r"urlTrial:\s*'https://luna.cometki.app/experimentar'")
+        self.assertIn('dados?.habilitado', (ROOT / 'assets/js/site.js').read_text())
 
     def test_nao_depende_de_cdn_ou_manager(self):
         for tag, attrs in pagina():
