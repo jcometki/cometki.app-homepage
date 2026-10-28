@@ -73,3 +73,16 @@ class CacheHTTP(unittest.TestCase):
         self.assertEqual(erro.exception.code, 404)
         self.assertIn('no-store', erro.exception.headers['Cache-Control'])
         erro.exception.close()
+
+    def test_html_publicado_usa_arquivos_assinados_e_cache_longo(self):
+        with self.obter('/') as r:
+            html = r.read().decode()
+        caminhos = re.findall(r'(?:/)?assets/[^\s"<>?]+[.]h[0-9a-f]{16}[.][a-z0-9]+', html)
+        self.assertGreater(len(caminhos), 5)
+        self.assertRegex(html, r'configuracao[.]h[0-9a-f]{16}[.]js')
+        self.assertRegex(html, r'site[.]h[0-9a-f]{16}[.]js')
+        for caminho in caminhos:
+            with self.subTest(caminho=caminho), self.obter('/' + caminho.lstrip('/')) as r:
+                self.assertEqual(r.status, 200)
+                self.assertIn('immutable', r.headers['Cache-Control'])
+                self.assertEqual(len(r.headers.get_all('Cache-Control')), 1)

@@ -68,7 +68,22 @@ tags de versão sem esse prefixo para imagens da homepage.
 
 Atualização e rollback estão no [guia de publicação](docs/publicacao.md).
 
-O cache dos assets é de uma hora. HTML e configuração comercial revalidam a cada acesso. Ao atualizar imagens ou estilos durante uma campanha, altere o nome do arquivo ou sua versão na URL para invalidar caches já existentes.
+HTML, configuração e código sem assinatura usam `no-store`, com um único
+cabeçalho de cache. A imagem empacota automaticamente os assets com uma assinatura
+do conteúdo da publicação no nome: scripts, estilos, fontes e imagens passam a
+ter URLs novas quando o conteúdo muda. Esses arquivos podem usar cache longo
+sem prender o visitante a uma publicação anterior. Não é preciso atualizar
+manualmente os parâmetros de versão do HTML nem limpar a zona Cloudflare.
+
+Os nomes originais continuam disponíveis. Uma página antiga ou um recurso de
+uma publicação diferente usa um fallback sem cache se sua assinatura não existir
+na imagem atual. Erros também não são armazenados. A primeira adoção prepara
+essa compatibilidade na 1.3.2 antes de ativar as assinaturas na 1.3.3, para evitar
+falhas durante a troca de pods. Não remover esse fallback em atualizações futuras.
+
+A homepage consulta a disponibilidade do trial ao abrir, ao retornar à aba e
+a cada 30 segundos enquanto estiver visível. Mudanças no Manager não exigem
+republicar a homepage. Falha da API ou falta de vagas preservam o WhatsApp.
 
 O Nginx serve a homepage, `/experimentar` e a saúde. `/api/` permanece em 404 no
 contêiner estático; em produção, o Traefik encaminha somente os cinco caminhos

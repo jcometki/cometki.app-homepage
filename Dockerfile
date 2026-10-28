@@ -5,6 +5,8 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/index.html
 COPY experimentar /usr/share/nginx/html/experimentar
 COPY assets /usr/share/nginx/html/assets
+COPY deploy/versionar-assets.sh /tmp/versionar-assets.sh
+RUN sh /tmp/versionar-assets.sh && rm /tmp/versionar-assets.sh
 
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
