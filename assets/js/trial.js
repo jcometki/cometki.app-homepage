@@ -178,7 +178,7 @@
     clearTimeout(consulta); form.hidden = true; status.hidden = true; $('confirmacao').hidden = false;
     apresentarEtapa('confirmacao', { etiqueta: 'Só falta um passo', icone: 'confirmacao', passo: 0, detalheTitulo: 'Seu salão, do seu jeito.', detalhe: 'Depois, você configura sua LUNA e conecta seu WhatsApp. A gente cuida da preparação.' });
     $('titulo-formulario').textContent = 'Vamos criar sua LUNA?';
-    descrever($('resumo-trial'), 'Confirme seu e-mail para prepararmos um espaço exclusivo para o seu salão.');
+    descrever($('resumo-trial'), 'Seu salão terá um espaço exclusivo na LUNA. Clique em “Criar meu salão” para começarmos.');
     $('confirmar').textContent = 'Criar meu salão'; $('confirmar').disabled = !configuracao?.habilitado;
     seguranca(false); mostrarMensagem('');
   };
