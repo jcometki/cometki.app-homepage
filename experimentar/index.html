@@ -14,9 +14,16 @@
   <link rel="stylesheet" href="/assets/css/trial.css?v=1.3.1">
   <script src="/assets/js/trial.js?v=1.3.1" defer></script>
 </head>
-<body class="pagina-trial">
+<body class="pagina-trial" data-etapa="carregando">
   <a class="pular" href="#cadastro">Pular para o cadastro</a>
-  <header class="topo-trial"><a href="/" aria-label="LUNA, início"><img src="/assets/imagens/marca/luna-horizontal-cafe.svg" width="160" height="59" alt="LUNA"></a><a href="/">Voltar ao site</a></header>
+  <svg class="simbolos" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="trial-email" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="trial-confirmacao" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6m-4 8 2 2 4-4"/></symbol>
+    <symbol id="trial-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="trial-brilho" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/></symbol>
+    <symbol id="trial-aviso" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 3v1"/></symbol>
+  </svg>
+  <header class="topo-trial"><a href="/" aria-label="LUNA, início"><picture><source media="(prefers-color-scheme: dark)" srcset="/assets/imagens/marca/luna-horizontal.svg"><img src="/assets/imagens/marca/luna-horizontal-cafe.svg" width="160" height="59" alt="LUNA"></picture></a><a href="/">Voltar ao site</a></header>
   <main class="conteudo-trial" id="cadastro">
     <section class="convite-trial" aria-labelledby="titulo">
       <p class="sobretitulo">SEU SALÃO, COM INTELIGÊNCIA</p>
@@ -25,9 +32,16 @@
       <ol class="passos-trial"><li><span>01</span> Informe o nome do salão e seu e-mail.</li><li><span>02</span> Confirme o e-mail para preparar sua LUNA.</li><li><span>03</span> Receba o endereço e o código para começar.</li></ol>
       <p class="ajuda-trial">Prefere conversar primeiro? <a href="https://wa.me/5567992938193" target="_blank" rel="noopener noreferrer">Fale com a Cometki.</a></p>
     </section>
-    <section class="cartao-trial" aria-labelledby="titulo-formulario">
-      <p class="sobretitulo">COMECE POR AQUI</p><h2 id="titulo-formulario">Seu teste da LUNA</h2>
-      <p id="resumo-trial">Consultando a disponibilidade…</p>
+    <div class="etapas-trial">
+      <ol id="progresso-trial" class="progresso-trial" aria-label="Andamento do cadastro" hidden>
+        <li data-passo="0"><span class="numero-passo" aria-hidden="true">1</span><span>Confirmação</span></li>
+        <li data-passo="1"><span class="numero-passo" aria-hidden="true">2</span><span>Preparação</span></li>
+        <li data-passo="2"><span class="numero-passo" aria-hidden="true">3</span><span>Pronto</span></li>
+      </ol>
+      <section class="cartao-trial" id="cartao-trial" aria-labelledby="titulo-formulario">
+      <div id="icone-etapa" class="icone-etapa" aria-hidden="true" hidden><svg class="icone"><use id="simbolo-etapa" href="#trial-email"/></svg></div>
+      <p class="sobretitulo" id="etiqueta-etapa">COMECE POR AQUI</p>
+      <div id="apresentacao-trial"><h2 id="titulo-formulario" tabindex="-1">Seu teste da LUNA</h2><p id="resumo-trial">Consultando a disponibilidade…</p></div>
       <div id="mensagem" class="mensagem-trial" role="status" aria-live="polite" hidden></div>
       <form id="form-trial" hidden>
         <label for="nome">Nome do salão<input id="nome" name="nome" autocomplete="organization" minlength="2" maxlength="150" placeholder="Ex.: Studio Aurora" required></label>
@@ -43,12 +57,14 @@
         <label class="aceite-trial"><input id="aceite" type="checkbox" required><span>Li e aceito as <a href="#condicoes">condições do teste e de privacidade</a>.</span></label>
         <button class="botao" id="solicitar" type="submit" disabled>Começar meu teste</button>
       </form>
-      <div id="confirmacao" hidden><p>Falta só confirmar seu e-mail para começarmos.</p><button class="botao" id="confirmar" type="button">Confirmar e começar</button></div>
-      <div id="acompanhamento" hidden><h3 id="estado-titulo">Confira seu e-mail</h3><p id="estado-texto"></p><button class="botao botao-secundario" id="reenviar" type="button" hidden>Reenviar confirmação</button><a class="botao" id="abrir-luna" hidden>Abrir minha LUNA</a></div>
+      <div id="confirmacao" hidden><button class="botao" id="confirmar" type="button">Criar meu salão</button></div>
+      <div id="acompanhamento" hidden><div aria-live="polite" aria-atomic="true"><h2 id="estado-titulo" tabindex="-1">Confira seu e-mail.</h2><p id="estado-texto"></p></div><button class="botao botao-secundario" id="reenviar" type="button" hidden>Reenviar e-mail</button><a class="botao" id="abrir-luna" hidden>Abrir minha LUNA</a></div>
       <div id="turnstile" aria-label="Verificação de segurança" hidden></div>
       <p class="nota-trial" id="nota-seguranca" hidden>Precisa de ajuda? <a href="https://wa.me/5567992938193" target="_blank" rel="noopener noreferrer">Converse com nossa equipe.</a></p>
+      <div id="detalhe-etapa" class="detalhe-etapa" hidden><h3 id="detalhe-titulo"></h3><p id="detalhe-texto"></p></div>
       <noscript><p>Ative o JavaScript para fazer o cadastro ou <a href="https://wa.me/5567992938193">fale com nossa equipe pelo WhatsApp</a>.</p></noscript>
-    </section>
+      </section>
+    </div>
     <section class="condicoes-trial" id="condicoes" aria-labelledby="titulo-condicoes"><h2 id="titulo-condicoes">Sobre o teste e seus dados</h2>
       <p>O prazo começa assim que a LUNA estiver pronta para você. O teste inclui um limite de uso da assistente, e você pode conectar seu próprio WhatsApp. Não pedimos cartão e não há cobrança automática.</p>
       <p>Depois do teste, seu ambiente fica disponível para consulta por mais 30 dias. Para continuar usando todos os recursos da LUNA, converse com nossa equipe. Após esse prazo, iniciamos a remoção dos dados. Cópias de segurança podem permanecer por mais tempo.</p>
