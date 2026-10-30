@@ -118,6 +118,8 @@ const raiz = path.resolve(__dirname, '..');
       await page.locator('#confirmar').waitFor({ state: 'visible' });
       await conferirEtapa('confirmacao', 'Vamos criar sua LUNA?');
       assert.equal(await page.locator('#confirmar').innerText(), 'Criar meu salão');
+      assert.match(await page.locator('#resumo-trial').innerText(), /Seu salão terá um espaço exclusivo/);
+      assert.doesNotMatch(await page.locator('#resumo-trial').innerText(), /Confirme seu e-mail/);
       assert.equal(await page.locator('#progresso-trial [aria-current="step"]').getAttribute('data-passo'), '0');
       assert.equal(new URL(page.url()).hash, '');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0, 'Abrir link disparou provisionamento');
