@@ -12,7 +12,7 @@ const raiz = path.resolve(__dirname, '..');
     try {
       const page = await browser.newPage();
       const erros = [], envios = [];
-      let aberto = true, estado = 'aguardando_verificacao', expirado = false, disputar = true;
+      let aberto = true, estado = 'aguardando_verificacao', expirado = false, disputar = true, paginaAntiga = false;
       const ocupados = new Set(['studio-aurora', 'novo']);
       const consultas = [];
       page.on('pageerror', e => erros.push(e.message));
@@ -41,8 +41,29 @@ const raiz = path.resolve(__dirname, '..');
         const arquivo = u.pathname === '/experimentar' ? 'experimentar/index.html' : u.pathname.slice(1);
         assert.ok(arquivo === 'experimentar/index.html' || arquivo.startsWith('assets/'));
         const tipos = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2' };
-        return rota.fulfill({ contentType: tipos[path.extname(arquivo)], body: await fs.readFile(path.join(raiz, arquivo)) });
+        const origem = paginaAntiga && arquivo === 'experimentar/index.html' ? 'tests/fixtures/experimentar-1.5.1.html' : arquivo;
+        return rota.fulfill({ contentType: tipos[path.extname(arquivo)], body: await fs.readFile(path.join(raiz, origem)) });
       });
+      const conferirEtapa = async (etapa, titulo) => {
+        assert.equal(await page.locator('body').getAttribute('data-etapa'), etapa);
+        assert.equal(await page.locator('.convite-trial').isVisible(), false, 'Repetiu a chamada do formulário depois do cadastro');
+        assert.equal(await page.locator('.condicoes-trial').isVisible(), false);
+        assert.equal(await page.locator('.cartao-trial h2:visible').count(), 1, 'Etapa com títulos duplicados');
+        assert.equal(await page.locator('.cartao-trial h2:visible').innerText(), titulo);
+        for (const tema of ['light', 'dark']) {
+          await page.emulateMedia({ colorScheme: tema });
+          for (const largura of [320, 390, 1440]) {
+            await page.setViewportSize({ width: largura, height: 1000 });
+            await page.evaluate(() => document.fonts.ready);
+            assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${nome}: ${etapa} transborda em ${largura}px (${tema})`);
+            if (nome === 'chromium' && largura === 390) {
+              await fs.mkdir(path.join(raiz, 'outputs/trial'), { recursive: true });
+              await page.screenshot({ path: path.join(raiz, `outputs/trial/${etapa}-${tema}.png`), fullPage: true });
+            }
+          }
+        }
+        await page.emulateMedia({ colorScheme: 'light' });
+      };
       await page.goto('https://luna.cometki.app/experimentar');
       await page.locator('#form-trial').waitFor({ state: 'visible' });
       await page.waitForFunction(() => Boolean(window.turnstile));
@@ -87,35 +108,67 @@ const raiz = path.resolve(__dirname, '..');
       await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
       await page.locator('#solicitar').click();
       await page.locator('#acompanhamento').waitFor({ state: 'visible' });
+      await conferirEtapa('aguardando_verificacao', 'Confira seu e-mail.');
+      assert.equal(await page.locator('#detalhe-titulo').innerText(), 'Não encontrou?');
       assert.equal(envios[0].dados.nome, 'Studio Aurora');
       assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
       assert.equal(envios[0].dados.identificador, 'studio-aurora-2');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0);
       await page.goto('https://luna.cometki.app/experimentar#confirmar=token-ficticio');
       await page.locator('#confirmar').waitFor({ state: 'visible' });
+      await conferirEtapa('confirmacao', 'Vamos criar sua LUNA?');
+      assert.equal(await page.locator('#confirmar').innerText(), 'Criar meu salão');
+      assert.equal(await page.locator('#progresso-trial [aria-current="step"]').getAttribute('data-passo'), '0');
       assert.equal(new URL(page.url()).hash, '');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0, 'Abrir link disparou provisionamento');
       await page.locator('#confirmar').click();
       await page.locator('#acompanhamento').waitFor({ state: 'visible' });
+      await conferirEtapa('provisionando', 'Estamos preparando sua LUNA.');
+      assert.equal(await page.locator('#etiqueta-etapa').innerText(), 'E-mail confirmado');
+      assert.equal(await page.locator('#detalhe-titulo').innerText(), 'Pode fechar esta página.');
+      assert.equal(await page.locator('#progresso-trial [aria-current="step"]').getAttribute('data-passo'), '1');
+      assert.equal(await page.locator('#estado-titulo').evaluate(el => el === document.activeElement), true);
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 1);
       estado = 'pronto';
       await page.reload();
       await page.locator('#abrir-luna').waitFor({ state: 'visible' });
+      await conferirEtapa('pronto', 'Sua LUNA está pronta!');
+      assert.equal(await page.locator('#progresso-trial [data-feito="true"]').count(), 3);
       assert.equal(await page.locator('#abrir-luna').getAttribute('href'), 'https://studio-aurora-ficticio.cometki.app');
       estado = 'restrito';
       await page.reload();
       await page.locator('#abrir-luna').waitFor({ state: 'visible' });
       assert.equal(await page.locator('#estado-titulo').innerText(), 'Seu teste terminou');
+      assert.equal(await page.locator('#progresso-trial').isVisible(), false, 'Trial vencido apareceu como etapa de sucesso');
+      for (const terminal of ['falhou', 'suspenso', 'encerrado']) {
+        estado = terminal; await page.reload();
+        await page.waitForFunction(e => document.body.dataset.etapa === e, terminal);
+        assert.equal(await page.locator('#abrir-luna').isVisible(), false);
+        assert.equal(await page.locator('#progresso-trial').isVisible(), false);
+      }
       expirado = true;
       await page.goto('https://luna.cometki.app/experimentar#confirmar=token-expirado');
       await page.locator('#confirmar').click();
       await page.locator('#form-trial').waitFor({ state: 'visible' });
+      assert.equal(await page.locator('body').getAttribute('data-etapa'), 'cadastro', 'Link expirado não voltou ao formulário');
+      // Um HTML anterior pode buscar o JS novo pelo fallback durante o rollout.
+      paginaAntiga = true; expirado = false;
+      const confirmacoesAntes = envios.filter(e => e.caminho.endsWith('/confirmar')).length;
+      await page.goto('https://luna.cometki.app/experimentar#confirmar=token-legado');
+      await page.locator('#confirmar').waitFor({ state: 'visible' });
+      assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, confirmacoesAntes);
+      await page.locator('#confirmar').click();
+      await page.locator('#acompanhamento').waitFor({ state: 'visible' });
+      assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, confirmacoesAntes + 1);
+      assert.equal(await page.locator('#estado-titulo').innerText(), 'Estamos preparando sua LUNA.');
+      paginaAntiga = false;
       aberto = false;
+      await page.evaluate(() => sessionStorage.clear());
       await page.goto('https://luna.cometki.app/experimentar');
       assert.ok(await page.locator('#resumo-trial').innerText().then(t => t.includes('pausadas')));
       assert.equal(await page.locator('#form-trial').isVisible(), false);
       assert.deepEqual(erros, []);
-      console.log(`OK (${nome}): sugestões, escolha manual, consulta atrasada, endereço inválido, disputa no envio, confirmação, legado, pausa e 320–1440px.`);
+      console.log(`OK (${nome}): quatro etapas, claro/escuro, 320–1440px, foco, confirmação só após clique, sugestões, disputa, estados terminais, pausa e HTML legado.`);
     } finally { await browser.close(); }
   }
 })().catch(e => { console.error(e); process.exitCode = 1; });

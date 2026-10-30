@@ -4,12 +4,21 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
-Atualização vigente em 28/10/2026: **`homepage-1.5.0`**, com destaque para
+Atualização de 28/10/2026: **`homepage-1.5.0`**, com destaque para
 segurança, ambiente individual por cliente e os quatro perfis de acesso.
 Código `8b56f9e`; promoção GitOps `8d9e190`. Digest da imagem:
 `sha256:9dbfe4447b1f5c31cd615eaff1c7f5193b4d421f873f54695c0d4e38fd2333a6`.
 HTML, 22 assets, cadastro e saúde conferidos no endereço HTTPS publicado.
 Veja o [registro da entrega](seguranca-comercial.md) e o [kit de marca](../marca/README.md).
+
+A versão **`homepage-1.6.0`** apresenta as quatro telas do cadastro aprovadas em
+29/10/2026, com confirmação **Criar meu salão**, preparação do espaço exclusivo
+e acesso à LUNA pronta. O fluxo mantém o formulário e as regras existentes.
+Chromium/WebKit, temas claro/escuro, telas de 320 a 1440 px e compatibilidade
+com o HTML 1.5.1 foram conferidos com dados e serviços simulados. Os testes HTTP
+validam a imagem Nginx, arquivos assinados, fallback sem cache, CSP e saúde.
+A referência efetivamente aplicada, com tag e digest, fica no manifesto GitOps;
+não é necessário modificar DNS, túnel, certificados ou o Manager.
 
 Publicada em 12 de outubro de 2026. A versão `homepage-1.0.2` acrescenta
 `Cache-Control: no-transform` para impedir injeção automática de Analytics no

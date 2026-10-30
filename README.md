@@ -45,6 +45,11 @@ só promovem o teste quando houver inscrições e vagas abertas; o WhatsApp é o
 fallback comercial. O formulário coleta nome do salão, e-mail e aceite, usa
 Turnstile e exige confirmação por e-mail antes de provisionar.
 
+O cadastro separa as telas de e-mail enviado, confirmação, preparação e salão
+pronto. Depois do envio, um cartão compacto substitui a apresentação comercial,
+com o botão **Criar meu salão** na confirmação e andamento pelos estados reais
+do Manager. O [contrato de integração](docs/integracao-manager.md) detalha o fluxo.
+
 ## Publicação
 
 Domínio definitivo: **https://luna.cometki.app/**. A URL canônica, og:url e

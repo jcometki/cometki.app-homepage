@@ -9,7 +9,7 @@ HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 1. Informar nome do salão, e-mail, escolher o endereço e aceitar as condições.
 2. Resolver o widget Cloudflare Turnstile Managed.
 3. Receber um link de confirmação válido por 30 minutos.
-4. Abrir o link e clicar em **Confirmar e criar meu teste**. Abrir por GET,
+4. Abrir o link e clicar em **Criar meu salão**. Abrir por GET,
    inclusive em scanners de e-mail, não provisiona nada.
 5. Acompanhar o estado na página. Quando o ambiente estiver pronto, receber
    outro e-mail com endereço e código inicial para terminar o cadastro na LUNA.
@@ -25,6 +25,36 @@ minutos para confirmar o e-mail. Um conflito no envio mantém o formulário aber
 e oferece novas opções, sem trocar a escolha automaticamente. Clientes e pedidos
 anteriores continuam com seus endereços originais. A duração
 e a cota são registradas no pedido; o prazo começa com o ambiente pronto.
+
+### Telas do cadastro — homepage 1.6.0
+
+O formulário inicial permanece com nome, e-mail, endereço e aceite. Depois do
+envio, a página muda para um cartão compacto, com uma única mensagem principal:
+
+- **Confira seu e-mail.** O pedido foi recebido e o link ainda precisa ser usado.
+  A página só informa envio concluído quando a API confirma o envio; mantém
+  reenvio com Turnstile e o aviso de validade do link.
+- **Vamos criar sua LUNA?** Ao abrir o link, mostra o botão **Criar meu salão**.
+  O clique mantém o POST de confirmação existente; a simples abertura continua
+  sem confirmar ou criar o ambiente.
+- **Estamos preparando sua LUNA.** Mostra **E-mail confirmado**, agradece pela
+  confirmação, explica o espaço exclusivo do salão e avisa que a pessoa pode
+  fechar a página e receberá o endereço/código por e-mail.
+- **Sua LUNA está pronta!** Oferece **Abrir minha LUNA**, usando apenas o endereço
+  permitido devolvido pela API, e orienta sobre a configuração inicial.
+
+O indicador **Confirmação → Preparação → Pronto** acompanha estados reais; não
+há percentual ou avanço por tempo simulado. A consulta automática de estado
+continua a cada 15 segundos. Após uma ação da pessoa, o foco vai ao título da
+nova etapa; consultas periódicas não mudam seu foco nem sua posição de leitura.
+Links expirados, pausas, falhas e trials encerrados mantêm mensagens próprias.
+O texto comercial e as condições não são repetidos nas etapas de acompanhamento.
+
+Mantém fontes e marca oficiais locais, com versões clara/escura e layout móvel.
+Elementos novos são opcionais no JavaScript para preservar o funcionamento de
+HTMLs anteriores atendidos pelo fallback de assets durante um rollout.
+Não há mudança de API, regras de provisionamento, inscrição ou configurações dos
+clientes. O painel do Manager e a aplicação LUNA não participam desta publicação.
 
 Ao vencer, a vaga ativa é liberada e a LUNA permanece online com as restrições da
 assinatura por 30 dias. O acompanhamento público retorna `restrito` e mantém o
