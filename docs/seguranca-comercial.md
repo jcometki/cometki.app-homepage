@@ -25,6 +25,48 @@ físico exclusivo, isolamento absoluto, segurança infalível ou superioridade
 sobre concorrentes sem evidências adicionais. A hospedagem é compartilhada;
 a FAQ explica que aplicação, base de dados e credenciais são individuais.
 
+## Nova redação em prévia — 31/10/2026
+
+O usuário pediu uma apresentação menos técnica da infraestrutura: Oracle Cloud
+no Brasil, ambiente e dados próprios por salão, investimento em disponibilidade
+e segurança, com atenção aos horários de maior movimento. A chamada proposta é:
+
+> Sábado cheio. A LUNA acompanha.
+>
+> Você investe no seu salão. A LUNA investe na estrutura que acompanha você.
+
+A nova prévia não usa “ambiente compartilhado” na apresentação comercial. Diz
+**“seu próprio ambiente, sua própria base de dados e acessos individuais”**.
+Isso descreve o isolamento da aplicação e dos dados, sem afirmar hardware,
+servidor físico ou serviço de banco dedicado exclusivamente a cada salão.
+A explicação anterior da FAQ pública só será substituída junto da publicação
+do conteúdo aprovado; a versão pública 1.7.0 ainda não foi alterada.
+
+Evidências revalidadas em 31/10:
+
+- O repositório remoto `cometki-apps`, `clusters/oracle/README.md`, confirma
+  Manager e clientes LUNA ativos na Oracle, com banco externo.
+- Consulta somente leitura ao metadado `region` da instância comercial retornou
+  `sa-saopaulo-1`. A [documentação oficial da Oracle](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm)
+  identifica essa região como São Paulo, Brasil. Não foram lidas credenciais.
+- `tenants/base/deployment.yaml` remoto usa atualização gradual com
+  `maxUnavailable: 0` e `maxSurge: 1`. Isso sustenta “atualizações pensadas para
+  reduzir interrupções”, não uma garantia de atualização ou operação sem falhas.
+- O manifesto tem uma réplica; a documentação `cometki-foundation/docs/oracle-manual.md`
+  descreve armazenamento em um host. Não apresentar uma arquitetura redundante
+  de alta disponibilidade como já implantada nem transferir o SLA da nuvem ao produto.
+
+“Disponibilidade como prioridade” descreve o compromisso operacional e os
+controles existentes. Não publicar “nunca para”, “zero interrupções”, “nenhuma
+janela aos sábados” ou percentual de uptime sem política/SLA e evidência
+operacional correspondentes. Não atribuir janelas inconvenientes a concorrentes
+sem fonte verificável. A proposta comunica o cuidado com o salão cheio sem fazer
+essa comparação factual.
+
+Hospedagem no Brasil refere-se ao ambiente principal da aplicação. Não estender
+a afirmação automaticamente a todo processamento de IA, WhatsApp, CDN, backup
+externo ou qualquer outro fornecedor integrado.
+
 ## Quatro perfis
 
 A descrição foi conferida no catálogo `luna/docs/recursos.md` e no mapa
