@@ -12,6 +12,28 @@ Os pontos sem evidência sobre terceiros devem virar critérios de avaliação.
 O título da prévia é **“Seu salão merece mais do que o básico.”**. Esta versão
 continua em avaliação e não foi incorporada à página pública.
 
+## Posicionamento aprovado para a nova redação
+
+Em 31/10, após gostar da prévia, o usuário pediu ênfase em **todos os recursos
+incluídos**, transparência comercial, evolução constante e proximidade com quem
+entende e vive as necessidades do salão. As chamadas propostas são:
+
+> Uma contratação. A LUNA por inteiro.
+>
+> Feita por quem entende seu negócio. E valoriza seu tempo e talento.
+
+“Tudo incluído” descreve o conjunto de recursos apresentados. Não é uma
+promessa de uso ilimitado de IA, consumo externo sem limite, preço imutável ou
+entrega de qualquer funcionalidade futura. A prévia exibe as condições e
+franquias com texto legível junto à oferta, coerente com “sem letras pequenas”.
+O posicionamento de produto foi informado pelo usuário; não se inventam números
+de clientes, depoimentos ou participação de profissionais identificados.
+
+“Uma solução completa, em constante evolução” substitui o superlativo “a mais
+completa possível”, que exigiria uma definição e pesquisa comparativa mais ampla.
+Esta redação foi preparada em uma segunda prévia; a versão pública continua
+sem o comparativo até a avaliação do conjunto revisado.
+
 ## Recomendação
 
 Usar o título **“Compare a rotina inteira do seu salão.”** e demonstrar uma
