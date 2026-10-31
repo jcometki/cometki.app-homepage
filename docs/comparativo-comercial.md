@@ -34,6 +34,32 @@ completa possível”, que exigiria uma definição e pesquisa comparativa mais 
 Esta redação foi preparada em uma segunda prévia; a versão pública continua
 sem o comparativo até a avaliação do conjunto revisado.
 
+## Contratação sem fidelidade — decisão de 31/10/2026
+
+O usuário confirmou a política comercial: **sem fidelidade, sem prazo mínimo
+de permanência e sem multa por cancelamento**. A nova prévia traz uma linha
+“Liberdade para escolher” no comparativo e uma seção própria com as chamadas:
+
+> Fique pelo que a LUNA entrega. Pelo tempo que fizer sentido.
+>
+> Nossa garantia de fidelidade é a nossa qualidade.
+
+Na LUNA: “Você fica enquanto a LUNA fizer sentido para o seu salão.” Na coluna
+genérica: “Confira as condições de saída”, orientando a verificar prazo mínimo,
+renovação e possíveis multas. Não afirmar que todos os concorrentes impõem
+fidelidade ou multas sem evidência sobre cada oferta.
+
+“Sem multa” se refere ao cancelamento, conforme a solicitação; não promete
+isenção de cobranças vencidas, reembolso proporcional, devolução de valores já
+pagos, gratuidade do período utilizado ou cancelamento de cobranças instantâneo.
+A frase sobre qualidade é posicionamento de marca, não garantia de resultado
+financeiro. As condições de uso e franquias continuam legíveis junto da oferta.
+
+Esta alteração é de conteúdo comercial em prévia. Não modifica o Manager,
+fluxo de assinatura ou cobrança. A política deve ser mantida coerente com os
+termos e o processo operacional de cancelamento na publicação, sem ampliar
+automaticamente o escopo deste chat para implementar cobrança.
+
 ## Recomendação
 
 Usar o título **“Compare a rotina inteira do seu salão.”** e demonstrar uma
