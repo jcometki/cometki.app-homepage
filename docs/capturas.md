@@ -80,4 +80,4 @@ original do guia. Nenhum print foi redesenhado, e nenhum dado real foi acessado.
 
 Paleta do **aplicativo nos prints**: fundo #121010, superfície #1d1816, texto #f6eddc, texto suave #bfae92, borda #3a2f25 e principal #d4a853.
 
-A homepage usa uma interpretação mais clara do Élevé: café `#342c25`, superfície `#44392f`, areia `#c4ac8b` e dourado `#edc77e`. As cores do aplicativo não foram alteradas. A campanha mostrada é um rascunho fictício; nenhuma mensagem foi enviada. As imagens permanecem em WebP sem perda.
+A homepage usa uma interpretação mais clara do Élevé: café `#342c25`, superfície `#44392f`, areia `#c4ac8b` e dourado `#edc77e`. As cores do aplicativo não foram alteradas. A campanha mostrada é um rascunho fictício; nenhuma mensagem foi enviada. As capturas de 23/10 permanecem em WebP sem perda; o manual, as jornadas posteriores e as ilustrações de WhatsApp usam PNG.

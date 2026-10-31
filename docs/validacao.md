@@ -19,6 +19,21 @@
   QA do pacote: `work/homepage-whatsapp-qa-20261031`, neste workspace.
   Não houve ensaio em aparelho físico.
 
+### Publicação da revisão 1.9.0
+
+- Código `06d700d`, tag `v1.9.0`; validação `41220157883` e publicação
+  `41220225726` concluídas com sucesso, incluindo testes da imagem publicada.
+- GitOps `b4553a4`: somente a imagem da homepage alterada. Digest
+  `sha256:1a9561207070a8ef3739f092fb9a07a874ac002fb0f5ac504599df6c89aa3262`.
+- Consulta ao servidor confirmou imagem 1.9.0, Deployment 1/1 e Kustomization
+  Ready. A espera pelas dependências do Flux se resolveu automaticamente.
+- HTML e 29 assets públicos idênticos ao pacote aprovado; cadastro preservado,
+  saúde `ok` e TLS validado. Nenhuma alteração no Manager ou em dados de clientes.
+- Chromium/WebKit públicos em 390/901/1440 px: zero violações detectadas pelo
+  axe e nenhuma rolagem horizontal. Conferência com CSP preservada confirmou
+  as três imagens WhatsApp, painel da equipe mantido, legendas corretas,
+  ampliação, retorno de foco e CTA `/experimentar`, sem erro JS/CSP.
+
 ## Revisão comercial 1.8.0 — 31/10/2026
 
 - Integração aprovada das jornadas com capturas reais, relacionamento antes e

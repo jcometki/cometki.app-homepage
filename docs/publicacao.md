@@ -4,11 +4,20 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
-Revisão **1.9.0**, aprovada em 31/10/2026 e em publicação: WhatsApp ilustrativo
+Revisão **1.9.0**, publicada em 31/10/2026: WhatsApp ilustrativo
 na visão da cliente e capturas reais da LUNA na visão do salão. Três imagens
 substituídas; todos os prints auditados e regra registrada no AGENTS.md.
-Veja a [decisão e procedência](whatsapp-comercial.md). Os identificadores e
-verificações da implantação serão registrados após confirmação do domínio público.
+Veja a [decisão e procedência](whatsapp-comercial.md).
+Código `06d700d7e96c1c9c9847df6e95284a45e01896e9`, tag `v1.9.0`; promoção
+GitOps `b4553a407c9e2e105d8b48a17f9a35c0e60e3c24`. Imagem:
+`jcometki/luna:homepage-1.9.0@sha256:1a9561207070a8ef3739f092fb9a07a874ac002fb0f5ac504599df6c89aa3262`.
+CI de validação `41220157883` e publicação `41220225726`: sucesso.
+Deployment 1/1 e Kustomization Ready na revisão promovida. HTML, 29 assets,
+cadastro e saúde conferidos por HTTPS contra o pacote aprovado.
+Somente `image` foi alterado no GitOps, com controle de concorrência pelo SHA.
+
+Rollback da 1.9.0: restaurar no GitOps
+`jcometki/luna:homepage-1.8.0@sha256:0c7e9ba2682f19ed59d5f79ff80a3dfaaac7a33b157e15a3eaddc58d998d587e`.
 
 Revisão **1.8.0**, publicada em 31/10/2026: jornadas reais de demonstração,
 confirmações, pré/pós-atendimento e avaliações, infraestrutura Oracle no Brasil,
