@@ -1,5 +1,11 @@
 # Capturas reais no tema Élevé
 
+Desde a revisão 1.9.0, a homepage combina **capturas reais da LUNA para a visão
+do salão** com **conversas ilustrativas do WhatsApp para a visão da cliente**.
+Os três arquivos `whatsapp-*.png` são simulações aprovadas, não capturas reais.
+Ver a [regra visual, auditoria e procedência](whatsapp-comercial.md). As imagens
+anteriores das conversas ficam preservadas como referência histórica.
+
 As imagens da homepage foram capturadas no aplicativo LUNA em execução local, a partir do checkout jcometki/luna, versão v1.21.0, commit 0ab68d1, em 23/10/2026. Uma cópia isolada desse commit foi usada para preservar o checkout em uso por outros chats.
 
 O aplicativo usou um banco MariaDB descartável e separado, com o seed Studio Aurora e dados fictícios adicionais. O tema foi selecionado pela configuração real da empresa: eleve. Nenhum componente da interface foi redesenhado para parecer um print.

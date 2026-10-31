@@ -1,5 +1,24 @@
 # Validação da homepage
 
+## Visão da cliente e do salão — revisão 1.9.0, 31/10/2026
+
+- Auditoria visual de todos os prints, incluindo versões de desktop/celular.
+  WhatsApp ilustrativo na abertura e nas duas conversas da cliente; capturas
+  reais da LUNA preservadas na operação do salão. Legendas e alternativas
+  textuais explicitam o ponto de vista e a natureza ilustrativa/real.
+- 19 testes Python/HTTP aprovados no pacote Nginx com execução restrita.
+- Chromium 320/360/390/430/768/1024/1440/1920 e WebKit 390/768/1440:
+  layout, menu, abas, imagens, diálogos, retorno de foco e WhatsApp aprovados;
+  sem erros JS/CSP, incluindo conteúdo sem JavaScript.
+- Jornadas em Chromium/WebKit, 320/390/768/901/1440: zero violações detectadas
+  pelo axe WCAG 2/2.1 A/AA; ampliação e leitura móvel conferidas.
+- A prévia navegável foi conferida em 24 combinações de cenário/navegador/largura,
+  sem erros ou violações detectadas. Os botões desenhados correspondem às regras
+  do produto; não houve conexão ou envio real por WhatsApp.
+- Fontes e folhas de auditoria: `outputs/luna-whatsapp-previa-20261031`.
+  QA do pacote: `work/homepage-whatsapp-qa-20261031`, neste workspace.
+  Não houve ensaio em aparelho físico.
+
 ## Revisão comercial 1.8.0 — 31/10/2026
 
 - Integração aprovada das jornadas com capturas reais, relacionamento antes e

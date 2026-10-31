@@ -4,6 +4,12 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
+Revisão **1.9.0**, aprovada em 31/10/2026 e em publicação: WhatsApp ilustrativo
+na visão da cliente e capturas reais da LUNA na visão do salão. Três imagens
+substituídas; todos os prints auditados e regra registrada no AGENTS.md.
+Veja a [decisão e procedência](whatsapp-comercial.md). Os identificadores e
+verificações da implantação serão registrados após confirmação do domínio público.
+
 Revisão **1.8.0**, publicada em 31/10/2026: jornadas reais de demonstração,
 confirmações, pré/pós-atendimento e avaliações, infraestrutura Oracle no Brasil,
 comparativo genérico, recursos incluídos e contratação sem fidelidade.
