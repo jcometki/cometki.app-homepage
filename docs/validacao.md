@@ -19,7 +19,26 @@
   vagas sem recarregar; falhas mantêm o WhatsApp. Nenhum trial ou mensagem real
   foi enviado. Não houve ensaio em aparelho físico.
 - Evidências locais: `work/homepage-lancamento-qa-20261031` neste workspace.
-  O registro da implantação será acrescentado após a confirmação pública.
+
+### Publicação da revisão 1.8.0
+
+- Código `0791777`, tag `v1.8.0`; Actions de validação `41218007554` e de
+  publicação `41218076734` concluídas com sucesso, incluindo testes da imagem.
+- GitOps `90ef37d`: uma única linha alterada, com versão/digest da homepage.
+  Nenhuma configuração de infraestrutura, cadastro ou Manager foi modificada.
+- Imagem `jcometki/luna:homepage-1.8.0`, digest
+  `sha256:0c7e9ba2682f19ed59d5f79ff80a3dfaaac7a33b157e15a3eaddc58d998d587e`.
+- Consulta somente leitura ao servidor confirmou rollout concluído, Deployment
+  com 1/1 réplica pronta e Kustomization Ready na revisão promovida.
+- Houve espera temporária pelas dependências de certificados/TLS durante a
+  reconciliação do Flux; ela se resolveu normalmente, sem intervenção.
+- HTML e 28 assets públicos comparados byte a byte com o pacote aprovado;
+  cadastro preservado, `/saude` respondendo `ok` e TLS validado.
+- No domínio público, Chromium e WebKit em 390, 901 e 1440 px: jornadas,
+  comparativo, quatro prints ampliáveis e zero violações detectadas pelo axe.
+  Chromium com CSP preservada confirmou navegação, retorno de foco, ausência
+  de erros JS/CSP e CTA para `/experimentar`, conforme disponibilidade real.
+  Nenhum cadastro foi enviado. Capturas e relatórios públicos estão na pasta de QA.
 
 ## Identidade oficial — revisão 1.2.0, 23/10/2026
 

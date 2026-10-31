@@ -4,12 +4,20 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
-Revisão **1.8.0**, aprovada em 31/10/2026: jornadas reais de demonstração,
+Revisão **1.8.0**, publicada em 31/10/2026: jornadas reais de demonstração,
 confirmações, pré/pós-atendimento e avaliações, infraestrutura Oracle no Brasil,
 comparativo genérico, recursos incluídos e contratação sem fidelidade.
-Integração concluída; publicação em andamento pelo fluxo CI/imagem/GitOps abaixo.
-O registro de validação e a referência efetivamente aplicada serão acrescentados
-após a confirmação do rollout e do domínio público.
+Código `07917772ed65d384fd02c44760c7ecc320ffb53a`, tag `v1.8.0`; promoção
+GitOps `90ef37d8ce698e5461e84bfba77f65e402dddb2f`. Imagem:
+`jcometki/luna:homepage-1.8.0@sha256:0c7e9ba2682f19ed59d5f79ff80a3dfaaac7a33b157e15a3eaddc58d998d587e`.
+CI de validação `41218007554` e publicação `41218076734`: sucesso.
+Rollout concluído, Deployment 1/1 e Kustomization Ready. HTML, 28 assets,
+cadastro e saúde conferidos por HTTPS, com conteúdo idêntico ao pacote aprovado.
+Somente o campo `image` do Deployment foi promovido, com controle de concorrência
+pelo SHA do arquivo. Configurações de rede, recursos, segredos e Manager preservados.
+
+Rollback desta revisão: restaurar no GitOps
+`jcometki/luna:homepage-1.7.0@sha256:9d99e85197a37598491c8f5e94da9704fb9754cc26c9d42b7ff1d8443f83606c`.
 
 Atualização anterior de **31/10/2026: `homepage-1.7.0`**, com manual ilustrado, ajuda com
 IA e suporte humano incluídos para todo salão. Código `5506dd9`; promoção
