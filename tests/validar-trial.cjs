@@ -13,6 +13,7 @@ const raiz = path.resolve(__dirname, '..');
       const page = await browser.newPage();
       const erros = [], envios = [];
       let aberto = true, estado = 'aguardando_verificacao', expirado = false, disputar = true, paginaAntiga = false;
+      let emailDestino = 'pessoa@example.com', emailConfirmacao = 'pendente';
       const ocupados = new Set(['studio-aurora', 'novo']);
       const consultas = [];
       page.on('pageerror', e => erros.push(e.message));
@@ -33,9 +34,9 @@ const raiz = path.resolve(__dirname, '..');
             status = 202;
             if (u.pathname.endsWith('/confirmar')) { estado = 'provisionando'; if (expirado) { status = 410; payload = { mensagem: 'A confirmação expirou.' }; } }
             else if (u.pathname === '/api/trials' && disputar) { disputar = false; ocupados.add(r.postDataJSON().identificador); status = 409; payload = { codigo: 'endereco_ocupado', mensagem: 'Esse endereço já está em uso. Escolha outra opção.' }; }
-            else payload = { mensagem: 'Confira seu e-mail.', estado: 'aguardando_verificacao' };
+            else payload = { mensagem: 'Confira seu e-mail.', estado: 'aguardando_verificacao', email: emailDestino };
             if (status === 202 && u.pathname.endsWith('/confirmar')) payload = { estado: 'provisionando' };
-          } else payload = { estado, endereco: 'https://studio-aurora-ficticio.cometki.app' };
+          } else payload = { estado, endereco: 'https://studio-aurora-ficticio.cometki.app', email: estado === 'aguardando_verificacao' ? emailDestino : undefined, emailConfirmacao };
           return rota.fulfill({ status, contentType: 'application/json', body: JSON.stringify(payload) });
         }
         const arquivo = u.pathname === '/experimentar' ? 'experimentar/index.html' : u.pathname.slice(1);
@@ -110,6 +111,26 @@ const raiz = path.resolve(__dirname, '..');
       await page.locator('#acompanhamento').waitFor({ state: 'visible' });
       await conferirEtapa('aguardando_verificacao', 'Confira seu e-mail.');
       assert.equal(await page.locator('#detalhe-titulo').innerText(), 'Não encontrou?');
+      assert.match(await page.locator('#estado-texto').innerText(), /Você receberá um link em pessoa@example.com/);
+      assert.equal(await page.locator('#estado-texto strong').innerText(), emailDestino);
+      emailConfirmacao = 'enviado';
+      await page.reload();
+      await page.waitForFunction(() => document.body.dataset.etapa === 'aguardando_verificacao');
+      assert.match(await page.locator('#estado-texto').innerText(), /Enviamos um link para pessoa@example.com/);
+      assert.equal(await page.locator('#estado-texto strong').innerText(), emailDestino);
+      assert.equal(await page.evaluate(() => JSON.stringify({ ...sessionStorage }).includes('pessoa@example.com')), false, 'Persistiu e-mail no navegador');
+      emailDestino = 'pessoa.' + 'a'.repeat(50) + '@' + 'dominio'.repeat(8) + '.example.com';
+      await page.reload();
+      await page.waitForFunction(() => document.body.dataset.etapa === 'aguardando_verificacao');
+      await conferirEtapa('aguardando_verificacao', 'Confira seu e-mail.');
+      assert.equal(await page.locator('#estado-texto strong').innerText(), emailDestino);
+      emailDestino = '<img src=x onerror=alert(1)>@example.com';
+      await page.reload();
+      await page.waitForFunction(() => document.body.dataset.etapa === 'aguardando_verificacao');
+      assert.equal(await page.locator('#estado-texto img').count(), 0, 'Interpretou destinatário como HTML');
+      assert.equal(await page.locator('#estado-texto strong').innerText(), emailDestino);
+      emailDestino = 'pessoa@example.com';
+
       assert.equal(envios[0].dados.nome, 'Studio Aurora');
       assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
       assert.equal(envios[0].dados.identificador, 'studio-aurora-2');
