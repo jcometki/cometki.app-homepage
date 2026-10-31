@@ -22,6 +22,33 @@ Os prints de desktop usam viewport de 1440 × 960. Os móveis usam 390 × 780, c
 
 Nomes, agendamentos, pagamentos e mensagens são demonstrações. A conversa com a assistente é um roteiro fictício, gravado no ambiente demonstrativo e renderizado pelo aplicativo real. Não representa um atendimento a cliente real nem uma execução ao vivo da IA. As integrações externas e o worker ficaram desligados.
 
+## Jornadas com IA — prévia de 31/10/2026
+
+A terceira prévia comercial usa a versão 1.44.0, commit
+`ffc136d3360da25ccdee9294baeb99dacc515dc7`, em cópia isolada. Estes novos prints
+ainda não fazem parte da homepage publicada. Ver [decisões comerciais e
+limites da demonstração](jornadas-com-ia-comercial.md).
+
+| Arquivo da prévia | Origem | Conteúdo |
+| --- | --- | --- |
+| atraso-conversa.png | `/conversas/{id}` | Lembrete, resposta da cliente sobre atraso e retorno roteirizado da assistente |
+| atraso-notificacao-detalhe.png | `/notificacoes`, perfil profissional | Recorte da central com o aviso gerado pela ferramenta real de atraso |
+| referencia-conversa.png | `/conversas/{id}` | Foto ilustrativa, contexto do aniversário e confirmação demonstrativa |
+| referencia-atendimento.png | `/atendimentos/{id}`, painel da ficha | Atendimento aberto, observações herdadas do agendamento e foto vinculada |
+
+Captura móvel de 430 px de largura com escala 2. Alturas de viewport de 720 px
+para o atraso e 1180 px para a referência; recorte direto da ficha em 1100 px e
+da notificação em 215 px. O campo de observações foi expandido com o controle
+nativo do navegador. Apenas a sobreposição de desenvolvimento do Next foi
+omitida nas capturas. Não se alterou o DOM do produto para criar conteúdo.
+
+A imagem `referencia-penteado.png` foi gerada com ImageGen exclusivamente como
+referência fictícia de penteado dentro da conversa. Ela não representa uma
+cliente real nem um resultado produzido pelo salão. O prompt e a procedência
+estão em `PROCEDENCIA.md` na entrega da prévia. Conversas e análise da imagem
+foram roteirizadas; o app executou as regras de aviso, vínculo de foto e abertura
+do atendimento com integrações externas desligadas.
+
 ## Atualizar
 
 A seção Ajuda, incluída em 31/10/2026, usa `manual-agenda-eleve.png`, cópia
