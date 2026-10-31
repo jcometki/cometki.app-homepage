@@ -4,6 +4,15 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
+Atualização de **31/10/2026: `homepage-1.7.0`**, com manual ilustrado, ajuda com
+IA e suporte humano incluídos para todo salão. Código `5506dd9`; promoção
+GitOps `5fb3987`; digest
+`sha256:9d99e85197a37598491c8f5e94da9704fb9754cc26c9d42b7ff1d8443f83606c`.
+HTML, 23 assets, cadastro e saúde conferidos no domínio público, além de
+navegação móvel/desktop. O [registro da entrega](ajuda-e-suporte-comercial.md)
+documenta evidências e rollback. Os comparativos de marketing são propostas
+para avaliação e não fazem parte desta publicação.
+
 Atualização de 28/10/2026: **`homepage-1.5.0`**, com destaque para
 segurança, ambiente individual por cliente e os quatro perfis de acesso.
 Código `8b56f9e`; promoção GitOps `8d9e190`. Digest da imagem:

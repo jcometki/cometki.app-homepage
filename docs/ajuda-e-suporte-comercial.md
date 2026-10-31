@@ -58,3 +58,22 @@ pública sem uma decisão editorial específica.
   automatizada não substitui o uso com todas as tecnologias assistivas.
 - A configuração de trial foi simulada apenas no endereço local. Não houve
   cadastro real, envio de mensagem, atendimento de suporte ou chamada de IA.
+
+## Publicação em 31/10/2026
+
+- Código: `5506dd959430d0de83a7006d168a794da2fd0f6f`, tag `v1.7.0`.
+- Validação CI: [41212704249](https://github.com/jcometki/cometki.app-homepage/actions/runs/41212704249), aprovada.
+- Publicação da imagem: [41212789831](https://github.com/jcometki/cometki.app-homepage/actions/runs/41212789831), aprovada.
+- Imagem: `jcometki/luna:homepage-1.7.0@sha256:9d99e85197a37598491c8f5e94da9704fb9754cc26c9d42b7ff1d8443f83606c`.
+- Promoção GitOps: `5fb39874705f3e1236a28a527e8838d5adb6a308`; somente o campo
+  `image` de `apps/luna-homepage/deployment.yaml` foi atualizado, com SHA do
+  arquivo atual. O checkout compartilhado de infraestrutura não foi modificado.
+- Confirmados em HTTPS: HTML e 23 assets idênticos ao pacote validado,
+  cadastro preservado e `/saude` retornando `ok`, com TLS validado.
+- Navegador público em 390, 901 e 1440 px: seção, menu, print completo, foco,
+  CTA dinâmico e ausência de erros JavaScript/CSP conferidos sem simular a API.
+- Os três testes existentes do manifesto passaram; o overlay Oracle também
+  foi renderizado localmente. Não foi consultado o estado interno do cluster.
+
+Rollback: restaurar somente a referência anterior da imagem,
+`jcometki/luna:homepage-1.6.1@sha256:bd0695ba98f2499dad0b5436c6f21b5894656811b8235fc4ce7c68dba2e6c270`.

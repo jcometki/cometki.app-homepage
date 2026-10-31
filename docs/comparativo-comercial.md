@@ -4,6 +4,14 @@ Pesquisa em **31/10/2026**, usando páginas oficiais de Trinks e Avec. É uma
 proposta de posicionamento para avaliação, não uma afirmação de exclusividade
 nem um comparativo já publicado na homepage.
 
+O usuário também pediu, em 31/10, uma proposta genérica **“Outras soluções”**,
+com prévia antes de qualquer inclusão na homepage. A categoria deve ser
+delimitada a agendas isoladas, planilhas e automações básicas; não usar o rótulo
+para atribuir inferioridade a todos os concorrentes nem inferir falta de segurança.
+Os pontos sem evidência sobre terceiros devem virar critérios de avaliação.
+O título da prévia é **“Seu salão merece mais do que o básico.”**. Esta versão
+continua em avaliação e não foi incorporada à página pública.
+
 ## Recomendação
 
 Usar o título **“Compare a rotina inteira do seu salão.”** e demonstrar uma
