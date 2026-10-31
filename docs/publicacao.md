@@ -4,6 +4,26 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
+Revisão **1.10.0**, publicada em 31/10/2026: demonstração das campanhas com IA,
+fundos para a arte, aberturas personalizadas, WhatsApp até o agendamento e
+privacidade, além da menção à proteção adicional com Cloudflare. O fechamento
+“Feita por quem entende seu negócio” permanece. Veja a
+[decisão e procedência](campanhas-ia-comercial.md).
+Código `298d972bed88350f1882c5a889634dc21ae2389e`, tag `v1.10.0`; promoção
+GitOps `b9d14cc0184910667bfc72d08510313001403ac9`. Imagem:
+`jcometki/luna:homepage-1.10.0@sha256:fbbc4cc225d9e57bd0388fcfe1d56927cf57992ba4997ba945a5a1749a295b05`.
+CI de validação `41224168816` e publicação `41224254875`: sucesso.
+Deployment 1/1 atualizado, Kustomization Ready e Healthy na revisão promovida.
+HTML, 36 assets referenciados, cadastro e saúde conferidos por HTTPS contra o
+pacote aprovado. Somente `image` foi alterado no GitOps, com controle de
+concorrência pelo SHA; blob resultante `942507bebe9a90c78412f9da8d8fed80de80448e`.
+A implantação aguardou `traefik-local-tls` ficar pronta; em seguida, foi
+solicitada reconciliação somente da Kustomization `luna-homepage`. Nenhuma
+configuração de ingresso, rede, recursos, segredos ou Manager foi modificada.
+
+Rollback da 1.10.0: restaurar no GitOps
+`jcometki/luna:homepage-1.9.0@sha256:1a9561207070a8ef3739f092fb9a07a874ac002fb0f5ac504599df6c89aa3262`.
+
 Revisão **1.9.0**, publicada em 31/10/2026: WhatsApp ilustrativo
 na visão da cliente e capturas reais da LUNA na visão do salão. Três imagens
 substituídas; todos os prints auditados e regra registrada no AGENTS.md.

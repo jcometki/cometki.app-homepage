@@ -21,6 +21,23 @@
 - Evidências locais: `work/luna-campanhas-20261031/qa` no workspace do chat.
   Publicação efetiva e referência de rollback registradas em [publicacao.md](publicacao.md).
 
+### Publicação da revisão 1.10.0
+
+- Código `298d972`, tag `v1.10.0`; validação `41224168816` e publicação
+  `41224254875` concluídas com sucesso.
+- Promoção `b9d14cc`, imagem fixada no digest
+  `sha256:fbbc4cc225d9e57bd0388fcfe1d56927cf57992ba4997ba945a5a1749a295b05`.
+- Servidor confirmou Deployment 1/1 atualizado, Kustomization Ready e Healthy.
+- HTML e 36 assets públicos idênticos ao pacote aprovado, além de cadastro,
+  saúde e TLS. Nenhum serviço administrativo exposto pela publicação.
+- Chromium e WebKit em 390 e 1440 px no domínio público: quatro abas,
+  ampliações, retorno de foco, gestão independente, Cloudflare e fechamento
+  sobre proximidade conferidos, sem erros JavaScript/CSP. CTA público apontava
+  para `/experimentar`, conforme disponibilidade informada pelo Manager;
+  nenhum cadastro foi enviado.
+- Oito verificações axe no domínio público sem violações detectadas; capturas
+  salvas em `work/luna-campanhas-20261031/qa` no workspace deste chat.
+
 ## Visão da cliente e do salão — revisão 1.9.0, 31/10/2026
 
 - Auditoria visual de todos os prints, incluindo versões de desktop/celular.
