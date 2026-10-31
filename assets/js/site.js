@@ -27,23 +27,26 @@
   });
   window.matchMedia('(min-width: 701px)').addEventListener('change', fecharMenu);
 
-  const abas = Array.from(document.querySelectorAll('[role="tab"]'));
-  function selecionarAba(aba, focar = false) {
-    abas.forEach(item => {
-      const selecionada = item === aba;
-      item.setAttribute('aria-selected', String(selecionada));
-      item.tabIndex = selecionada ? 0 : -1;
-      document.getElementById(item.getAttribute('aria-controls')).hidden = !selecionada;
-    });
-    if (focar) aba.focus({ preventScroll: true });
-  }
-  abas.forEach((aba, indice) => {
-    aba.addEventListener('click', () => selecionarAba(aba));
-    aba.addEventListener('keydown', evento => {
-      const destinos = { ArrowRight: (indice + 1) % abas.length, ArrowLeft: (indice - 1 + abas.length) % abas.length, Home: 0, End: abas.length - 1 };
-      if (!(evento.key in destinos)) return;
-      evento.preventDefault();
-      selecionarAba(abas[destinos[evento.key]], true);
+  // Cada grupo controla somente seus painéis: campanhas e gestão são independentes.
+  document.querySelectorAll('[role="tablist"]').forEach(grupo => {
+    const abas = Array.from(grupo.querySelectorAll('[role="tab"]'));
+    function selecionarAba(aba, focar = false) {
+      abas.forEach(item => {
+        const selecionada = item === aba;
+        item.setAttribute('aria-selected', String(selecionada));
+        item.tabIndex = selecionada ? 0 : -1;
+        document.getElementById(item.getAttribute('aria-controls')).hidden = !selecionada;
+      });
+      if (focar) aba.focus({ preventScroll: true });
+    }
+    abas.forEach((aba, indice) => {
+      aba.addEventListener('click', () => selecionarAba(aba));
+      aba.addEventListener('keydown', evento => {
+        const destinos = { ArrowRight: (indice + 1) % abas.length, ArrowLeft: (indice - 1 + abas.length) % abas.length, Home: 0, End: abas.length - 1 };
+        if (!(evento.key in destinos)) return;
+        evento.preventDefault();
+        selecionarAba(abas[destinos[evento.key]], true);
+      });
     });
   });
 

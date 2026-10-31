@@ -1,5 +1,26 @@
 # Validação da homepage
 
+## Campanhas com IA e privacidade — revisão 1.10.0, 31/10/2026
+
+- Demonstração aprovada com geração de fundos, aberturas personalizadas,
+  WhatsApp até o agendamento e escolha de sair. Texto de Cloudflare integrado
+  à seção de segurança; fechamento sobre proximidade com o negócio preservado.
+- Seis novas imagens WebP, cerca de 493 KiB ao todo, carregadas sob demanda.
+  Procedência e limites registrados em [campanhas-ia-comercial.md](campanhas-ia-comercial.md).
+- 19 testes Python/HTTP aprovados na imagem Nginx restrita, incluindo saúde,
+  arquivos, cache, CSP, cadastro e isolamento das rotas privadas.
+- Chromium 320/360/390/430/768/1024/1440/1920 e WebKit 390/768/1440:
+  sem transbordamento, erros JS/CSP ou falhas de imagem. Menu, teclado,
+  ampliação, retorno de foco, WhatsApp e conteúdo sem JavaScript conferidos.
+- As abas de Campanhas e Gestão mantêm seleção independente. Regressão
+  coberta em `tests/validar-navegadores.cjs`.
+- Oito verificações axe WCAG A/AA, nas quatro abas em 390 e 1440 px, sem
+  violações detectadas. Capturas inspecionadas em ambas as larguras.
+- CTA testado em Chromium/WebKit: abertura, pausa, esgotamento e falha da API
+  preservam o comportamento correto. Serviços simulados; nenhum trial criado.
+- Evidências locais: `work/luna-campanhas-20261031/qa` no workspace do chat.
+  Publicação efetiva e referência de rollback registradas em [publicacao.md](publicacao.md).
+
 ## Visão da cliente e do salão — revisão 1.9.0, 31/10/2026
 
 - Auditoria visual de todos os prints, incluindo versões de desktop/celular.

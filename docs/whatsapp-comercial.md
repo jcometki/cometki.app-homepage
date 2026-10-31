@@ -17,6 +17,8 @@ não apenas a presença da palavra WhatsApp na seção.
 | Referência e aniversário, conversa | Cliente envia foto e contexto | WhatsApp ilustrativo da Júlia; descrição automática não aparece na conversa da cliente |
 | Referência, atendimento aberto | Profissional usa foto e observações | Preservar ficha real da LUNA |
 | Campanhas, desktop e celular | Salão cria e configura oferta | Preservar LUNA; legenda explicita criação da campanha pelo salão |
+| Campanhas, convite e agendamento | Cliente recebe, responde e confirma | WhatsApp ilustrativo com “Quero agendar” e “Sim, agendar”; revisão 1.10.0 |
+| Campanhas, saída das mensagens | Cliente exerce sua escolha | WhatsApp ilustrativo, com a resposta real do produto ao pedido “SAIR” |
 | Agenda, financeiro, comissões e clientes, nas abas | Gestão do salão | Preservar capturas reais da LUNA |
 | Resumo do dia no celular | Gestão móvel | Preservar painel real da LUNA |
 | Manual integrado | Equipe aprende a usar o aplicativo | Preservar print real do manual, com seu destaque original |
@@ -60,8 +62,11 @@ Conferidos na LUNA 1.45.0, commit `629015c`:
 - Proposta de novo agendamento: **Sim, agendar**, conforme
   `src/modulos/assistente/dominio/propostas.ts`. O cenário da referência mantém
   a confirmação por texto do roteiro anterior.
-- Campanha recebida pela cliente: **Quero agendar**. Uma futura demonstração
-  da campanha recebida deve mostrar WhatsApp, ao lado da criação/gestão na LUNA.
+- Campanha recebida pela cliente: **Quero agendar**. A demonstração aprovada
+  para a revisão 1.10.0 mostra WhatsApp, ao lado da criação/gestão na LUNA.
+  A proposta pede **Sim, agendar** antes de apresentar o horário como marcado.
+  Artes, aberturas personalizadas, frequência, saída e limitações de privacidade
+  estão documentadas em [campanhas-ia-comercial.md](campanhas-ia-comercial.md).
 
 No WhatsApp da cliente, o contato é o salão; suas mensagens aparecem à direita.
 Análise de imagem, controles da assistente, notificações internas e observações

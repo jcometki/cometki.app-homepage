@@ -59,13 +59,32 @@ async function prepararPaginaLocal(page) {
           assert.ok(await origem.evaluate(el => el === document.activeElement));
         }
         // A novidade precisa funcionar também com a imagem móvel selecionada pelo picture.
-        const campanha = page.locator('#campanhas .ampliavel');
+        const campanha = page.locator('#campanhas .campanhas-print .ampliavel');
         await campanha.click();
         assert.ok(await page.locator('#visualizador').isVisible());
         await page.locator('#imagem-ampliada').evaluate(img => img.decode());
         assert.equal(await page.locator('#imagem-ampliada').getAttribute('src'), await campanha.locator('img').evaluate(img => img.currentSrc));
         await page.keyboard.press('Escape');
         assert.ok(await campanha.evaluate(el => el === document.activeElement));
+        // Alternar as campanhas não pode esconder o recurso escolhido na gestão.
+        for (const nome of ['criar', 'personalizar', 'agendar', 'respeitar']) {
+          await page.locator('#campanha-aba-' + nome).click();
+          const painel = page.locator('#campanha-painel-' + nome);
+          assert.ok(await painel.isVisible());
+          assert.ok(await page.locator('#painel-clientes').isVisible());
+          assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+          for (const imagem of await painel.locator('.ampliavel').all()) {
+            await imagem.click();
+            await page.locator('#imagem-ampliada').evaluate(img => img.decode());
+            await page.keyboard.press('Escape');
+            await page.waitForFunction(() => !document.querySelector('#visualizador').open);
+          }
+        }
+        await page.locator('#aba-agenda').click();
+        assert.ok(await page.locator('#campanha-painel-respeitar').isVisible());
+        await page.locator('#campanha-aba-respeitar').focus();
+        await page.keyboard.press('Home');
+        assert.equal(await page.locator('#campanha-aba-criar').getAttribute('aria-selected'), 'true');
         await page.locator('#abrir-privacidade').click();
         assert.ok(await page.locator('#privacidade').isVisible());
         await page.keyboard.press('Escape');
