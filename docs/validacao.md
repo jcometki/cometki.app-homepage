@@ -1,5 +1,26 @@
 # Validação da homepage
 
+## Revisão comercial 1.8.0 — 31/10/2026
+
+- Integração aprovada das jornadas com capturas reais, relacionamento antes e
+  depois do atendimento, comparação genérica, recursos incluídos, contratação
+  sem fidelidade e infraestrutura Oracle no Brasil. Os quatro perfis, ajuda
+  integrada e fluxo de cadastro existente foram preservados.
+- 19 testes Python/HTTP aprovados no pacote Nginx sem root, com filesystem
+  somente leitura. Nenhuma dependência de execução acrescentada.
+- Navegação em Chromium de 320 a 1920 px e WebKit em 390, 768 e 1440 px:
+  menu, abas, diálogos, foco, WhatsApp, ausência de erros JS/CSP e conteúdo sem JS.
+- Novas seções em Chromium e WebKit: 320, 390, 768, 901 e 1440 px, sem rolagem
+  horizontal ou colisão na navegação. As quatro capturas abrem em largura
+  confortável no celular; Escape fecha e devolve o foco ao botão de origem.
+- Axe-core WCAG 2/2.1 A/AA: zero violações detectadas nas dez combinações.
+  Legendas com contraste ajustado; revisão visual móvel/desktop das seções.
+- Teste dos CTAs nos dois motores com API simulada: abertura, pausa e falta de
+  vagas sem recarregar; falhas mantêm o WhatsApp. Nenhum trial ou mensagem real
+  foi enviado. Não houve ensaio em aparelho físico.
+- Evidências locais: `work/homepage-lancamento-qa-20261031` neste workspace.
+  O registro da implantação será acrescentado após a confirmação pública.
+
 ## Identidade oficial — revisão 1.2.0, 23/10/2026
 
 - Monograma aprovado aplicado ao cabeçalho, rodapé, favicon, ícone Apple Touch

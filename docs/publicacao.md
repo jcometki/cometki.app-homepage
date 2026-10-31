@@ -4,14 +4,20 @@ A homepage comercial usa **https://luna.cometki.app/**. A apresentação é est�
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
-Atualização de **31/10/2026: `homepage-1.7.0`**, com manual ilustrado, ajuda com
+Revisão **1.8.0**, aprovada em 31/10/2026: jornadas reais de demonstração,
+confirmações, pré/pós-atendimento e avaliações, infraestrutura Oracle no Brasil,
+comparativo genérico, recursos incluídos e contratação sem fidelidade.
+Integração concluída; publicação em andamento pelo fluxo CI/imagem/GitOps abaixo.
+O registro de validação e a referência efetivamente aplicada serão acrescentados
+após a confirmação do rollout e do domínio público.
+
+Atualização anterior de **31/10/2026: `homepage-1.7.0`**, com manual ilustrado, ajuda com
 IA e suporte humano incluídos para todo salão. Código `5506dd9`; promoção
 GitOps `5fb3987`; digest
 `sha256:9d99e85197a37598491c8f5e94da9704fb9754cc26c9d42b7ff1d8443f83606c`.
 HTML, 23 assets, cadastro e saúde conferidos no domínio público, além de
 navegação móvel/desktop. O [registro da entrega](ajuda-e-suporte-comercial.md)
-documenta evidências e rollback. Os comparativos de marketing são propostas
-para avaliação e não fazem parte desta publicação.
+documenta evidências e rollback. Essa versão ainda não continha o comparativo.
 
 Atualização de 28/10/2026: **`homepage-1.5.0`**, com destaque para
 segurança, ambiente individual por cliente e os quatro perfis de acesso.

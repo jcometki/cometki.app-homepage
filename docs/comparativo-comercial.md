@@ -1,8 +1,9 @@
 # Proposta de comparativo comercial da LUNA
 
 Pesquisa em **31/10/2026**, usando páginas oficiais de Trinks e Avec. É uma
-proposta de posicionamento para avaliação, não uma afirmação de exclusividade
-nem um comparativo já publicado na homepage.
+base de posicionamento, não uma afirmação de exclusividade. O comparativo
+nominal abaixo permanece como pesquisa interna; a homepage 1.8.0 usa somente
+a categoria genérica aprovada pelo usuário em 31/10/2026.
 
 O usuário também pediu, em 31/10, uma proposta genérica **“Outras soluções”**,
 com prévia antes de qualquer inclusão na homepage. A categoria deve ser
@@ -10,7 +11,7 @@ delimitada a agendas isoladas, planilhas e automações básicas; não usar o r�
 para atribuir inferioridade a todos os concorrentes nem inferir falta de segurança.
 Os pontos sem evidência sobre terceiros devem virar critérios de avaliação.
 O título da prévia é **“Seu salão merece mais do que o básico.”**. Esta versão
-continua em avaliação e não foi incorporada à página pública.
+foi aprovada para integração à página pública.
 
 ## Posicionamento aprovado para a nova redação
 
@@ -31,8 +32,8 @@ de clientes, depoimentos ou participação de profissionais identificados.
 
 “Uma solução completa, em constante evolução” substitui o superlativo “a mais
 completa possível”, que exigiria uma definição e pesquisa comparativa mais ampla.
-Esta redação foi preparada em uma segunda prévia; a versão pública continua
-sem o comparativo até a avaliação do conjunto revisado.
+Esta redação, preparada em uma segunda prévia, foi aprovada com o conjunto
+revisado e incorporada à homepage 1.8.0.
 
 ## Contratação sem fidelidade — decisão de 31/10/2026
 
@@ -55,7 +56,7 @@ pagos, gratuidade do período utilizado ou cancelamento de cobranças instantân
 A frase sobre qualidade é posicionamento de marca, não garantia de resultado
 financeiro. As condições de uso e franquias continuam legíveis junto da oferta.
 
-Esta alteração é de conteúdo comercial em prévia. Não modifica o Manager,
+Esta alteração é de conteúdo comercial aprovado. Não modifica o Manager,
 fluxo de assinatura ou cobrança. A política deve ser mantida coerente com os
 termos e o processo operacional de cancelamento na publicação, sem ampliar
 automaticamente o escopo deste chat para implementar cobrança.

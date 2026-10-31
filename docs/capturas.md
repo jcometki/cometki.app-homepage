@@ -22,14 +22,14 @@ Os prints de desktop usam viewport de 1440 × 960. Os móveis usam 390 × 780, c
 
 Nomes, agendamentos, pagamentos e mensagens são demonstrações. A conversa com a assistente é um roteiro fictício, gravado no ambiente demonstrativo e renderizado pelo aplicativo real. Não representa um atendimento a cliente real nem uma execução ao vivo da IA. As integrações externas e o worker ficaram desligados.
 
-## Jornadas com IA — prévia de 31/10/2026
+## Jornadas com IA — revisão 1.8.0, 31/10/2026
 
 A terceira prévia comercial usa a versão 1.44.0, commit
 `ffc136d3360da25ccdee9294baeb99dacc515dc7`, em cópia isolada. Estes novos prints
-ainda não fazem parte da homepage publicada. Ver [decisões comerciais e
+foram aprovados e incorporados à homepage em `assets/imagens/`. Ver [decisões comerciais e
 limites da demonstração](jornadas-com-ia-comercial.md).
 
-| Arquivo da prévia | Origem | Conteúdo |
+| Arquivo | Origem | Conteúdo |
 | --- | --- | --- |
 | atraso-conversa.png | `/conversas/{id}` | Lembrete, resposta da cliente sobre atraso e retorno roteirizado da assistente |
 | atraso-notificacao-detalhe.png | `/notificacoes`, perfil profissional | Recorte da central com o aviso gerado pela ferramenta real de atraso |

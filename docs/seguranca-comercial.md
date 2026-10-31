@@ -22,10 +22,10 @@ Segurança e nas perguntas frequentes, em linguagem comercial.
 Essas afirmações descrevem recursos existentes, não uma certificação ou SLA.
 Não anunciar disponibilidade percentual, ausência de interrupções, servidor
 físico exclusivo, isolamento absoluto, segurança infalível ou superioridade
-sobre concorrentes sem evidências adicionais. A hospedagem é compartilhada;
-a FAQ explica que aplicação, base de dados e credenciais são individuais.
+sobre concorrentes sem evidências adicionais. A separação é da aplicação,
+base de dados e credenciais, não uma promessa de hardware físico exclusivo.
 
-## Nova redação em prévia — 31/10/2026
+## Nova redação aprovada — revisão 1.8.0, 31/10/2026
 
 O usuário pediu uma apresentação menos técnica da infraestrutura: Oracle Cloud
 no Brasil, ambiente e dados próprios por salão, investimento em disponibilidade
@@ -39,8 +39,8 @@ A nova prévia não usa “ambiente compartilhado” na apresentação comercial
 **“seu próprio ambiente, sua própria base de dados e acessos individuais”**.
 Isso descreve o isolamento da aplicação e dos dados, sem afirmar hardware,
 servidor físico ou serviço de banco dedicado exclusivamente a cada salão.
-A explicação anterior da FAQ pública só será substituída junto da publicação
-do conteúdo aprovado; a versão pública 1.7.0 ainda não foi alterada.
+A explicação da FAQ foi atualizada junto da integração aprovada na revisão
+1.8.0. Os quatro perfis continuam visíveis na mesma seção de infraestrutura.
 
 Evidências revalidadas em 31/10:
 

@@ -60,6 +60,8 @@
   document.querySelectorAll('.ampliavel').forEach(botao => {
     botao.addEventListener('click', () => {
       const imagem = botao.querySelector('img');
+      // As jornadas têm textos longos: ampliar preserva a largura e permite rolar a captura.
+      visualizador.classList.toggle('visualizador-leitura', botao.classList.contains('print-ampliavel'));
       imagemAmpliada.src = imagem.currentSrc || imagem.src;
       imagemAmpliada.alt = imagem.alt;
       tituloVisualizador.textContent = botao.dataset.titulo;

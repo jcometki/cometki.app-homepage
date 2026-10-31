@@ -3,8 +3,10 @@
 Proposta preparada em 31/10/2026 para a próxima revisão da homepage. O usuário
 pediu mais destaque para confirmações, avaliações, avisos antes e depois do
 serviço, tratamento de atrasos e referências visuais com contexto da conversa.
-O conjunto continua em **prévia**, junto do comparativo e do posicionamento de
-solução completa. Não foi publicado nem alterou a versão pública 1.7.0.
+O conjunto foi aprovado pelo usuário para integração e publicação em 31/10/2026,
+junto do comparativo e do posicionamento de solução completa. A revisão 1.8.0
+incorpora o conteúdo à homepage; o estado da implantação fica em
+[publicacao.md](publicacao.md).
 
 ## Mensagem e organização
 
@@ -65,10 +67,13 @@ assistente, conversas, automações, agendamento, atendimento, fotos e notifica�
 Pasta de entrega local:
 `outputs/luna-jornadas-previa-20261031` no workspace deste chat.
 
-O HTML, CSS e JS permanecem independentes da homepage publicada. A origem dos
+O HTML, CSS e JS da prévia ficam preservados como referência. A origem dos
 arquivos e as instruções de captura estão em [capturas.md](capturas.md); a pasta
 da prévia contém `PROCEDENCIA.md`, o prompt da referência e o relatório de QA.
 
-Antes de publicar, incorporar o conteúdo aprovado ao layout principal, revalidar
-o catálogo no commit vigente e seguir o fluxo existente de CI/imagem/GitOps.
-Não incluir ambiente de demonstração, dados de sessão ou credenciais no pacote.
+A integração mantém a abertura com IA/WhatsApp, campanhas, ajuda, os quatro
+perfis de acesso e os botões dinâmicos de teste/WhatsApp. Os novos estilos ficam
+em `assets/css/comercial.css`, limitados ao contêiner `.lancamento`. A ampliação
+usa o diálogo existente, com largura confortável e rolagem para os prints longos.
+O pacote contém somente os quatro PNGs; ambiente de demonstração, dados de
+sessão e credenciais não fazem parte da imagem Nginx.
