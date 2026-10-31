@@ -32,6 +32,8 @@ O servidor Python serve todo o diretório e deve ser usado somente em desenvolvi
 - docs/capturas.md: origem e atualização das telas.
 - docs/atualizacao-comercial-1.1.md: seleção dos novos recursos e decisões de leitura e autonomia.
 - docs/seguranca-comercial.md: afirmações de infraestrutura e os quatro perfis de acesso.
+- docs/ajuda-e-suporte-comercial.md: manual integrado, IA de ajuda e suporte incluídos para todo salão.
+- docs/comparativo-comercial.md: proposta de posicionamento e comparação com fontes oficiais.
 
 ## Conteúdo e contato
 

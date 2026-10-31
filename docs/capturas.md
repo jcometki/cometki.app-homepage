@@ -24,6 +24,18 @@ Nomes, agendamentos, pagamentos e mensagens são demonstrações. A conversa com
 
 ## Atualizar
 
+A seção Ajuda, incluída em 31/10/2026, usa `manual-agenda-eleve.png`, cópia
+integral de `luna/docs/suporte/imagens/agenda.novo-agendamento.celular.1.png`
+do commit `ffc136d3360da25ccdee9294baeb99dacc515dc7`. A imagem tem 824 × 1678 px
+e foi produzida pelo fluxo de prints do manual do próprio aplicativo. O preparo
+em `tests/prints/preparar.ts` usa tema Élevé e dados fictícios; a legenda e o
+destino estão em `docs/suporte/imagens/imagens.json`.
+
+A homepage mostra um recorte por CSS e abre a imagem completa ao ampliar.
+Ela é identificada como **print do manual**, não como captura da janela de
+ajuda ou de uma resposta real da IA. O destaque do botão + pertence à imagem
+original do guia. Nenhum print foi redesenhado, e nenhum dado real foi acessado.
+
 1. Criar banco local descartável e aplicar as migrations do aplicativo.
 2. Usar o seed de demonstração, nunca banco ou dados de produção.
 3. Ativar o tema Élevé na configuração da empresa.

@@ -397,6 +397,42 @@ figcaption{font-size:12px}
   .abertura-notas{font-size:10px}.novidade-hero{font-size:11px}.etiqueta{font-size:10px}
 }
 
+/* Ajuda integrada: orientação em três caminhos e um print autêntico do manual. */
+.ajuda{background:#493d32;border-top:1px solid var(--borda)}
+.ajuda-grade{display:grid;grid-template-columns:1.15fr 1fr;gap:70px;align-items:center}
+.ajuda h2{margin-top:22px;font-size:clamp(47px,4.3vw,62px)}
+.ajuda .sobretitulo{flex-wrap:wrap;letter-spacing:1.4px}
+.ajuda .texto-secao{margin-top:24px;max-width:540px;font-size:17px;line-height:1.8}
+.ajuda-caminhos{list-style:none;padding:0;margin:34px 0 0;display:grid;gap:25px}
+.ajuda-caminhos>li{display:flex;align-items:start;gap:17px}
+.ajuda-caminhos>li>span{color:var(--ouro);font:italic 26px/1.3 var(--editorial)}
+.ajuda-caminhos h3{font-size:19px;font-weight:600;line-height:1.4;letter-spacing:-.2px}
+.ajuda-caminhos p{font-size:15px;line-height:1.8;color:var(--suave);margin-top:7px}
+.ajuda-caminhos strong{color:var(--creme)}
+.ajuda-nota{display:flex;gap:10px;align-items:start;margin-top:30px;padding-top:22px;border-top:1px solid var(--borda);color:var(--suave);font-size:13px;line-height:1.8}
+.ajuda-nota .icone{color:var(--ouro);width:18px;height:18px;margin-top:3px}
+.ajuda-print{min-width:0;background:#cbb896;border:1px solid #9e8669;border-radius:14px;padding:30px;color:#342c25}
+.ajuda-guia-titulo{display:flex;align-items:center;gap:15px}
+.ajuda-sinal{display:grid;place-items:center;width:45px;height:45px;flex-shrink:0;border:1px solid #8f7555;border-radius:50%;font:italic 30px var(--editorial)}
+.ajuda-guia-titulo .sobretitulo{color:#594023;font-size:10px;letter-spacing:1.3px}
+.ajuda-guia-titulo h3{font-size:22px;line-height:1.4;margin-top:5px;letter-spacing:-.3px}
+.ajuda-guia-passo{display:flex;align-items:center;gap:6px;margin-block:24px 18px;font-size:14px;line-height:1.7}
+.ajuda-guia-passo>span{margin-right:6px;font:italic 23px var(--editorial);color:#594023}
+.ajuda-print .ampliavel{display:block;width:100%;aspect-ratio:1/1;border-radius:9px;overflow:hidden;background:#121010;box-shadow:0 10px 25px #342c2520}
+.ajuda-print .ampliavel img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ajuda-print .ampliar{color:#fff4e3}
+.ajuda-print figcaption{font-size:12px;line-height:1.8;color:#534333;margin-top:16px}
+.ajuda-guia-fecho{border-top:1px solid #9e8669;padding-top:20px;margin-top:20px;font-size:15px;line-height:1.8}
+.ajuda-print :focus-visible{outline-color:#342c25}
+@media(min-width:701px) and (max-width:1100px){.cabecalho-contato{display:none}}
+@media(max-width:1000px){.ajuda-grade{gap:35px}.ajuda-print{padding:24px}.ajuda-guia-titulo{gap:10px}.ajuda-guia-titulo h3{font-size:20px}.ajuda-guia-titulo .sobretitulo{letter-spacing:.7px}.ajuda-guia-passo{display:block}.ajuda-guia-passo>span{margin-right:8px}}
+@media(max-width:700px){
+  .ajuda-grade{grid-template-columns:1fr;gap:34px}.ajuda h2{font-size:49px}.ajuda h2 br{display:none}.ajuda .sobretitulo{font-size:10px;letter-spacing:.8px;gap:9px}
+  .ajuda .texto-secao{font-size:16px;margin-top:22px}.ajuda-caminhos{gap:25px;margin-top:28px}.ajuda-caminhos>li{gap:14px}.ajuda-caminhos h3{font-size:18px}.ajuda-caminhos p{font-size:15px}
+  .ajuda-nota{margin-top:27px;font-size:13px}.ajuda-print{padding:23px 20px;max-width:440px;width:100%;margin-inline:auto}.ajuda-guia-titulo .sobretitulo{font-size:9px;letter-spacing:.8px}.ajuda-guia-titulo h3{font-size:21px}.ajuda-sinal{width:39px;height:39px;font-size:27px}
+  .ajuda-guia-passo{margin-top:21px;font-size:14px}.ajuda-print figcaption{font-size:12px}.ajuda-guia-fecho{font-size:15px}
+}
+
 /* Confiança e permissões: benefícios concretos, com leitura confortável no celular. */
 .abertura-confianca{display:inline-flex;align-items:center;gap:12px;margin-top:25px;padding:14px 16px;border:1px solid var(--borda);border-radius:8px;background:#493b2f80;text-align:left;max-width:100%}
 .abertura-confianca>.icone{color:var(--ouro);width:22px;height:22px}.abertura-confianca strong{display:block;font-size:12px;font-weight:500;line-height:1.6}.abertura-confianca small{display:block;font-size:11px;line-height:1.6;color:var(--suave);margin-top:3px}.abertura-confianca>span:last-child{color:var(--ouro);margin-left:6px}.abertura-confianca:hover{border-color:var(--ouro)}
