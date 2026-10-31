@@ -135,7 +135,17 @@
       encerrado: { titulo: 'Este teste foi encerrado', texto: 'Fale com nossa equipe para saber como continuar.', etiqueta: 'Seu teste', icone: 'aviso' }
     };
     const etapa = Object.hasOwn(textos, p.estado) ? p.estado : 'falhou';
-    const texto = textos[etapa]; $('estado-titulo').textContent = texto.titulo; descrever($('estado-texto'), texto.texto); apresentarEtapa(etapa, texto);
+    const texto = textos[etapa]; $('estado-titulo').textContent = texto.titulo; descrever($('estado-texto'), texto.texto);
+    const email = typeof p.email === 'string' ? p.email : $('email').value.trim();
+    if (etapa === 'aguardando_verificacao' && email) {
+      const destino = document.createElement('strong'); destino.textContent = email;
+      $('estado-texto').replaceChildren(
+        document.createTextNode(p.emailConfirmacao === 'enviado' ? 'Enviamos um link para ' : 'Você receberá um link em '),
+        destino,
+        document.createTextNode('. Abra esse e-mail para confirmar o cadastro e começar seu teste da LUNA.')
+      );
+    }
+    apresentarEtapa(etapa, texto);
     if (['aguardando_verificacao', 'expirado'].includes(p.estado) && configuracao.habilitado) { $('reenviar').hidden = false; seguranca(true); }
     if (p.emailConfirmacao === 'erro' || p.emailConfirmacao === 'incerto') mostrarMensagem('O envio da confirmação teve uma falha. Você pode solicitar outro e-mail.', true);
     if (['pronto', 'restrito'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.cometki\.app$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }

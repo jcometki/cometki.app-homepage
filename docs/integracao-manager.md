@@ -34,6 +34,12 @@ envio, a página muda para um cartão compacto, com uma única mensagem principa
 - **Confira seu e-mail.** O pedido foi recebido e o link ainda precisa ser usado.
   A página só informa envio concluído quando a API confirma o envio; mantém
   reenvio com Turnstile e o aviso de validade do link.
+  O endereço de destino aparece em destaque, devolvido pelo Manager no campo
+  `email` na criação e no acompanhamento autenticado de pedidos ainda não
+  confirmados. Recarregar a página preserva a informação pelo cookie existente;
+  o e-mail não é guardado no armazenamento do navegador. O conteúdo é inserido
+  como texto, nunca HTML. Com uma API anterior, o primeiro envio ainda pode usar
+  o endereço do próprio formulário, sem bloquear o restante do fluxo.
 - **Vamos criar sua LUNA?** Ao abrir o link, mostra o botão **Criar meu salão**.
   O clique mantém o POST de confirmação existente; a simples abertura continua
   sem confirmar ou criar o ambiente.
