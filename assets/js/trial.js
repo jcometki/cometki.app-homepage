@@ -56,13 +56,16 @@
   const identificador = $('identificador'), estadoEndereco = $('endereco-estado');
   // Compatibilidade durante a publicação: o backend informa o domínio vigente.
   let dominioClientes = 'cometki.app';
+  let sufixoEndereco = '-luna.cometki.app';
   let nomesReservados = new Set();
-  const enderecoDoTrial = base => base + '-luna.' + dominioClientes;
-  const usarDominio = dominio => {
+  const enderecoDoTrial = base => base + sufixoEndereco;
+  const usarDominio = (dominio, sufixo = '-luna.' + dominio) => {
     if (!['meuluna.com', 'cometki.app'].includes(dominio)) return;
+    if (![dominio === 'meuluna.com' ? '.meuluna.com' : '-luna.cometki.app', '-luna.' + dominio].includes(sufixo)) return;
     dominioClientes = dominio;
-    const sufixo = $('dominio-endereco') || document.querySelector('.entrada-endereco span');
-    if (sufixo) sufixo.textContent = '-luna.' + dominioClientes;
+    sufixoEndereco = sufixo;
+    const campoSufixo = $('dominio-endereco') || document.querySelector('.entrada-endereco span');
+    if (campoSufixo) campoSufixo.textContent = sufixoEndereco;
   };
 
   const formatoEndereco = /^[a-z0-9][a-z0-9-]{0,46}[a-z0-9]$/;
@@ -89,9 +92,9 @@
     try {
       const p = await api('/endereco?identificador=' + encodeURIComponent(base), undefined, controle);
       if (revisao !== revisaoEndereco || base !== identificador.value) return false;
-      const dominioResposta = ['meuluna.com', 'cometki.app'].find(d => p.endereco === base + '-luna.' + d);
+      const dominioResposta = [{ dominio: 'meuluna.com', sufixo: '.meuluna.com' }, { dominio: 'meuluna.com', sufixo: '-luna.meuluna.com' }, { dominio: 'cometki.app', sufixo: '-luna.cometki.app' }].find(d => p.endereco === base + d.sufixo);
       if (p.identificador !== base || !dominioResposta) throw new Error('Resposta diferente do endereço escolhido');
-      usarDominio(dominioResposta);
+      usarDominio(dominioResposta.dominio, dominioResposta.sufixo);
       $('endereco-previa').textContent = p.endereco;
       if (p.disponivel === true) { enderecoDisponivel = base; indicarEndereco('Disponível', 'disponivel'); atualizarBotaoCadastro(); return true; }
       indicarEndereco('Esse endereço já está em uso. Escolha outra opção.', 'ocupado'); identificador.setAttribute('aria-invalid', 'true');
@@ -217,7 +220,7 @@
     if (confirmacao) mostrarConfirmacao();
     try {
       configuracao = await api('/configuracao');
-      usarDominio(configuracao.dominioClientes || 'cometki.app');
+      usarDominio(configuracao.dominioClientes || 'cometki.app', configuracao.sufixoEndereco);
       nomesReservados = new Set(Array.isArray(configuracao.identificadoresReservados) ? configuracao.identificadoresReservados.filter(n => typeof n === 'string') : []);
       if (confirmacao) mostrarConfirmacao();
       else if (temPedido()) await acompanhar();

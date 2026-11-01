@@ -6,6 +6,7 @@ const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE || 'playwrigh
 const raiz = path.resolve(__dirname, '..');
 const hostPublico = process.env.LUNA_TRIAL_HOST || 'luna.cometki.app';
 const dominioClientes = process.env.LUNA_TRIAL_DOMINIO || 'meuluna.com';
+const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'cometki.app' ? '-luna.cometki.app' : '.meuluna.com');
 
 (async () => {
   for (const [nome, motor] of Object.entries({ chromium, webkit })) {
@@ -25,11 +26,11 @@ const dominioClientes = process.env.LUNA_TRIAL_DOMINIO || 'meuluna.com';
         assert.equal(u.hostname, hostPublico);
         if (u.pathname.startsWith('/api/trials')) {
           let payload = {}, status = 200;
-          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', dominioClientes, identificadoresReservados: ['www', 'db', 'gerencia'], versaoTermos: 'trial-2026-10-28' };
+          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', dominioClientes, sufixoEndereco, identificadoresReservados: ['www', 'db', 'gerencia'], versaoTermos: 'trial-2026-10-28' };
           else if (u.pathname.endsWith('/endereco')) {
             const base = u.searchParams.get('identificador'); consultas.push(base);
             if (base === 'antigo') await new Promise(r => setTimeout(r, 1100));
-            payload = { identificador: base, endereco: base + '-luna.' + dominioClientes, disponivel: !ocupados.has(base), sugestoes: ocupados.has(base) ? [2, 3, 4].map(n => ({ identificador: base + '-' + n, endereco: base + '-' + n + '-luna.' + dominioClientes })) : [] };
+            payload = { identificador: base, endereco: base + sufixoEndereco, disponivel: !ocupados.has(base), sugestoes: ocupados.has(base) ? [2, 3, 4].map(n => ({ identificador: base + '-' + n, endereco: base + '-' + n + sufixoEndereco })) : [] };
           }
           else if (r.method() === 'POST') {
             envios.push({ caminho: u.pathname, dados: r.postDataJSON() });
