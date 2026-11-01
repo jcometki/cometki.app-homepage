@@ -17,7 +17,7 @@ HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 O cliente conecta seu WhatsApp na própria LUNA; o Manager cria uma instância
 desconectada. Duração, versão, IA, credenciais e domínio são definidos no servidor.
 O endereço sugerido deriva do nome, com parte inicial editável e final fixo
-`-luna.meuluna.com`. A consulta acontece 500 ms depois de parar de digitar e é
+`.meuluna.com`. A consulta acontece 500 ms depois de parar de digitar e é
 cancelada ao alterar novamente o campo. Respostas antigas não podem substituir
 o resultado atual. A escolha manual é preservada ao mudar o nome; sugestões
 numéricas são exibidas quando há conflito. O envio revalida e reserva por 30
@@ -131,3 +131,8 @@ O frontend orienta a escolha e o backend revalida. A API de endereço responde
 400 com `codigo: endereco_reservado` para esses nomes. O site www.meuluna.com
 redireciona para meuluna.com preservando o caminho; não é uma terceira origem
 da API pública nem exige outro widget Turnstile.
+
+A partir do Manager 0.28.1, o identificador não recebe mais `-luna`.
+A configuração informa `sufixoEndereco: ".meuluna.com"`. A homepage continua
+aceitando as respostas anteriores durante o rollout e os endereços de pedidos
+já iniciados permanecem congelados, inclusive os que contêm `-luna`.
