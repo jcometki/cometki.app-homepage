@@ -4,6 +4,8 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const raiz = path.resolve(__dirname, '..');
+const hostPublico = process.env.LUNA_TRIAL_HOST || 'luna.cometki.app';
+const dominioClientes = process.env.LUNA_TRIAL_DOMINIO || 'meuluna.com';
 
 (async () => {
   for (const [nome, motor] of Object.entries({ chromium, webkit })) {
@@ -20,14 +22,14 @@ const raiz = path.resolve(__dirname, '..');
       await page.route('**/*', async rota => {
         const r = rota.request(), u = new URL(r.url());
         if (u.hostname === 'challenges.cloudflare.com') return rota.fulfill({ contentType: 'application/javascript', body: `window.turnstile={reset:()=>window.lunaTrialToken('token-ficticio')};window.turnstile.render=(el,op)=>{if(op.size!=='compact')throw new Error('Widget deve caber em celular');const bloco=document.createElement('div');bloco.style.width='150px';bloco.style.height='140px';bloco.textContent='Verificação de segurança simulada';document.querySelector(el).append(bloco);window.lunaTrialToken=op.callback;op.callback('token-ficticio');return 'widget';};window.lunaTrialTurnstilePronto();` });
-        assert.equal(u.hostname, 'luna.cometki.app');
+        assert.equal(u.hostname, hostPublico);
         if (u.pathname.startsWith('/api/trials')) {
           let payload = {}, status = 200;
-          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', versaoTermos: 'trial-2026-10-28' };
+          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', dominioClientes, identificadoresReservados: ['www', 'db', 'gerencia'], versaoTermos: 'trial-2026-10-28' };
           else if (u.pathname.endsWith('/endereco')) {
             const base = u.searchParams.get('identificador'); consultas.push(base);
             if (base === 'antigo') await new Promise(r => setTimeout(r, 1100));
-            payload = { identificador: base, endereco: base + '-luna.cometki.app', disponivel: !ocupados.has(base), sugestoes: ocupados.has(base) ? [2, 3, 4].map(n => ({ identificador: base + '-' + n, endereco: base + '-' + n + '-luna.cometki.app' })) : [] };
+            payload = { identificador: base, endereco: base + '-luna.' + dominioClientes, disponivel: !ocupados.has(base), sugestoes: ocupados.has(base) ? [2, 3, 4].map(n => ({ identificador: base + '-' + n, endereco: base + '-' + n + '-luna.' + dominioClientes })) : [] };
           }
           else if (r.method() === 'POST') {
             envios.push({ caminho: u.pathname, dados: r.postDataJSON() });
@@ -65,7 +67,7 @@ const raiz = path.resolve(__dirname, '..');
         }
         await page.emulateMedia({ colorScheme: 'light' });
       };
-      await page.goto('https://luna.cometki.app/experimentar');
+      await page.goto('https://' + hostPublico + '/experimentar');
       await page.locator('#form-trial').waitFor({ state: 'visible' });
       await page.waitForFunction(() => Boolean(window.turnstile));
       for (const largura of [320, 390, 768, 1440]) {
@@ -98,6 +100,12 @@ const raiz = path.resolve(__dirname, '..');
       await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'erro');
       assert.equal(consultas.length, antesInvalidos, 'Enviou endereço inválido à API');
       assert.equal(await page.locator('#solicitar').isDisabled(), true);
+      for (const reservado of ['www', 'db', 'gerencia', 'www-luna']) {
+        await page.locator('#identificador').fill(reservado);
+        await page.waitForFunction(() => document.querySelector('#endereco-estado').textContent.includes('reservado'));
+        assert.equal(await page.locator('#solicitar').isDisabled(), true);
+      }
+      assert.equal(consultas.length, antesInvalidos, 'Consultou nome reservado conhecido');
       await page.locator('#identificador').fill('studio-aurora-2');
       await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
       await page.locator('#email').fill('pessoa@example.com');
@@ -135,7 +143,7 @@ const raiz = path.resolve(__dirname, '..');
       assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
       assert.equal(envios[0].dados.identificador, 'studio-aurora-2');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0);
-      await page.goto('https://luna.cometki.app/experimentar#confirmar=token-ficticio');
+      await page.goto('https://' + hostPublico + '/experimentar#confirmar=token-ficticio');
       await page.locator('#confirmar').waitFor({ state: 'visible' });
       await conferirEtapa('confirmacao', 'Vamos criar sua LUNA?');
       assert.equal(await page.locator('#confirmar').innerText(), 'Criar meu salão');
@@ -170,14 +178,14 @@ const raiz = path.resolve(__dirname, '..');
         assert.equal(await page.locator('#progresso-trial').isVisible(), false);
       }
       expirado = true;
-      await page.goto('https://luna.cometki.app/experimentar#confirmar=token-expirado');
+      await page.goto('https://' + hostPublico + '/experimentar#confirmar=token-expirado');
       await page.locator('#confirmar').click();
       await page.locator('#form-trial').waitFor({ state: 'visible' });
       assert.equal(await page.locator('body').getAttribute('data-etapa'), 'cadastro', 'Link expirado não voltou ao formulário');
       // Um HTML anterior pode buscar o JS novo pelo fallback durante o rollout.
       paginaAntiga = true; expirado = false;
       const confirmacoesAntes = envios.filter(e => e.caminho.endsWith('/confirmar')).length;
-      await page.goto('https://luna.cometki.app/experimentar#confirmar=token-legado');
+      await page.goto('https://' + hostPublico + '/experimentar#confirmar=token-legado');
       await page.locator('#confirmar').waitFor({ state: 'visible' });
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, confirmacoesAntes);
       await page.locator('#confirmar').click();
@@ -187,7 +195,7 @@ const raiz = path.resolve(__dirname, '..');
       paginaAntiga = false;
       aberto = false;
       await page.evaluate(() => sessionStorage.clear());
-      await page.goto('https://luna.cometki.app/experimentar');
+      await page.goto('https://' + hostPublico + '/experimentar');
       assert.ok(await page.locator('#resumo-trial').innerText().then(t => t.includes('pausadas')));
       assert.equal(await page.locator('#form-trial').isVisible(), false);
       assert.deepEqual(erros, []);

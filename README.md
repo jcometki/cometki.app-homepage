@@ -54,7 +54,7 @@ do Manager. O [contrato de integração](docs/integracao-manager.md) detalha o f
 
 ## Publicação
 
-Domínio definitivo: **https://luna.cometki.app/**. A URL canônica, og:url e
+Domínio principal: **https://meuluna.com/**. A homepage também continua disponível em **https://luna.cometki.app/**. **www.meuluna.com** redireciona para o domínio principal, preservando caminho e parâmetros pelo Traefik. A URL canônica, og:url e
 og:image já usam esse endereço. O domínio raiz cometki.app permanece livre
 para outro serviço; não há alias www.luna.cometki.app neste deploy.
 

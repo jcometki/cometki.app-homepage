@@ -29,7 +29,7 @@ class TrialPublico(unittest.TestCase):
         self.assertEqual({c['name'] for c in p.campos if 'name' in c}, {'nome', 'email', 'identificador'})
         campo = next(c for c in p.campos if c.get('name') == 'identificador')
         self.assertEqual(campo['maxlength'], '48')
-        self.assertIn('-luna.cometki.app', (RAIZ / 'experimentar/index.html').read_text())
+        self.assertIn('-luna.meuluna.com', (RAIZ / 'experimentar/index.html').read_text())
         self.assertEqual(len([c for c in p.campos if c.get('type') == 'checkbox']), 1)
         script = (RAIZ / 'assets/js/trial.js').read_text()
         self.assertIn("history.replaceState(null, '', location.pathname)", script)
