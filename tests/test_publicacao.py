@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLICA = 'https://luna.cometki.app/'
+PUBLICA = 'https://meuluna.com/'
 BASE_URL = os.environ.get('BASE_URL', '').rstrip('/')
 
 
@@ -71,7 +71,7 @@ class ConteudoPublico(unittest.TestCase):
             self.assertIn('noopener', contato.get('rel', ''))
         configuracao = (ROOT / 'assets/js/configuracao.js').read_text()
         self.assertRegex(configuracao, r"whatsapp:\s*'5567992938193'")
-        self.assertRegex(configuracao, r"urlTrial:\s*'https://luna.cometki.app/experimentar'")
+        self.assertRegex(configuracao, r"urlTrial:\s*'https://meuluna.com/experimentar'")
         self.assertIn('dados?.habilitado', (ROOT / 'assets/js/site.js').read_text())
 
     def test_nao_depende_de_cdn_ou_manager(self):
@@ -102,7 +102,7 @@ class EntregaHTTP(unittest.TestCase):
             self.assertEqual(resposta.status, 200)
             html = resposta.read().decode()
             self.assertIn('<title>LUNA', html)
-            self.assertIn('https://luna.cometki.app/', html)
+            self.assertIn('https://meuluna.com/', html)
             self.assertIn('Cada visita, <br>uma história.', html)
             self.assertIn('Clareza para <br>decidir melhor.', html)
         with self.obter('/saude') as resposta:

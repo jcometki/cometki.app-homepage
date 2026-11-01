@@ -54,6 +54,17 @@
     } finally { clearTimeout(fim); }
   };
   const identificador = $('identificador'), estadoEndereco = $('endereco-estado');
+  // Compatibilidade durante a publicação: o backend informa o domínio vigente.
+  let dominioClientes = 'cometki.app';
+  let nomesReservados = new Set();
+  const enderecoDoTrial = base => base + '-luna.' + dominioClientes;
+  const usarDominio = dominio => {
+    if (!['meuluna.com', 'cometki.app'].includes(dominio)) return;
+    dominioClientes = dominio;
+    const sufixo = $('dominio-endereco') || document.querySelector('.entrada-endereco span');
+    if (sufixo) sufixo.textContent = '-luna.' + dominioClientes;
+  };
+
   const formatoEndereco = /^[a-z0-9][a-z0-9-]{0,46}[a-z0-9]$/;
   let enderecoEditado = false, enderecoDisponivel = '', consultaEndereco, atrasoEndereco, revisaoEndereco = 0, enviando = false;
   const atualizarBotaoCadastro = () => { $('solicitar').disabled = enviando || Boolean(identificador && (enderecoDisponivel !== identificador.value || !enderecoDisponivel)); };
@@ -64,28 +75,36 @@
     const revisao = ++revisaoEndereco, base = identificador.value;
     enderecoDisponivel = ''; atualizarBotaoCadastro();
     $('endereco-sugestoes').replaceChildren(); $('endereco-sugestoes').hidden = true; $('tentar-endereco').hidden = true;
-    $('endereco-previa').textContent = base ? base + '-luna.cometki.app' : 'Escolha como as pessoas vão encontrar seu salão.';
+    $('endereco-previa').textContent = base ? enderecoDoTrial(base) : 'Escolha como as pessoas vão encontrar seu salão.';
     if (!formatoEndereco.test(base)) {
       indicarEndereco(base ? 'Use de 2 a 48 letras, números ou hífens, começando e terminando com letra ou número.' : '', base ? 'erro' : '');
       identificador.setAttribute('aria-invalid', base ? 'true' : 'false'); return false;
+    }
+    if (nomesReservados.has(base.replace(/-luna$/, ''))) {
+      indicarEndereco('Esse nome é reservado. Escolha outro para o seu salão.', 'erro');
+      identificador.setAttribute('aria-invalid', 'true'); return false;
     }
     indicarEndereco('Verificando…'); identificador.setAttribute('aria-invalid', 'false');
     const controle = consultaEndereco = new AbortController();
     try {
       const p = await api('/endereco?identificador=' + encodeURIComponent(base), undefined, controle);
       if (revisao !== revisaoEndereco || base !== identificador.value) return false;
-      if (p.identificador !== base || p.endereco !== base + '-luna.cometki.app') throw new Error('Resposta diferente do endereço escolhido');
+      const dominioResposta = ['meuluna.com', 'cometki.app'].find(d => p.endereco === base + '-luna.' + d);
+      if (p.identificador !== base || !dominioResposta) throw new Error('Resposta diferente do endereço escolhido');
+      usarDominio(dominioResposta);
+      $('endereco-previa').textContent = p.endereco;
       if (p.disponivel === true) { enderecoDisponivel = base; indicarEndereco('Disponível', 'disponivel'); atualizarBotaoCadastro(); return true; }
       indicarEndereco('Esse endereço já está em uso. Escolha outra opção.', 'ocupado'); identificador.setAttribute('aria-invalid', 'true');
       for (const opcao of Array.isArray(p.sugestoes) ? p.sugestoes.slice(0, 3) : []) {
-        if (!formatoEndereco.test(opcao.identificador) || opcao.endereco !== opcao.identificador + '-luna.cometki.app') continue;
+        if (!formatoEndereco.test(opcao.identificador) || opcao.endereco !== enderecoDoTrial(opcao.identificador)) continue;
         const botao = document.createElement('button'); botao.type = 'button'; botao.textContent = opcao.endereco;
         botao.addEventListener('click', () => { enderecoEditado = true; identificador.value = opcao.identificador; verificarEndereco(); identificador.focus(); });
         $('endereco-sugestoes').append(botao);
       }
       $('endereco-sugestoes').hidden = !$('endereco-sugestoes').childElementCount;
-    } catch {
+    } catch (erro) {
       if (revisao !== revisaoEndereco || base !== identificador.value) return false;
+      if (erro.codigo === 'endereco_reservado') { indicarEndereco(erro.message, 'erro'); identificador.setAttribute('aria-invalid', 'true'); return false; }
       indicarEndereco('Não conseguimos verificar agora. Tente novamente.', 'erro'); $('tentar-endereco').hidden = false;
     }
     return false;
@@ -94,7 +113,7 @@
     clearTimeout(atrasoEndereco); consultaEndereco?.abort(); ++revisaoEndereco;
     enderecoDisponivel = ''; atualizarBotaoCadastro();
     $('endereco-sugestoes').replaceChildren(); $('endereco-sugestoes').hidden = true; $('tentar-endereco').hidden = true;
-    $('endereco-previa').textContent = identificador.value ? identificador.value + '-luna.cometki.app' : 'Escolha como as pessoas vão encontrar seu salão.';
+    $('endereco-previa').textContent = identificador.value ? enderecoDoTrial(identificador.value) : 'Escolha como as pessoas vão encontrar seu salão.';
     indicarEndereco(identificador.value ? 'Verificando…' : '');
     atrasoEndereco = setTimeout(verificarEndereco, 500);
   };
@@ -148,7 +167,7 @@
     apresentarEtapa(etapa, texto);
     if (['aguardando_verificacao', 'expirado'].includes(p.estado) && configuracao.habilitado) { $('reenviar').hidden = false; seguranca(true); }
     if (p.emailConfirmacao === 'erro' || p.emailConfirmacao === 'incerto') mostrarMensagem('O envio da confirmação teve uma falha. Você pode solicitar outro e-mail.', true);
-    if (['pronto', 'restrito'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.cometki\.app$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
+    if (['pronto', 'restrito'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.(?:cometki\.app|meuluna\.com)$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
     clearTimeout(consulta);
     if (['aguardando_verificacao', 'provisionando'].includes(p.estado)) consulta = setTimeout(acompanhar, 15000);
   };
@@ -198,6 +217,8 @@
     if (confirmacao) mostrarConfirmacao();
     try {
       configuracao = await api('/configuracao');
+      usarDominio(configuracao.dominioClientes || 'cometki.app');
+      nomesReservados = new Set(Array.isArray(configuracao.identificadoresReservados) ? configuracao.identificadoresReservados.filter(n => typeof n === 'string') : []);
       if (confirmacao) mostrarConfirmacao();
       else if (temPedido()) await acompanhar();
       else {

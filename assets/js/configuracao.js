@@ -4,6 +4,6 @@ window.LUNA_CONFIG = Object.freeze({
   mensagem: 'Olá! Quero conhecer a LUNA para o meu salão.',
   // O botão de teste só é ativado após a API confirmar inscrições e vagas abertas.
   // As regras, credenciais e o provisionamento permanecem no servidor.
-  urlTrial: 'https://luna.cometki.app/experimentar',
+  urlTrial: 'https://meuluna.com/experimentar',
   textoAcao: 'Começar meu teste'
 });

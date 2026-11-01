@@ -27,7 +27,7 @@ async function prepararPaginaLocal(page) {
         page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400) erros.push(r.status() + ' ' + r.url()); });
         assert.equal((await page.goto(base, { waitUntil: 'networkidle' })).status(), 200);
         await page.evaluate(() => document.fonts.ready);
-        assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), 'https://luna.cometki.app/');
+        assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), 'https://meuluna.com/');
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'Rolagem horizontal: ' + largura);
         if (largura <= 700) {
           await page.locator('.abrir-menu').click();

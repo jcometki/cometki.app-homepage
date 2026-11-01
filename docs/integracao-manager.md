@@ -1,6 +1,6 @@
 # Cadastro público de trials
 
-O cadastro fica em https://luna.cometki.app/experimentar. A homepage permanece
+O cadastro principal fica em https://meuluna.com/experimentar; https://luna.cometki.app/experimentar permanece como alternativa. A homepage permanece
 HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 é a API pública do LUNA Manager 0.15.0, em porta distinta do painel administrativo.
 
@@ -17,7 +17,7 @@ HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 O cliente conecta seu WhatsApp na própria LUNA; o Manager cria uma instância
 desconectada. Duração, versão, IA, credenciais e domínio são definidos no servidor.
 O endereço sugerido deriva do nome, com parte inicial editável e final fixo
-`-luna.cometki.app`. A consulta acontece 500 ms depois de parar de digitar e é
+`-luna.meuluna.com`. A consulta acontece 500 ms depois de parar de digitar e é
 cancelada ao alterar novamente o campo. Respostas antigas não podem substituir
 o resultado atual. A escolha manual é preservada ao mudar o nome; sugestões
 numéricas são exibidas quando há conflito. O envio revalida e reserva por 30
@@ -72,7 +72,7 @@ preservam as condições registradas.
 
 ## Contrato HTTP
 
-Somente seis caminhos exatos do host luna.cometki.app chegam à porta pública:
+Somente seis caminhos exatos dos hosts meuluna.com e luna.cometki.app chegam à porta pública:
 
 - GET /api/trials/configuracao: disponibilidade, duração, revisão e Site Key pública.
 - GET /api/trials/endereco?identificador=studio: disponibilidade e até três
@@ -86,7 +86,7 @@ Somente seis caminhos exatos do host luna.cometki.app chegam à porta pública:
 - GET /api/trials/estado: estado limitado ao cookie do pedido, sem códigos,
   credenciais ou mensagens técnicas da infraestrutura.
 
-POST exige JSON e Origin https://luna.cometki.app, com corpo de até 4 KiB.
+POST exige JSON e Origin HTTPS igual ao host acessado (meuluna.com ou luna.cometki.app), com corpo de até 4 KiB.
 Não existe CORS aberto. As respostas não permitem cache. O cookie é Secure,
 HttpOnly e SameSite. Nenhum token administrativo do Manager vai para o frontend.
 O Nginx local continua devolvendo 404 para /api/: as exceções exatas são do
@@ -95,7 +95,7 @@ Traefik na produção. Nunca encaminhar /api/ inteiro ao Manager.
 ## Ativação e proteção
 
 Em **Manager → Trials públicos**, salvar as chaves do Turnstile para o hostname
-luna.cometki.app, Managed e sem pre-clearance. Salvar sem abrir inscrições,
+meuluna.com e luna.cometki.app, Managed e sem pre-clearance. Salvar sem abrir inscrições,
 validar o widget e um cadastro controlado e só depois divulgar. A API valida o
 token, o hostname e a action luna_trial na Cloudflare.
 
@@ -121,3 +121,13 @@ das rotas. tests/validar-trial.cjs usa Chromium e WebKit headless com provedores
 simulados, sem e-mails ou infraestrutura reais, em telas de 320 a 1440 px.
 Os testes do Manager cobrem confirmação, reservas concorrentes, expiração,
 limites, isolamento das rotas e estado sem segredos.
+
+O backend devolve `dominioClientes` na configuração. Durante a publicação, a
+homepage aceita meuluna.com e cometki.app, exibe o endereço exato retornado
+pela consulta e mantém a confirmação de pedidos antigos em seu domínio original.
+
+Nomes reservados são informados em `identificadoresReservados` na configuração.
+O frontend orienta a escolha e o backend revalida. A API de endereço responde
+400 com `codigo: endereco_reservado` para esses nomes. O site www.meuluna.com
+redireciona para meuluna.com preservando o caminho; não é uma terceira origem
+da API pública nem exige outro widget Turnstile.
