@@ -26,7 +26,7 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
         assert.equal(u.hostname, hostPublico);
         if (u.pathname.startsWith('/api/trials')) {
           let payload = {}, status = 200;
-          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', dominioClientes, sufixoEndereco, identificadoresReservados: ['www', 'db', 'gerencia'], versaoTermos: 'trial-2026-10-28' };
+          if (u.pathname.endsWith('/configuracao')) payload = { habilitado: aberto, disponivel: aberto, dias: 7, revisao: 1, siteKey: 'sitekey-publica-ficticia', dominioClientes, sufixoEndereco, identificadoresReservados: ['www', 'db', 'gerencia'], versaoTermos: 'trial-2026-10-28.2', versaoTermosComPessoa: 'trial-2026-11-02' };
           else if (u.pathname.endsWith('/endereco')) {
             const base = u.searchParams.get('identificador'); consultas.push(base);
             if (base === 'antigo') await new Promise(r => setTimeout(r, 1100));
@@ -35,10 +35,10 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
           else if (r.method() === 'POST') {
             envios.push({ caminho: u.pathname, dados: r.postDataJSON() });
             status = 202;
-            if (u.pathname.endsWith('/confirmar')) { estado = 'provisionando'; if (expirado) { status = 410; payload = { mensagem: 'A confirmação expirou.' }; } }
+            if (u.pathname.endsWith('/confirmar')) { estado = expirado ? 'expirado' : 'provisionando'; if (expirado) { status = 410; payload = { mensagem: 'A confirmação expirou.' }; } }
             else if (u.pathname === '/api/trials' && disputar) { disputar = false; ocupados.add(r.postDataJSON().identificador); status = 409; payload = { codigo: 'endereco_ocupado', mensagem: 'Esse endereço já está em uso. Escolha outra opção.' }; }
             else payload = { mensagem: 'Confira seu e-mail.', estado: 'aguardando_verificacao', email: emailDestino };
-            if (status === 202 && u.pathname.endsWith('/confirmar')) payload = { estado: 'provisionando' };
+            if (status === 202 && u.pathname.endsWith('/confirmar')) payload = { estado: 'provisionando', passo: 'iniciando', desde: new Date().toISOString() };
           } else payload = { estado, endereco: 'https://studio-aurora-ficticio.cometki.app', email: estado === 'aguardando_verificacao' ? emailDestino : undefined, emailConfirmacao };
           return rota.fulfill({ status, contentType: 'application/json', body: JSON.stringify(payload) });
         }
@@ -110,6 +110,8 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
       await page.locator('#identificador').fill('studio-aurora-2');
       await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'disponivel');
       await page.locator('#email').fill('pessoa@example.com');
+      await page.locator('#nomePessoa').fill('Pessoa Exemplo');
+      await page.locator('#whatsapp').fill('(67) 99999-8888');
       await page.locator('#aceite').check();
       await page.locator('#solicitar').click();
       await page.waitForFunction(() => document.querySelector('#endereco-estado').dataset.estado === 'ocupado');
@@ -141,7 +143,7 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
       emailDestino = 'pessoa@example.com';
 
       assert.equal(envios[0].dados.nome, 'Studio Aurora');
-      assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'revisao', 'turnstile', 'versaoTermos']);
+      assert.deepEqual(Object.keys(envios[0].dados).sort(), ['aceiteTermos', 'email', 'identificador', 'nome', 'nomePessoa', 'revisao', 'turnstile', 'versaoTermos', 'whatsapp']);
       assert.equal(envios[0].dados.identificador, 'studio-aurora-2');
       assert.equal(envios.filter(e => e.caminho.endsWith('/confirmar')).length, 0);
       await page.goto('https://' + hostPublico + '/experimentar#confirmar=token-ficticio');
@@ -156,6 +158,8 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
       await page.locator('#confirmar').click();
       await page.locator('#acompanhamento').waitFor({ state: 'visible' });
       await conferirEtapa('provisionando', 'Estamos preparando sua LUNA.');
+      assert.equal(await page.locator('#passos-preparacao [aria-current=step]').innerText(), 'Iniciando sua LUNA');
+      assert.equal(await page.locator('#passos-preparacao li[data-feito=true]').count(), 3);
       assert.equal(await page.locator('#etiqueta-etapa').innerText(), 'E-mail confirmado');
       assert.equal(await page.locator('#detalhe-titulo').innerText(), 'Pode fechar esta página.');
       assert.equal(await page.locator('#progresso-trial [aria-current="step"]').getAttribute('data-passo'), '1');
@@ -181,8 +185,8 @@ const sufixoEndereco = process.env.LUNA_TRIAL_SUFIXO || (dominioClientes === 'co
       expirado = true;
       await page.goto('https://' + hostPublico + '/experimentar#confirmar=token-expirado');
       await page.locator('#confirmar').click();
-      await page.locator('#form-trial').waitFor({ state: 'visible' });
-      assert.equal(await page.locator('body').getAttribute('data-etapa'), 'cadastro', 'Link expirado não voltou ao formulário');
+      await page.waitForFunction(() => document.body.dataset.etapa === 'expirado');
+      assert.equal(await page.locator('#reenviar').isVisible(), true, 'Link expirado não ofereceu reenvio');
       // Um HTML anterior pode buscar o JS novo pelo fallback durante o rollout.
       paginaAntiga = true; expirado = false;
       const confirmacoesAntes = envios.filter(e => e.caminho.endsWith('/confirmar')).length;

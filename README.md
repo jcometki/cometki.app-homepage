@@ -127,3 +127,7 @@ Fornecer `PLAYWRIGHT_MODULE` se a instalação de Playwright estiver fora do
 checkout. Nenhum módulo Node ou teste é incluído na imagem de produção.
 
 Capturas, conteúdo ilustrativo e limites de integração estão documentados em docs/.
+
+### Revisão do cadastro (1.12.0)
+
+Nome e WhatsApp da pessoa, preparação por etapas reais, reenvio de acesso após falha e retomada automática do acompanhamento. Condições acessíveis também durante carregamento/indisponibilidade. Redirecionamento `/experimentar/` permanece relativo, sem expor a porta do container. Veja [o contrato](docs/integracao-manager.md).

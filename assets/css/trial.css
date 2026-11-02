@@ -66,7 +66,8 @@
 .condicoes-trial p { color: var(--trial-suave); line-height: 1.8; font-size: .85rem; margin: 14px 0; }
 .fim-trial { color: var(--trial-suave); font-size: .75rem; }
 /* Depois do cadastro, cada etapa tem uma única mensagem e ação principal. */
-.pagina-trial:not([data-etapa=cadastro]) .convite-trial, .pagina-trial:not([data-etapa=cadastro]) .condicoes-trial { display: none; }
+.pagina-trial:not([data-etapa=cadastro]) .convite-trial { display: none; }
+.pagina-trial:not([data-etapa=cadastro]):not([data-etapa=carregando]) .condicoes-trial:not(:target) { display: none; }
 .pagina-trial:not([data-etapa=cadastro]) .conteudo-trial { display: block; max-width: 520px; padding-top: 24px; }
 .pagina-trial:not([data-etapa=cadastro]) .topo-trial { max-width: 520px; }
 .pagina-trial:not([data-etapa=cadastro]) .fim-trial { max-width: 520px; justify-content: center; padding-top: 8px; }
@@ -79,3 +80,11 @@
 @media(max-width:380px) { .topo-trial, .fim-trial { padding: 22px 18px; } .conteudo-trial { padding-left: 18px; padding-right: 18px; } .cartao-trial, .pagina-trial:not([data-etapa=cadastro]) .cartao-trial { padding: 24px 21px; } .cartao-trial h2 { font-size: 2.2rem; } .cartao-trial p { font-size: .9rem; } }
 
 #estado-texto { overflow-wrap: anywhere; }
+
+.passos-preparacao { list-style: none; padding: 0; margin: 20px 0; font-size: .85rem; color: var(--trial-suave); }
+.passos-preparacao li { padding: 7px 0; display: flex; gap: 10px; align-items: center; }
+.passos-preparacao li::before { content: '○'; }
+.passos-preparacao li[data-feito=true]::before { content: '✓'; }
+.passos-preparacao li[aria-current=step] { color: var(--trial-texto); font-weight: 500; }
+.condicoes-trial:target { scroll-margin-top: 25px; }
+#reenviar-acesso { margin-bottom: 12px; }

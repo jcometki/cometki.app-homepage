@@ -6,7 +6,7 @@ import subprocess
 import tempfile
 import unittest
 from urllib.error import HTTPError
-from urllib.request import urlopen
+from urllib.request import urlopen, build_opener, HTTPRedirectHandler, Request
 
 RAIZ = Path(__file__).resolve().parents[1]
 
@@ -49,6 +49,17 @@ class Empacotamento(unittest.TestCase):
 class CacheHTTP(unittest.TestCase):
     def obter(self, caminho):
         return urlopen(os.environ['BASE_URL'].rstrip('/') + caminho, timeout=15)
+
+    def test_redirecionamento_preserva_https_e_nao_expoe_porta_interna(self):
+        class SemRedirecionar(HTTPRedirectHandler):
+            def redirect_request(self, req, fp, code, msg, headers, newurl):
+                return None
+        r = Request(os.environ['BASE_URL'].rstrip('/') + '/experimentar/', headers={'Host': 'meuluna.com', 'X-Forwarded-Proto': 'https'})
+        with self.assertRaises(HTTPError) as erro:
+            build_opener(SemRedirecionar()).open(r)
+        self.assertEqual(erro.exception.code, 308)
+        self.assertEqual(erro.exception.headers['Location'], '/experimentar')
+        erro.exception.close()
 
     def test_html_configuracao_e_codigo_nao_ficam_presos_no_cache(self):
         for caminho in ['/', '/index.html', '/experimentar', '/assets/js/configuracao.js', '/assets/js/site.js']:

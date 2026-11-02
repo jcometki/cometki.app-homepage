@@ -2,7 +2,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const form = $('form-trial'), status = $('acompanhamento'), mensagem = $('mensagem');
-  let configuracao, widget, desafio = '', confirmacao = '', consulta, reenvio, scriptCarregado = false;
+  let configuracao, widget, desafio = '', confirmacao = '', consulta, reenvio, scriptCarregado = false, falhasConsulta = 0, consultando = false, ultimoEstado = null;
   const mostrarMensagem = (texto, erro = false) => { mensagem.textContent = texto; mensagem.classList.toggle('erro', erro); mensagem.hidden = !texto; };
   const descrever = (elemento, texto) => {
     const destaque = 'espaço exclusivo para o seu salão';
@@ -14,6 +14,7 @@
   };
   const apresentarEtapa = (etapa, detalhes = {}) => {
     document.body.dataset.etapa = etapa;
+    if (location.hash === '#condicoes') requestAnimationFrame(() => $('condicoes').scrollIntoView());
     const acompanhamento = !['cadastro', 'confirmacao', 'carregando'].includes(etapa);
     // Elementos opcionais preservam páginas antigas durante o rollout/cache.
     if ($('apresentacao-trial')) $('apresentacao-trial').hidden = acompanhamento;
@@ -49,7 +50,7 @@
     try {
       const r = await fetch('/api/trials' + rota, { method: dados ? 'POST' : 'GET', credentials: 'same-origin', cache: 'no-store', headers: dados ? { 'Content-Type': 'application/json' } : {}, body: dados ? JSON.stringify(dados) : undefined, signal: controle.signal });
       const p = await r.json().catch(() => ({}));
-      if (!r.ok) throw Object.assign(new Error(p.mensagem || 'Não foi possível concluir agora. Tente novamente ou fale com nossa equipe.'), { status: r.status, codigo: p.codigo });
+      if (!r.ok) throw Object.assign(new Error(p.mensagem || 'Não foi possível concluir agora. Tente novamente ou fale com nossa equipe.'), { status: r.status, codigo: p.codigo, endereco: p.endereco, retryAfter: Number(r.headers.get('Retry-After')) || 0 });
       return p;
     } finally { clearTimeout(fim); }
   };
@@ -145,11 +146,16 @@
   const temPedido = () => { try { return sessionStorage.getItem('luna-trial-pendente') === 'sim'; } catch { return false; } };
   const aguardarReenvio = () => { $('reenviar').disabled = true; clearTimeout(reenvio); reenvio = setTimeout(() => { $('reenviar').disabled = false; }, 60000); };
   const exibirEstado = p => {
+    ultimoEstado = p;
+    if ($('passos-preparacao')) $('passos-preparacao').hidden = true;
+    if ($('tempo-preparacao')) $('tempo-preparacao').hidden = true;
+    if ($('reenviar-acesso')) $('reenviar-acesso').hidden = true;
     form.hidden = true; $('confirmacao').hidden = true; status.hidden = false; $('abrir-luna').hidden = true; $('reenviar').hidden = true; seguranca(false);
     const textos = {
+      verificacao_solicitada: { titulo: 'Confira seu e-mail.', texto: p.mensagem || 'Se já existe um pedido para este e-mail, use o link recebido para continuar. O endereço escolhido no cadastro original foi mantido.', etiqueta: 'Seu cadastro', icone: 'email', passo: 0 },
       aguardando_verificacao: { titulo: 'Confira seu e-mail.', texto: p.emailConfirmacao === 'enviado' ? 'Enviamos um link para você confirmar o cadastro e começar seu teste da LUNA.' : 'Você receberá um link para confirmar o cadastro e começar seu teste da LUNA.', etiqueta: 'Pedido recebido', icone: 'email', passo: 0, detalheTitulo: 'Não encontrou?', detalhe: 'Confira também a caixa de spam. O link de confirmação vale por 30 minutos.' },
       provisionando: { titulo: 'Estamos preparando sua LUNA.', texto: 'Obrigado por confirmar! Estamos criando um espaço exclusivo para o seu salão, com seus dados e configurações.', etiqueta: 'E-mail confirmado', icone: 'check', passo: 1, detalheTitulo: 'Pode fechar esta página.', detalhe: 'Assim que estiver tudo pronto, enviaremos o endereço e o código de configuração inicial por e-mail. Seu teste começa quando sua LUNA estiver pronta.' },
-      pronto: { titulo: 'Sua LUNA está pronta!', texto: 'Agora é com você: configure seu salão, conecte seu WhatsApp e comece a experimentar.', etiqueta: 'Tudo pronto', icone: 'brilho', passo: 2, detalheTitulo: 'Confira seu e-mail.', detalhe: 'Enviamos o endereço da sua LUNA e o código de configuração inicial para você começar.' },
+      pronto: { titulo: 'Sua LUNA está pronta!', texto: 'Agora é com você: configure seu salão, conecte seu WhatsApp e comece a experimentar.', etiqueta: 'Tudo pronto', icone: 'brilho', passo: 2, detalheTitulo: 'Confira seu e-mail.', detalhe: p.emailAcesso === 'dispensado' ? 'Seu acesso já foi configurado. Entre na sua LUNA para continuar.' : 'Enviamos o endereço da sua LUNA e o código de configuração inicial para você começar.' },
       restrito: { titulo: 'Seu teste terminou', texto: 'Você ainda pode consultar seus dados na LUNA. Para continuar usando todos os recursos, converse com nossa equipe.', etiqueta: 'Seu teste', icone: 'aviso' },
       expirado: { titulo: 'Seu link não é mais válido', texto: 'Peça um novo e-mail para continuar.', etiqueta: 'Link expirado', icone: 'email', passo: 0 },
       falhou: { titulo: 'Vamos ajudar você a começar', texto: 'Seu pedido está salvo. Fale com nossa equipe para continuarmos; não precisa fazer outro cadastro.', etiqueta: 'Conte com a gente', icone: 'aviso' },
@@ -170,7 +176,8 @@
     apresentarEtapa(etapa, texto);
     if (['aguardando_verificacao', 'expirado'].includes(p.estado) && configuracao.habilitado) { $('reenviar').hidden = false; seguranca(true); }
     if (p.emailConfirmacao === 'erro' || p.emailConfirmacao === 'incerto') mostrarMensagem('O envio da confirmação teve uma falha. Você pode solicitar outro e-mail.', true);
-    if (['pronto', 'restrito'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.(?:cometki\.app|meuluna\.com)$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
+    if (['pronto', 'restrito', 'provisionando'].includes(p.estado) && /^https:\/\/[a-z0-9-]+\.(?:cometki\.app|meuluna\.com)$/.test(p.endereco || '')) { $('abrir-luna').href = p.endereco; $('abrir-luna').hidden = false; }
+    mostrarPreparacao(p);
     clearTimeout(consulta);
     if (['aguardando_verificacao', 'provisionando'].includes(p.estado)) consulta = setTimeout(acompanhar, 15000);
   };
@@ -181,7 +188,59 @@
     form.hidden = !configuracao.disponivel; seguranca(configuracao.disponivel);
     if (configuracao.disponivel) carregarTurnstile();
   };
-  const acompanhar = async () => { try { exibirEstado(await api('/estado')); } catch (erro) { if (erro.status === 410) { novoFormulario(); mostrarMensagem('O acompanhamento expirou. Confira seu e-mail de acesso ou faça uma nova solicitação.', true); } else mostrarMensagem('Não foi possível atualizar o estado. Seu pedido continua registrado; tente atualizar a página.', true); } };
+  const passos = [
+    ['preparando', 'Preparando o espaço do seu salão'],
+    ['whatsapp', 'Preparando a conexão com o WhatsApp'],
+    ['publicando', 'Criando o endereço da sua LUNA'],
+    ['iniciando', 'Iniciando sua LUNA'],
+    ['enviando_acesso', 'Enviando seu acesso por e-mail']
+  ];
+  const mostrarPreparacao = p => {
+    if (p.estado !== 'provisionando') return;
+    const lista = $('passos-preparacao'), tempo = $('tempo-preparacao');
+    const atual = passos.findIndex(([id]) => id === p.passo);
+    if (lista && atual >= 0) {
+      lista.replaceChildren(); lista.hidden = false;
+      passos.forEach(([, texto], i) => {
+        const item = document.createElement('li'); item.textContent = texto;
+        item.dataset.feito = String(i < atual);
+        if (i === atual) item.setAttribute('aria-current', 'step');
+        lista.append(item);
+      });
+    }
+    if (tempo && Number.isFinite(Date.parse(p.desde))) {
+      const minutos = Math.max(0, Math.floor((Date.now() - Date.parse(p.desde)) / 60000));
+      tempo.textContent = minutos ? `Preparação iniciada há ${minutos} min. Você pode deixar esta página aberta ou voltar depois.` : 'Isso costuma levar alguns minutos. Pode deixar com a gente.';
+      tempo.hidden = false;
+    }
+    if (['erro', 'incerto'].includes(p.emailAcesso)) {
+      mostrarMensagem('Sua LUNA está pronta, mas não conseguimos confirmar o envio do acesso. Você pode pedir outro e-mail.', true);
+      if ($('reenviar-acesso') && configuracao.habilitado) { $('reenviar-acesso').hidden = false; seguranca(true); carregarTurnstile(); }
+    }
+  };
+  const acompanhar = async () => {
+    if (consultando) return;
+    consultando = true; clearTimeout(consulta);
+    try {
+      const p = await api('/estado'); falhasConsulta = 0; mostrarMensagem(''); exibirEstado(p);
+    } catch (erro) {
+      if (erro.status === 410) { novoFormulario(); mostrarMensagem('O acompanhamento expirou. Confira seu e-mail de acesso ou faça uma nova solicitação.', true); }
+      else {
+        const espera = Math.max(Math.min(15 * 2 ** Math.min(falhasConsulta++, 3), 120), Math.min(erro.retryAfter || 0, 300));
+        mostrarMensagem('Seu pedido continua salvo. Estamos tentando atualizar o andamento…');
+        consulta = setTimeout(acompanhar, espera * 1000);
+      }
+    } finally { consultando = false; }
+  };
+  const tratarErro = erro => {
+    if (erro.codigo === 'email_ja_cadastrado') {
+      exibirEstado({ estado: 'verificacao_solicitada', mensagem: 'Este e-mail já tem uma LUNA. Entre no seu salão ou converse com nossa equipe.' });
+      if (/^https:\/\/[a-z0-9-]+\.(?:cometki\.app|meuluna\.com)$/.test(erro.endereco || '')) {
+        $('abrir-luna').href = erro.endereco; $('abrir-luna').textContent = 'Entrar na minha LUNA'; $('abrir-luna').hidden = false;
+      }
+    }
+    mostrarMensagem(erro.message, true);
+  };
   form.addEventListener('submit', async evento => {
     evento.preventDefault(); if (!form.reportValidity()) return;
     if (enviando) return;
@@ -189,22 +248,32 @@
     if (!await verificarEndereco() || escolhido !== identificador?.value) return;
     if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para continuar.', true); return; }
     enviando = true; atualizarBotaoCadastro(); mostrarMensagem('');
-    try { const p = await api('', { nome: $('nome').value.trim(), email: $('email').value.trim(), identificador: escolhido, aceiteTermos: $('aceite').checked, versaoTermos: configuracao.versaoTermos, revisao: configuracao.revisao, turnstile: desafio }); lembrar(); exibirEstado(p); focarEtapa(); aguardarReenvio(); }
-    catch (erro) { mostrarMensagem(erro.message, true); if (erro.codigo === 'endereco_ocupado') await verificarEndereco(); }
+    try { const p = await api('', { nome: $('nome').value.trim(), email: $('email').value.trim(), identificador: escolhido, aceiteTermos: $('aceite').checked, versaoTermos: $('nomePessoa') ? (configuracao.versaoTermosComPessoa || configuracao.versaoTermos) : configuracao.versaoTermos, nomePessoa: $('nomePessoa')?.value.trim() || '', whatsapp: $('whatsapp')?.value.trim() || '', revisao: configuracao.revisao, turnstile: desafio }); if (p.estado !== 'verificacao_solicitada') lembrar(); exibirEstado(p); focarEtapa(); aguardarReenvio(); }
+    catch (erro) { tratarErro(erro); if (erro.codigo === 'endereco_ocupado') await verificarEndereco(); }
     finally { enviando = false; atualizarBotaoCadastro(); limparDesafio(); }
   });
   $('confirmar').addEventListener('click', async () => {
     $('confirmar').disabled = true; $('confirmar').textContent = 'Só um instante…'; mostrarMensagem('');
     try { const p = await api('/confirmar', { token: confirmacao }); lembrar(); confirmacao = ''; exibirEstado(p); focarEtapa(); }
-    catch (erro) { if (erro.status === 410) novoFormulario(); mostrarMensagem(erro.message, true); }
+    catch (erro) { if (erro.status === 410) { lembrar(); await acompanhar(); if (document.body.dataset.etapa === 'expirado') { carregarTurnstile(); } } else tratarErro(erro); }
     finally { $('confirmar').disabled = false; $('confirmar').textContent = 'Criar meu salão'; }
   });
   $('reenviar').addEventListener('click', async () => {
     if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para pedir outro e-mail.', true); return; }
     $('reenviar').disabled = true;
     try { const p = await api('/reenviar', { turnstile: desafio }); mostrarMensagem(p.mensagem); aguardarReenvio(); }
-    catch (erro) { mostrarMensagem(erro.message, true); $('reenviar').disabled = false; }
+    catch (erro) { if (erro.codigo === 'ja_confirmado') await acompanhar(); else tratarErro(erro); $('reenviar').disabled = false; }
     finally { limparDesafio(); }
+  });
+  $('reenviar-acesso')?.addEventListener('click', async () => {
+    if (!desafio) { mostrarMensagem('Conclua a verificação abaixo para pedir seu acesso.', true); return; }
+    $('reenviar-acesso').disabled = true;
+    try { const p = await api('/reenviar-acesso', { turnstile: desafio }); mostrarMensagem(p.mensagem); await acompanhar(); }
+    catch (erro) { tratarErro(erro); }
+    finally { limparDesafio(); $('reenviar-acesso').disabled = false; }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && ['aguardando_verificacao', 'provisionando'].includes(ultimoEstado?.estado)) acompanhar();
   });
   const mostrarConfirmacao = () => {
     clearTimeout(consulta); form.hidden = true; status.hidden = true; $('confirmacao').hidden = false;
@@ -230,7 +299,7 @@
         else if (configuracao.habilitado) mostrarMensagem('As vagas de teste estão ocupadas. Tente mais tarde ou fale com nossa equipe.');
       }
       if (configuracao.habilitado && !confirmacao) carregarTurnstile();
-    } catch { $('resumo-trial').textContent = 'Não foi possível consultar as vagas agora.'; mostrarMensagem('Tente novamente em instantes ou fale com nossa equipe pelo WhatsApp.', true); }
+    } catch { if (!confirmacao) apresentarEtapa('cadastro'); $('resumo-trial').textContent = 'Não foi possível consultar as vagas agora.'; mostrarMensagem('Tente novamente em instantes ou fale com nossa equipe pelo WhatsApp.', true); }
   };
   window.addEventListener('hashchange', () => {
     const token = new URLSearchParams(location.hash.slice(1)).get('confirmar');

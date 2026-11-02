@@ -26,7 +26,7 @@ class TrialPublico(unittest.TestCase):
     def test_nome_email_endereco_e_aceite(self):
         p = Campos()
         p.feed((RAIZ / 'experimentar/index.html').read_text())
-        self.assertEqual({c['name'] for c in p.campos if 'name' in c}, {'nome', 'email', 'identificador'})
+        self.assertEqual({c['name'] for c in p.campos if 'name' in c}, {'nome', 'nomePessoa', 'email', 'whatsapp', 'identificador'})
         campo = next(c for c in p.campos if c.get('name') == 'identificador')
         self.assertEqual(campo['maxlength'], '48')
         self.assertIn('>.meuluna.com<', (RAIZ / 'experimentar/index.html').read_text())
