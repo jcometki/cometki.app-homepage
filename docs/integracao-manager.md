@@ -6,7 +6,7 @@ HTML, CSS e JavaScript, servida pelo Nginx sem build ou credenciais. O backend
 
 ## Experiência
 
-1. Informar nome do salão, e-mail, escolher o endereço e aceitar as condições.
+1. Informar nome do salão, nome da pessoa, e-mail e WhatsApp, escolher o endereço e aceitar as condições.
 2. Resolver o widget Cloudflare Turnstile Managed.
 3. Receber um link de confirmação válido por 30 minutos.
 4. Abrir o link e clicar em **Criar meu salão**. Abrir por GET,
@@ -28,7 +28,7 @@ e a cota são registradas no pedido; o prazo começa com o ambiente pronto.
 
 ### Telas do cadastro — homepage 1.6.0
 
-O formulário inicial permanece com nome, e-mail, endereço e aceite. Depois do
+O formulário inicial inclui nome do salão e da pessoa, e-mail, WhatsApp, endereço e aceite. Depois do
 envio, a página muda para um cartão compacto, com uma única mensagem principal:
 
 - **Confira seu e-mail.** O pedido foi recebido e o link ainda precisa ser usado.
@@ -62,27 +62,24 @@ HTMLs anteriores atendidos pelo fallback de assets durante um rollout.
 Não há mudança de API, regras de provisionamento, inscrição ou configurações dos
 clientes. O painel do Manager e a aplicação LUNA não participam desta publicação.
 
-Ao vencer, a vaga ativa é liberada e a LUNA permanece online com as restrições da
-assinatura por 30 dias. O acompanhamento público retorna `restrito` e mantém o
-link do salão. A retenção tem limite separado e reserva espaço também para os
-trials ativos. Ao terminar, o Manager inicia a remoção protegida por backup.
-As condições atuais usam `trial-2026-10-28.2`; uma página com condições antigas
-precisa ser recarregada antes de enviar um novo pedido. Pedidos anteriores
-preservam as condições registradas.
+Depois do teste e da tolerância, o acesso é encerrado e os dados ficam preservados por 30 dias. A limpeza só libera a vaga depois da conferência de recursos. A condição `restrito` ainda pode aparecer enquanto o ambiente está realmente online; a página não promete acesso durante toda a retenção.
+
+A revisão `trial-2026-11-02` exige `nomePessoa` e `whatsapp`. O Manager é publicado primeiro aceitando a revisão anterior; a homepage nova envia `versaoTermosComPessoa`. Depois de validada, o Manager exige a nova revisão (`TRIAL_CONTATO_OBRIGATORIO=true`). Pedidos anteriores permanecem confirmáveis, sem coleta retroativa.
 
 ## Contrato HTTP
 
-Somente seis caminhos exatos dos hosts meuluna.com e luna.cometki.app chegam à porta pública:
+Somente sete caminhos exatos dos hosts meuluna.com e luna.cometki.app chegam à porta pública:
 
 - GET /api/trials/configuracao: disponibilidade, duração, revisão e Site Key pública.
 - GET /api/trials/endereco?identificador=studio: disponibilidade e até três
   sugestões livres, sem reservar nem devolver dados dos ocupantes.
-- POST /api/trials: nome, email, identificador, aceiteTermos, versaoTermos, revisao e turnstile.
+- POST /api/trials: nome, nomePessoa, email, whatsapp, identificador, aceiteTermos, versaoTermos, revisao e turnstile.
   Retorna 202 e cookie restrito de acompanhamento. A revisão impede cadastrar
   com condições alteradas depois de abrir o formulário.
 - POST /api/trials/confirmar: token assinado recebido no fragmento do link.
   Reserva a vaga, cria o cliente e enfileira a operação em uma única transação.
 - POST /api/trials/reenviar: cookie do pedido e novo token Turnstile.
+- POST /api/trials/reenviar-acesso: cookie próprio confirmado e novo Turnstile; destinatário fixo, só após erro/incerteza de envio.
 - GET /api/trials/estado: estado limitado ao cookie do pedido, sem códigos,
   credenciais ou mensagens técnicas da infraestrutura.
 
@@ -136,3 +133,13 @@ A partir do Manager 0.28.1, o identificador não recebe mais `-luna`.
 A configuração informa `sufixoEndereco: ".meuluna.com"`. A homepage continua
 aceitando as respostas anteriores durante o rollout e os endereços de pedidos
 já iniciados permanecem congelados, inclusive os que contêm `-luna`.
+
+## Progresso e recuperação — homepage 1.12.0 / Manager 0.33.0
+
+`passo` reflete a operação: `preparando`, `whatsapp`, `publicando`, `iniciando`, `enviando_acesso`, `pronto`. A homepage mostra as etapas, sem porcentagem ou avanço inventado. `desde` informa o tempo decorrido; uma estimativa não é prazo garantido. `endereco` libera o botão assim que a aplicação está ativa. `emailAcesso` distingue pendente, enviado, erro, incerto e dispensado (configuração já concluída). Só enviado permite dizer que o acesso foi enviado.
+
+Falha temporária no acompanhamento é repetida em 15, 30, 60 e até 120 segundos; `Retry-After` é respeitado até 300 s. Voltar à aba dispara nova consulta. Link expirado mantém reenvio; e-mail já cadastrado oferece o endereço só quando devolvido após comprovar o link.
+
+Pedido pendente de outra sessão recebe 202 genérico sem cookie e sem acesso ao acompanhamento antigo. A homepage não grava o nome, e-mail ou WhatsApp em storage; o único marcador de sessão é booleano. Contato e links ficam em texto seguro e são configurados por `configuracao.js`.
+
+O Manager pode preparar dados opcionais e código em fragmento para o primeiro acesso. A versão da LUNA que os utiliza é publicada separadamente; a homepage não promete pré-preenchimento antes dessa integração.
