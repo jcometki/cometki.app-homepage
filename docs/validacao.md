@@ -309,3 +309,4 @@ O contato continua WhatsApp +55 67 99293-8193, sem envio de mensagens nos testes
 - Navegação sem JavaScript preservada. A API de disponibilidade do trial foi simulada somente nos testes locais; não houve cadastro ou envio real.
 - Revisão visual manual no celular e computador: sinal, WhatsApp, reserva na LUNA, retorno em fundo areia e capturas reais atualizadas.
 - Nginx validado no contêiner sem privilégios, somente leitura e sem capacidades adicionais. Configuração, cache, saúde, políticas e fluxo de trial preservados.
+- Axe (WCAG A/AA) nos três blocos novos, em 390 e 1440 px: nenhuma violação após escurecer o sobretítulo e a legenda sobre fundo areia.

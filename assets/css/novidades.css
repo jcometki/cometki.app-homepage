@@ -38,7 +38,7 @@
 .novo-whats-base{padding:12px;background:#f8f8f8;display:flex;gap:12px;align-items:center;color:#5d686d}
 .novo-whats-base>span{border:1px solid #ddd;background:white;border-radius:20px;font-size:12px;flex:1;padding:8px 12px}
 .novo-retorno{background:#d8c6ac;color:#30281f;padding:90px 0}
-.novo-retorno em,.novo-retorno .sobretitulo{color:#76541e}
+.novo-retorno em,.novo-retorno .sobretitulo{color:#61451a}
 .novo-retorno .novo-legenda,.novo-retorno .novo-nota{color:#514536}
 .novo-retorno-grade{display:grid;grid-template-columns:1.4fr .7fr;gap:90px;align-items:center}
 .novo-retorno-grade>div>p:not(.sobretitulo){max-width:620px}
@@ -46,7 +46,7 @@
 .novo-retorno blockquote{margin:28px 0 0;padding:24px;border:1px solid #aa9476;background:#f3e8d6;border-radius:12px;font:26px/1.4 var(--editorial)}
 .novo-pontos{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .novo-pontos span{border:1px solid #a58c6b;padding:5px 12px;border-radius:20px;font-size:12px}
-.novo-retorno figcaption{margin-top:14px;font-size:12px}
+.novo-retorno figcaption{margin-top:14px;font-size:12px;color:#514536}
 .novo-recebimento{display:grid;grid-template-columns:1.3fr .65fr;gap:90px;align-items:center;padding:30px 0 90px}
 .novo-recebimento>div>p:not(.sobretitulo){margin-top:25px;color:var(--suave)}
 .novo-recebimento figcaption{margin-top:16px;color:var(--suave);font-size:12px}
