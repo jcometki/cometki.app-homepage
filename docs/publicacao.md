@@ -1,8 +1,22 @@
 # Publicação da homepage LUNA na Cometki
 
-A homepage comercial usa **https://luna.cometki.app/**. A apresentação é estática; o
+A homepage comercial usa **https://meuluna.com/**. A apresentação é estática; o
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
+
+## Publicação de 10/11/2026 — 1.13.1
+
+Sinal pelo WhatsApp, lembrete de retorno e leitura de comprovantes com IA, com capturas reais do LUNA 1.85.4 e revisão de leitura móvel. Veja a [decisão comercial](novidades-comerciais-2026-11-10.md).
+
+- Código publicado: `405b28f34a07d7a08d751d306dd0f21c2787d8b3`, tag `v1.13.1`.
+- Imagem: `jcometki/luna:homepage-1.13.1@sha256:44ec7ce1b90dfaca765c563912a237e281edc036125a69b887b8ad3a05911b1d`.
+- Validação CI `42821739468` e publicação `42821743339`: sucesso.
+- Promoção GitOps: `2b9e3d3ee7a72410185bbd24f8b4be52d8672f06`, alterando somente a imagem em `apps/luna-homepage/deployment.yaml`.
+- Deployment atualizado e pronto, 1/1; Kustomization Ready e Healthy na revisão promovida. A sincronização aguardou normalmente as dependências existentes; nenhuma configuração de infraestrutura foi alterada.
+- HTML e **41 arquivos** referenciados idênticos ao pacote validado, conferidos por HTTPS. Saúde e cadastro público também iguais ao pacote; o botão de teste continua respondendo à disponibilidade do Manager.
+- Conferência visual no domínio público em computador e celular, sem rolagem horizontal. Novidades e capturas carregadas corretamente.
+
+Evidência de integridade: [publicacao-2026-11-10.json](publicacao-2026-11-10.json). Rollback: restaurar `jcometki/luna:homepage-1.12.0@sha256:4a7a9e46e9a3c55b3d9eb6f6b2bf18df076307b5028efbdf091f2edbe9f03f2f` no mesmo manifesto.
 
 Revisão **1.10.0**, publicada em 31/10/2026: demonstração das campanhas com IA,
 fundos para a arte, aberturas personalizadas, WhatsApp até o agendamento e
