@@ -68,6 +68,7 @@
       imagemAmpliada.src = imagem.currentSrc || imagem.src;
       imagemAmpliada.alt = imagem.alt;
       tituloVisualizador.textContent = botao.dataset.titulo;
+      document.getElementById('procedencia-visualizador').textContent = botao.dataset.procedencia;
       abrirDialogo(visualizador, botao);
     });
   });

@@ -1,3 +1,7 @@
+# Revalidação de 10/11/2026
+
+As capturas referenciadas na homepage foram renovadas na versão 1.85.4. Veja a [decisão comercial e procedência](novidades-comerciais-2026-11-10.md) e o [manifesto](capturas-2026-11-10.json). Os registros abaixo documentam as capturas anteriores.
+
 # Capturas reais no tema Élevé
 
 Desde a revisão 1.9.0, a homepage combina **capturas reais da LUNA para a visão

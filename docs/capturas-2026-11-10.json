@@ -1,0 +1,98 @@
+{
+  "data": "2026-11-10",
+  "aplicativo": "1.85.4",
+  "commit_aplicativo": "5d538906",
+  "origem": "Interface real; ambiente local descartável; tema Élevé; dados fictícios; sem envios externos",
+  "capturas": [
+    {
+      "arquivo": "assets/imagens/agenda-celular.webp",
+      "bytes": 20996,
+      "sha256": "9eb7f4977a9e5f157363c22cb1cc5dc93bbf317c25a7c3de0426ff9155359d81"
+    },
+    {
+      "arquivo": "assets/imagens/agenda-desktop.webp",
+      "bytes": 49202,
+      "sha256": "5e03221a99e8ccca64e9ccb1c07d90f922143d7ac517e9d0d0a798b4fc406c71"
+    },
+    {
+      "arquivo": "assets/imagens/atraso-notificacao-detalhe.webp",
+      "bytes": 10140,
+      "sha256": "51a12f190a0dfec7fa3f6018d35073756eec8709398c09bf3dd8251099279f7b"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-celular.webp",
+      "bytes": 32752,
+      "sha256": "678cdd29dc978bb34442bf035644c86e672e64909200868ea33b6b7a88de8b5e"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-desktop.webp",
+      "bytes": 76770,
+      "sha256": "057fbb4ff5c0e755211fa32868f13f28d161c24c78ddc454948b3bea7cf48df8"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-celular.webp",
+      "bytes": 27492,
+      "sha256": "2d15b98511b0a6675cb96de87cd23e4d69c8ff041e971f1a8d75b41a70184d9d"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-desktop.webp",
+      "bytes": 50036,
+      "sha256": "00b94ce8bb7c8776addee4dd3e3bf14203a60450eff0fc80b084235a484b6748"
+    },
+    {
+      "arquivo": "assets/imagens/comprovante-ia.webp",
+      "bytes": 39182,
+      "sha256": "7f36f1889ed5a9a50530eac526774a20b2032d159580caf46a5c535991af5a76"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-celular.webp",
+      "bytes": 29566,
+      "sha256": "7cb1728927aa1676dd0510bb03de67a565e628a14e44c49d90a17bbb46c790de"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-desktop.webp",
+      "bytes": 102304,
+      "sha256": "d3c1bbb97e8c60f3c83667381c7285094fc634deb642fb28c992f6378677da69"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-celular.webp",
+      "bytes": 21642,
+      "sha256": "deb3c8a5af88652e37710ad63aec6a18853271923db0cdc258f6ee37d2885216"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-desktop.webp",
+      "bytes": 36116,
+      "sha256": "d997af99d1e66b05ad1589f3919e15a4e793efe9ece6ef0fcf465b8e9ee39c6f"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-celular.webp",
+      "bytes": 30352,
+      "sha256": "69f73797a646d52e270d06d7f5e78cb915908582ea87816b3c50ffbeea07cfcd"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-desktop.webp",
+      "bytes": 88098,
+      "sha256": "ea6bf89305170ed5ab082b733269e25db1eb0100e528c34febeaf58da34268f5"
+    },
+    {
+      "arquivo": "assets/imagens/inicio-celular.webp",
+      "bytes": 30522,
+      "sha256": "d653f934ad363de361ed5881f1c6521bc9c88c76dc09d6cbd84cda9cdc20ce6b"
+    },
+    {
+      "arquivo": "assets/imagens/referencia-atendimento.webp",
+      "bytes": 43692,
+      "sha256": "c7d2e58fc65880a0f79a43a4018a02adaccb0bae971f809548d18b1b2b73847c"
+    },
+    {
+      "arquivo": "assets/imagens/retorno-automatico.webp",
+      "bytes": 38506,
+      "sha256": "c756b2c05360f6e3cf7a9730d684fc62fb9a37abbdba0d698409baeb0e38dc80"
+    },
+    {
+      "arquivo": "assets/imagens/sinal-reserva.webp",
+      "bytes": 26346,
+      "sha256": "7f21d249898b34d1190b699d85717324ee1f79a8d779fb3a4c71b29ad87006b7"
+    }
+  ]
+}

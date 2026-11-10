@@ -301,3 +301,11 @@ site ou à suíte que confere seus erros.
 
 O contato continua WhatsApp +55 67 99293-8193, sem envio de mensagens nos testes.
 `urlTrial` continua vazia e não há acesso ao Manager pela homepage.
+
+## Revisão comercial de 10/11/2026
+
+- 20 verificações estáticas e HTTP aprovadas, sem itens pulados, com `BASE_URL` no Nginx local.
+- Chromium em 320, 360, 390, 430, 768, 1024, 1440 e 1920 px; WebKit em 390, 768 e 1440 px. Sem rolagem horizontal ou erros de JavaScript/arquivos; abas, teclado, retorno do foco, ampliação, procedência e contato validados.
+- Navegação sem JavaScript preservada. A API de disponibilidade do trial foi simulada somente nos testes locais; não houve cadastro ou envio real.
+- Revisão visual manual no celular e computador: sinal, WhatsApp, reserva na LUNA, retorno em fundo areia e capturas reais atualizadas.
+- Nginx validado no contêiner sem privilégios, somente leitura e sem capacidades adicionais. Configuração, cache, saúde, políticas e fluxo de trial preservados.

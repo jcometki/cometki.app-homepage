@@ -58,6 +58,20 @@ async function prepararPaginaLocal(page) {
           await page.keyboard.press('Escape');
           assert.ok(await origem.evaluate(el => el === document.activeElement));
         }
+        // A procedência da ampliação não pode confundir uma ilustração com o aplicativo.
+        for (const [seletor, legenda] of [
+          ['#atraso .print-conversa .ampliavel', 'WhatsApp ilustrativo'],
+          ['#sinal .ampliavel', 'Interface real da LUNA 1.85.4'],
+          ['#retorno .ampliavel', 'Interface real da LUNA 1.85.4'],
+          ['#pix .ampliavel', 'Interface real da LUNA 1.85.4']
+        ]) {
+          const origem = page.locator(seletor);
+          await origem.click();
+          await page.locator('#imagem-ampliada').evaluate(img => img.decode());
+          assert.ok((await page.locator('#procedencia-visualizador').innerText()).startsWith(legenda));
+          await page.keyboard.press('Escape');
+          assert.ok(await origem.evaluate(el => el === document.activeElement));
+        }
         // A novidade precisa funcionar também com a imagem móvel selecionada pelo picture.
         const campanha = page.locator('#campanhas .campanhas-print .ampliavel');
         await campanha.click();

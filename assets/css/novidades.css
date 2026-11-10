@@ -1,0 +1,71 @@
+/* Novidades comerciais: classes isoladas preservam os blocos já aprovados. */
+.novo-sinal{padding-block:32px 96px}
+.novo-abertura{display:grid;grid-template-columns:1.5fr 1fr;align-items:end;gap:60px}
+.novo-abertura .sobretitulo,.novo-retorno .sobretitulo,.novo-recebimento .sobretitulo{margin-bottom:20px}
+.novo-abertura>p{color:var(--suave);max-width:400px;font-size:17px}
+.novo-beneficios{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin:40px 0 52px}
+.novo-beneficios article{border-top:1px solid var(--borda);padding-top:20px}
+.novo-beneficios article>span{color:var(--ouro);font-size:13px}
+.novo-beneficios h3{font-size:18px;line-height:1.4;letter-spacing:0;margin:10px 0}
+.novo-beneficios p{font-size:15px;color:var(--suave)}
+.novo-jornada{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;max-width:940px;margin:auto}
+.novo-jornada figcaption{font-size:13px;margin-bottom:18px}
+.novo-jornada figcaption b{color:var(--ouro);font-size:11px;letter-spacing:1.5px;display:block}
+.novo-jornada figcaption span{display:block;margin-top:8px;font-size:20px}
+.novo-captura{display:block;width:100%;padding:0;border:1px solid var(--borda);border-radius:16px;overflow:hidden;background:#1d1816;position:relative;text-align:left}
+.novo-captura img{width:100%}
+.novo-ampliar{display:block;background:#44392f;color:#fff4e3;padding:12px 18px;font-size:13px;text-align:right}
+.novo-legenda{font-size:12px;color:var(--suave);margin-top:14px;line-height:1.6}
+.novo-resumo{background:var(--superficie);border:1px solid var(--borda);border-radius:12px;padding:22px;margin-top:24px}
+.novo-resumo strong{font-size:16px;color:var(--ouro)}
+.novo-resumo p{font-size:14px;color:var(--suave);margin-top:8px}
+.novo-nota{font-size:13px;line-height:1.8;color:var(--suave);margin-top:28px}
+.novo-sinal>.novo-nota{max-width:940px;margin:28px auto 0}
+.novo-whatsapp{background:#e9e2d9;color:#202c33;border:7px solid #181916;border-radius:28px;overflow:hidden;font:15px/1.45 Arial,sans-serif;box-shadow:0 20px 40px #0003}
+.novo-whats-cabecalho{background:#fafafa;padding:14px 13px;display:flex;gap:11px;align-items:center}
+.novo-whats-cabecalho>span{font-size:26px}
+.novo-whats-cabecalho>span:last-child{margin-left:auto}
+.novo-avatar{background:#6c6254;color:#fff;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:13px;flex-shrink:0}
+.novo-whats-cabecalho strong{display:block;font-size:16px}
+.novo-whats-cabecalho small{display:block;font-size:11px;color:#54656f}
+.novo-mensagens{padding:18px 12px 24px;background-image:radial-gradient(#afa29140 .8px,transparent .8px);background-size:14px 14px;display:flex;flex-direction:column;gap:14px}
+.novo-dia{align-self:center;background:#fffc;border-radius:7px;padding:5px 10px;font-size:11px;color:#5a625f}
+.novo-balao{background:#fff;box-shadow:0 1px 1px #0002;border-radius:4px 10px 10px;width:94%;padding:12px 13px 6px}
+.novo-balao p+p{margin-top:12px}
+.novo-balao small{display:block;text-align:right;font-size:10px;color:#617065;margin-top:7px}
+.novo-balao.novo-enviada{background:#d9fdd3;align-self:flex-end;width:auto;min-width:125px;border-radius:10px 4px 10px 10px}
+.novo-botao-whats{border-top:1px solid #e5e7e7;margin:10px -13px -6px;text-align:center;color:#007c68;font-size:14px;padding:12px}
+.novo-whats-base{padding:12px;background:#f8f8f8;display:flex;gap:12px;align-items:center;color:#5d686d}
+.novo-whats-base>span{border:1px solid #ddd;background:white;border-radius:20px;font-size:12px;flex:1;padding:8px 12px}
+.novo-retorno{background:#d8c6ac;color:#30281f;padding:90px 0}
+.novo-retorno em,.novo-retorno .sobretitulo{color:#76541e}
+.novo-retorno .novo-legenda,.novo-retorno .novo-nota{color:#514536}
+.novo-retorno-grade{display:grid;grid-template-columns:1.4fr .7fr;gap:90px;align-items:center}
+.novo-retorno-grade>div>p:not(.sobretitulo){max-width:620px}
+.novo-destaque{font-size:20px;line-height:1.65;margin:24px 0 18px}
+.novo-retorno blockquote{margin:28px 0 0;padding:24px;border:1px solid #aa9476;background:#f3e8d6;border-radius:12px;font:26px/1.4 var(--editorial)}
+.novo-pontos{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.novo-pontos span{border:1px solid #a58c6b;padding:5px 12px;border-radius:20px;font-size:12px}
+.novo-retorno figcaption{margin-top:14px;font-size:12px}
+.novo-recebimento{display:grid;grid-template-columns:1.3fr .65fr;gap:90px;align-items:center;padding:30px 0 90px}
+.novo-recebimento>div>p:not(.sobretitulo){margin-top:25px;color:var(--suave)}
+.novo-recebimento figcaption{margin-top:16px;color:var(--suave);font-size:12px}
+@media(max-width:900px){.novo-abertura,.novo-retorno-grade,.novo-recebimento{gap:35px}.novo-jornada{gap:32px}}
+@media(max-width:700px){
+ .novo-sinal{padding-block:20px 60px}
+ .novo-abertura,.novo-jornada,.novo-retorno-grade,.novo-recebimento{grid-template-columns:1fr;gap:30px}
+ .novo-abertura>p{font-size:16px}
+ .novo-beneficios{grid-template-columns:1fr;gap:20px;margin:30px 0 38px}
+ .novo-beneficios article{padding:16px 0 0 34px;position:relative}
+ .novo-beneficios article>span{position:absolute;left:0;top:20px}
+ .novo-beneficios h3{margin:0 0 7px}
+ .novo-jornada{gap:38px}
+ .novo-jornada figure{max-width:440px;width:100%;margin:auto}
+ .novo-retorno{padding:55px 0}
+ .novo-retorno figure,.novo-recebimento figure{width:min(100%,390px);margin:auto}
+ .novo-recebimento{padding:10px 0 60px}
+ .novo-destaque{font-size:18px}
+ .novo-resumo{padding:20px}
+ .novo-mensagens{font-size:15px}
+ .novo-nota{font-size:13px}
+}
