@@ -31,3 +31,5 @@ O kit do Instagram replica a estratégia, inclui os originais e cópias PNG, log
 - Abas de resultados conferidas por clique e teclado, mantendo independência das abas de campanhas e gestão.
 - Ampliação dos relatórios e do novo print de sinal conferida, incluindo procedência, Escape e retorno de foco.
 - 23 imagens conferidas por dimensão e hash; revisão visual dos novos relatórios, retorno, sinal, comprovante, referência e aviso de atraso.
+
+Revisão final de enquadramento: conversa aberta no computador e formulário da campanha começando pelo título. Mantidos os mesmos dados e a interface real. Versão final para produção: 1.14.1.

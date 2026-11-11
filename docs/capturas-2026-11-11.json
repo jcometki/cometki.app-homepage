@@ -27,17 +27,17 @@
     },
     {
       "arquivo": "assets/imagens/campanhas-celular.webp",
-      "bytes": 31582,
+      "bytes": 30212,
       "largura": 379,
       "altura": 820,
-      "sha256": "1b9d9de3734fb5af0d5c12d0cedfc98d19da42eb52d65b599f5db4858fc45079"
+      "sha256": "ef460a0d1c167daca99fd4fa3befd5f1c531edd655fde3316370fe83bdb4ec7b"
     },
     {
       "arquivo": "assets/imagens/campanhas-desktop.webp",
-      "bytes": 64330,
+      "bytes": 63602,
       "largura": 1429,
       "altura": 953,
-      "sha256": "55ba7c1acc3a8372be5dcd0ed974ae06a0bb40857b6a50f3a67686f75fed57a6"
+      "sha256": "9b8d636d94028814a681e92d727825315b8c9d7337ff7d173bdf34733545b09f"
     },
     {
       "arquivo": "assets/imagens/clientes-celular.webp",
@@ -69,10 +69,10 @@
     },
     {
       "arquivo": "assets/imagens/conversas-desktop.webp",
-      "bytes": 73238,
+      "bytes": 89152,
       "largura": 1440,
       "altura": 960,
-      "sha256": "d784992f0bb4af963e83a45773088db494477483898234e96ee4caef1e0acf0a"
+      "sha256": "cf65d3c6457f6893c7391bb68d751bbd1fcd2b1be3d42ecbdf08faece4585db8"
     },
     {
       "arquivo": "assets/imagens/equipe-celular.webp",
