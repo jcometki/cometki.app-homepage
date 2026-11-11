@@ -1,0 +1,169 @@
+{
+  "data": "2026-11-11",
+  "aplicativo": "1.92.0",
+  "commit_aplicativo": "7563201ba4a0a5708b7119739af2a31efbfff41b",
+  "origem": "Interface real em demonstração local isolada; tema Élevé; dados fictícios e resultados roteirizados; nenhuma integração externa executada. Recortes apenas de enquadramento, sem reescrita de interface.",
+  "capturas": [
+    {
+      "arquivo": "assets/imagens/agenda-celular.webp",
+      "bytes": 18046,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "c3226d6abed53bf50cd0cbf0fb90e1d70bc6fa9099ff73a253ec2e5a48c3131d"
+    },
+    {
+      "arquivo": "assets/imagens/agenda-desktop.webp",
+      "bytes": 40724,
+      "largura": 1429,
+      "altura": 953,
+      "sha256": "987c6d7eda9c79228768edb63413926a778d75c03231994f42410f6a09e68335"
+    },
+    {
+      "arquivo": "assets/imagens/atraso-notificacao-detalhe.webp",
+      "bytes": 9262,
+      "largura": 430,
+      "altura": 230,
+      "sha256": "f16ea56b522a5b110bdb8eadcc4038a12ca62054b30afd982d1dcc17f6f4cb08"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-celular.webp",
+      "bytes": 31582,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "1b9d9de3734fb5af0d5c12d0cedfc98d19da42eb52d65b599f5db4858fc45079"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-desktop.webp",
+      "bytes": 64330,
+      "largura": 1429,
+      "altura": 953,
+      "sha256": "55ba7c1acc3a8372be5dcd0ed974ae06a0bb40857b6a50f3a67686f75fed57a6"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-celular.webp",
+      "bytes": 26740,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "6522ec00026480aeb6e89b11ccfd2ddcbdf9b79ae0d790043f949b14158e5752"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-desktop.webp",
+      "bytes": 45518,
+      "largura": 1429,
+      "altura": 953,
+      "sha256": "cc821452027275c445803e87b7fea94fdfde25edb67cbe3f12915fdbe3747ab3"
+    },
+    {
+      "arquivo": "assets/imagens/comprovante-ia.webp",
+      "bytes": 34794,
+      "largura": 430,
+      "altura": 1000,
+      "sha256": "0fee4b8324def5d4fdd8dc485512909950c0186f01604efbeab07a1abdcd6111"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-celular.webp",
+      "bytes": 30302,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "10d96f4edc742108034500318cabfb7d1879308775d22dfea043d3b60146bf3d"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-desktop.webp",
+      "bytes": 73238,
+      "largura": 1440,
+      "altura": 960,
+      "sha256": "d784992f0bb4af963e83a45773088db494477483898234e96ee4caef1e0acf0a"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-celular.webp",
+      "bytes": 17074,
+      "largura": 390,
+      "altura": 844,
+      "sha256": "49dc6129ed89556031523647561d64769856ab74ac057dba26b5b21b2dbced9d"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-desktop.webp",
+      "bytes": 31662,
+      "largura": 1440,
+      "altura": 960,
+      "sha256": "f18f39ffe0eba3e0d5d1a2945ebd42d3241a97e49d8070f71ecea3c2acbbea6e"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-celular.webp",
+      "bytes": 33836,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "4cf317894b27b150924e08f524386140180145392c0675181df188b3c7459fbf"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-desktop.webp",
+      "bytes": 81838,
+      "largura": 1429,
+      "altura": 953,
+      "sha256": "a4e44ff0b5ea3cefe1ffddcda0a37887c43013c4e07ed635d1c59a6d680bbdaa"
+    },
+    {
+      "arquivo": "assets/imagens/inicio-celular.webp",
+      "bytes": 29488,
+      "largura": 379,
+      "altura": 820,
+      "sha256": "2edfea26e922f97cd70adb39fb71ddfc39d480fa12159465dbe2b78f7d6fa9db"
+    },
+    {
+      "arquivo": "assets/imagens/referencia-atendimento.webp",
+      "bytes": 41158,
+      "largura": 419,
+      "altura": 1155,
+      "sha256": "9b740caf19486703328e9692d80bfc0e23389a152f7ed715da61b356732deee8"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-assistente.webp",
+      "bytes": 49780,
+      "largura": 430,
+      "altura": 1100,
+      "sha256": "89832e7ab1a2a8ef0437cc33d1ed47003737fd1fcc60e9565fb66007e8799c5e"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-campanhas.webp",
+      "bytes": 49334,
+      "largura": 419,
+      "altura": 1072,
+      "sha256": "43265cad9d485ef93448a800ab406d7b240226ce154fb8141d6d836c2dd77971"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-clientes.webp",
+      "bytes": 46018,
+      "largura": 419,
+      "altura": 1072,
+      "sha256": "1486961dbb540921aedd82078289beb55da51524c43dab8787fa7e11ca402acd"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-sinais.webp",
+      "bytes": 35842,
+      "largura": 419,
+      "altura": 1072,
+      "sha256": "e119626c4950387b9c19bdaee91f6d3812cf31383a441b83da436c1a713c09da"
+    },
+    {
+      "arquivo": "assets/imagens/retorno-automatico.webp",
+      "bytes": 32966,
+      "largura": 369,
+      "altura": 761,
+      "sha256": "4693cd62cd480cb33943c1d4068db0e38f9da9f2ff7f64786dfe5c0789a0ac67"
+    },
+    {
+      "arquivo": "assets/imagens/sinal-agendamento.webp",
+      "bytes": 30602,
+      "largura": 419,
+      "altura": 974,
+      "sha256": "1fe37b66bd316c1407f566effaf579eae97730cf822175ead3981d7067a28311"
+    },
+    {
+      "arquivo": "assets/imagens/sinal-reserva.webp",
+      "bytes": 20572,
+      "largura": 410,
+      "altura": 515,
+      "sha256": "c02ada9740de83f0e0ca9fc38d26d97cb4842a181466fbf94d3ea2d823df0523"
+    }
+  ]
+}

@@ -69,3 +69,26 @@
  .novo-mensagens{font-size:15px}
  .novo-nota{font-size:13px}
 }
+
+/* Relatórios comerciais: uma ideia por aba, com captura ampliável. */
+.resultados{padding:80px 0;background:#44392f;border-block:1px solid #6a5946}
+.resultados-abertura{max-width:800px}
+.resultados-abertura>p:last-child{max-width:630px;color:#e0cfb8;margin-top:24px;font-size:17px}
+.resultados-abertura .sobretitulo{margin-bottom:18px}
+.resultados-abas{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0}
+.resultados-abas button{min-height:48px;padding:12px 22px;border:1px solid #aa9271;border-radius:999px;background:transparent;color:#fff4e3;font:inherit;font-size:15px;cursor:pointer}
+.resultados-abas button[aria-selected="true"]{background:#edc77e;color:#30281f;border-color:#edc77e}
+.resultados-painel{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:70px}
+.resultados-painel[hidden]{display:none}
+.resultados-texto h3{font:42px/1.12 var(--editorial);letter-spacing:-.5px;margin:14px 0 22px;max-width:470px}
+.resultados-texto>p:not(.sobretitulo){color:#e0cfb8;max-width:520px}
+.resultados-texto .lista-check{margin-top:24px}
+.resultados-contexto{font-size:14px;border-top:1px solid #89735a;padding-top:20px;margin-top:28px}
+.resultados-painel figure{width:100%;max-width:390px;justify-self:center}
+.resultados-painel .novo-captura img{display:block;width:100%;max-height:580px;object-fit:cover;object-position:top}
+.resultados-painel figcaption{font-size:12px;color:#e0cfb8;margin-top:14px}
+.resultados-nota{font-size:12px;color:#e0cfb8;max-width:740px;margin-top:32px}
+.sinal-agendar{margin-top:22px;border:1px solid var(--borda);border-radius:12px;padding:18px}
+.sinal-agendar summary{display:flex;justify-content:space-between;gap:10px;color:var(--ouro);font-size:15px;cursor:pointer;min-height:32px;align-items:center}
+.sinal-agendar p{color:var(--suave);font-size:14px;margin:16px 0}
+@media(max-width:700px){.resultados{padding:56px 0}.resultados-abertura>p:last-child{font-size:16px}.resultados-abas{gap:8px;margin:28px 0}.resultados-abas button{padding:11px 15px;font-size:14px}.resultados-painel{grid-template-columns:1fr;gap:28px}.resultados-texto h3{font-size:34px}.resultados-painel .novo-captura img{max-height:520px}.resultados-nota{line-height:1.7}.sinal-agendar{padding:16px}}
