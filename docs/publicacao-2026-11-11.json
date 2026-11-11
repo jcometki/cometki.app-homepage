@@ -1,0 +1,239 @@
+{
+  "site": "https://meuluna.com/",
+  "versao": "1.14.1",
+  "html_igual_ao_pacote": true,
+  "assets_conferidos": 45,
+  "saude_e_cadastro_conferidos": true,
+  "assets": [
+    {
+      "arquivo": "assets/css/campanhas.h0a7c3bfa327138d3.css",
+      "bytes": 8983,
+      "sha256": "32a3425929f5486af4e3438aa9709bfdbfd886af2222d5a95457c7cbc9d36e84"
+    },
+    {
+      "arquivo": "assets/css/comercial.h0a7c3bfa327138d3.css",
+      "bytes": 24825,
+      "sha256": "cc1274cfe0d973494d817d491175a18fd6f1b31f4f5cb15d24d1b2b384305c99"
+    },
+    {
+      "arquivo": "assets/css/novidades.h0a7c3bfa327138d3.css",
+      "bytes": 7727,
+      "sha256": "e30e84b11cbf5fda441719fb0074f62840cbf80a17f6ee4bd86b9fe1dc225508"
+    },
+    {
+      "arquivo": "assets/css/site.h0a7c3bfa327138d3.css?v=1.2.0",
+      "bytes": 45356,
+      "sha256": "7ebcb9b126eb44b4bf9199a51726af2d92c3456634865063034027b43bd781bc"
+    },
+    {
+      "arquivo": "assets/fontes/dm-sans.h0a7c3bfa327138d3.woff2",
+      "bytes": 36980,
+      "sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb"
+    },
+    {
+      "arquivo": "assets/fontes/instrument-serif.h0a7c3bfa327138d3.woff2",
+      "bytes": 15040,
+      "sha256": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d"
+    },
+    {
+      "arquivo": "assets/imagens/agenda-celular.h0a7c3bfa327138d3.webp",
+      "bytes": 18046,
+      "sha256": "c3226d6abed53bf50cd0cbf0fb90e1d70bc6fa9099ff73a253ec2e5a48c3131d"
+    },
+    {
+      "arquivo": "assets/imagens/agenda-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 18046,
+      "sha256": "c3226d6abed53bf50cd0cbf0fb90e1d70bc6fa9099ff73a253ec2e5a48c3131d"
+    },
+    {
+      "arquivo": "assets/imagens/agenda-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 40724,
+      "sha256": "987c6d7eda9c79228768edb63413926a778d75c03231994f42410f6a09e68335"
+    },
+    {
+      "arquivo": "assets/imagens/atraso-notificacao-detalhe.h0a7c3bfa327138d3.webp",
+      "bytes": 9262,
+      "sha256": "f16ea56b522a5b110bdb8eadcc4038a12ca62054b30afd982d1dcc17f6f4cb08"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-arte-ia-1.h0a7c3bfa327138d3.webp",
+      "bytes": 96916,
+      "sha256": "dd3a9d2822b745679fb01f416a9866b416001fa3073dd56a184773e1573f430c"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-arte-ia-2.h0a7c3bfa327138d3.webp",
+      "bytes": 116480,
+      "sha256": "ed877688cd9b25593b409ae72e5eee1ed70625b5d57ac7d79fc92a33db46822a"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-whatsapp-agendamento.h0a7c3bfa327138d3.webp",
+      "bytes": 68208,
+      "sha256": "7395784b25557346426ae575bbe0dbe7c04b832334fe4e7096f5f06009360a6a"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-whatsapp-confirmado.h0a7c3bfa327138d3.webp",
+      "bytes": 34632,
+      "sha256": "12bfbaba6ae1d06fe7f38f27855bd30647c3a1948702ffc2aad65e99cb9d1803"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-whatsapp-convite.h0a7c3bfa327138d3.webp",
+      "bytes": 128172,
+      "sha256": "2234329287939732831f1ded6d44538c8d7492d823f8b35188355ebdc4da134c"
+    },
+    {
+      "arquivo": "assets/imagens/campanha-whatsapp-saida.h0a7c3bfa327138d3.webp",
+      "bytes": 60084,
+      "sha256": "8d8d729532d68a2e251a54b8ce840c8f7d29a4a3cd7ac78e6b0596af95b1e459"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 30212,
+      "sha256": "ef460a0d1c167daca99fd4fa3befd5f1c531edd655fde3316370fe83bdb4ec7b"
+    },
+    {
+      "arquivo": "assets/imagens/campanhas-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 63602,
+      "sha256": "9b8d636d94028814a681e92d727825315b8c9d7337ff7d173bdf34733545b09f"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 26740,
+      "sha256": "6522ec00026480aeb6e89b11ccfd2ddcbdf9b79ae0d790043f949b14158e5752"
+    },
+    {
+      "arquivo": "assets/imagens/clientes-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 45518,
+      "sha256": "cc821452027275c445803e87b7fea94fdfde25edb67cbe3f12915fdbe3747ab3"
+    },
+    {
+      "arquivo": "assets/imagens/comprovante-ia.h0a7c3bfa327138d3.webp",
+      "bytes": 34794,
+      "sha256": "0fee4b8324def5d4fdd8dc485512909950c0186f01604efbeab07a1abdcd6111"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 30302,
+      "sha256": "10d96f4edc742108034500318cabfb7d1879308775d22dfea043d3b60146bf3d"
+    },
+    {
+      "arquivo": "assets/imagens/conversas-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 89152,
+      "sha256": "cf65d3c6457f6893c7391bb68d751bbd1fcd2b1be3d42ecbdf08faece4585db8"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 17074,
+      "sha256": "49dc6129ed89556031523647561d64769856ab74ac057dba26b5b21b2dbced9d"
+    },
+    {
+      "arquivo": "assets/imagens/equipe-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 31662,
+      "sha256": "f18f39ffe0eba3e0d5d1a2945ebd42d3241a97e49d8070f71ecea3c2acbbea6e"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 33836,
+      "sha256": "4cf317894b27b150924e08f524386140180145392c0675181df188b3c7459fbf"
+    },
+    {
+      "arquivo": "assets/imagens/financeiro-desktop.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 81838,
+      "sha256": "a4e44ff0b5ea3cefe1ffddcda0a37887c43013c4e07ed635d1c59a6d680bbdaa"
+    },
+    {
+      "arquivo": "assets/imagens/inicio-celular.h0a7c3bfa327138d3.webp?v=1.2.0",
+      "bytes": 29488,
+      "sha256": "2edfea26e922f97cd70adb39fb71ddfc39d480fa12159465dbe2b78f7d6fa9db"
+    },
+    {
+      "arquivo": "assets/imagens/marca/favicon.h0a7c3bfa327138d3.svg",
+      "bytes": 1855,
+      "sha256": "d1c2a64f06a1c844e3ad1c82394844e5b09cb449f98ac5b40c6494d17681530e"
+    },
+    {
+      "arquivo": "assets/imagens/marca/icone-180.h0a7c3bfa327138d3.png",
+      "bytes": 5188,
+      "sha256": "c059c9a6ac8b42697836139c14ec2082cfec31aec7a7be18db6672aadacaaf2c"
+    },
+    {
+      "arquivo": "assets/imagens/marca/icone-32.h0a7c3bfa327138d3.png",
+      "bytes": 854,
+      "sha256": "34941680d9b367e2aeb6d037726b4a3da7fd91dbc9b628a4a029205571288db9"
+    },
+    {
+      "arquivo": "assets/imagens/marca/luna-horizontal.h0a7c3bfa327138d3.svg",
+      "bytes": 6159,
+      "sha256": "327bdcc6248d09ed0ab9430d39b4cb3e3993a0bf3627df66e63075508d461989"
+    },
+    {
+      "arquivo": "assets/imagens/referencia-atendimento.h0a7c3bfa327138d3.webp",
+      "bytes": 41158,
+      "sha256": "9b740caf19486703328e9692d80bfc0e23389a152f7ed715da61b356732deee8"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-assistente.h0a7c3bfa327138d3.webp",
+      "bytes": 49780,
+      "sha256": "89832e7ab1a2a8ef0437cc33d1ed47003737fd1fcc60e9565fb66007e8799c5e"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-clientes.h0a7c3bfa327138d3.webp",
+      "bytes": 46018,
+      "sha256": "1486961dbb540921aedd82078289beb55da51524c43dab8787fa7e11ca402acd"
+    },
+    {
+      "arquivo": "assets/imagens/relatorio-sinais.h0a7c3bfa327138d3.webp",
+      "bytes": 35842,
+      "sha256": "e119626c4950387b9c19bdaee91f6d3812cf31383a441b83da436c1a713c09da"
+    },
+    {
+      "arquivo": "assets/imagens/retorno-automatico.h0a7c3bfa327138d3.webp",
+      "bytes": 32966,
+      "sha256": "4693cd62cd480cb33943c1d4068db0e38f9da9f2ff7f64786dfe5c0789a0ac67"
+    },
+    {
+      "arquivo": "assets/imagens/sinal-agendamento.h0a7c3bfa327138d3.webp",
+      "bytes": 30602,
+      "sha256": "1fe37b66bd316c1407f566effaf579eae97730cf822175ead3981d7067a28311"
+    },
+    {
+      "arquivo": "assets/imagens/sinal-reserva.h0a7c3bfa327138d3.webp",
+      "bytes": 20572,
+      "sha256": "c02ada9740de83f0e0ca9fc38d26d97cb4842a181466fbf94d3ea2d823df0523"
+    },
+    {
+      "arquivo": "assets/imagens/whatsapp-atraso.h0a7c3bfa327138d3.png",
+      "bytes": 91774,
+      "sha256": "376f46ce2671f8fdb820f2a28df7e46dfeeea2dc780432ff0d9221c247db0653"
+    },
+    {
+      "arquivo": "assets/imagens/whatsapp-confirmacao.h0a7c3bfa327138d3.png",
+      "bytes": 114224,
+      "sha256": "61ea3c14afb9f13bbaa087980759c663471c22c6e86a3c538406e374dfec174b"
+    },
+    {
+      "arquivo": "assets/imagens/whatsapp-referencia.h0a7c3bfa327138d3.png",
+      "bytes": 537195,
+      "sha256": "aab20dd10cb9bb0814131046565ab1497583ff5946f915644951d315406ada9c"
+    },
+    {
+      "arquivo": "assets/js/configuracao.h0a7c3bfa327138d3.js?v=1.3.2",
+      "bytes": 460,
+      "sha256": "a5334bddafe11429b93e51eec3f295ad64b2eae63fcb52696d7a916c07877ab8"
+    },
+    {
+      "arquivo": "assets/js/contato.h0a7c3bfa327138d3.js",
+      "bytes": 444,
+      "sha256": "a13950a89f49ca44a72ff5e294cacac40c67e4eea82dabdd4d89deb1f196d63e"
+    },
+    {
+      "arquivo": "assets/js/site.h0a7c3bfa327138d3.js?v=1.3.2",
+      "bytes": 7297,
+      "sha256": "d2b0aff4f4220575d3e416425f30110ec1d7e61f31d511a5c8ab1ec6acef9d2c"
+    }
+  ],
+  "commit": "8e3b5995c8557d51afbea7fc2a99c541edf4149b",
+  "gitops_commit": "1d99f8879afd20d8ff404c1927237a12a9ecfd4c",
+  "imagem": "jcometki/luna:homepage-1.14.1@sha256:5412fb29bb4b081fd60d3b65b0af426dda75f596c6414aa8e8635645756133d9",
+  "ci_validacao": 43077331557,
+  "ci_publicacao": 43077331977
+}

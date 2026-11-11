@@ -4,6 +4,21 @@ A homepage comercial usa **https://meuluna.com/**. A apresentação é estática
 cadastro público consulta a API separada do Manager, conforme
 [contrato de integração](integracao-manager.md).
 
+## Publicação de 11/11/2026 — 1.14.1
+
+Homepage com foco em IA, sinal e retorno: nova seção de resultados, seleção de sinal sugerido no agendamento, Financeiro e Equipe atuais. 23 capturas reais da LUNA 1.92.0, com dados fictícios. WhatsApp ilustrativo preservado na perspectiva da cliente. Veja a [decisão comercial](novidades-comerciais-2026-11-11.md).
+
+- Código: `8e3b5995c8557d51afbea7fc2a99c541edf4149b`, tag `v1.14.1`.
+- Imagem: `jcometki/luna:homepage-1.14.1@sha256:5412fb29bb4b081fd60d3b65b0af426dda75f596c6414aa8e8635645756133d9`.
+- CI de validação `43077331557` e publicação `43077331977`: sucesso, incluindo verificação HTTP da imagem publicada.
+- Promoção GitOps: `1d99f8879afd20d8ff404c1927237a12a9ecfd4c`, alterando somente a imagem em `apps/luna-homepage/deployment.yaml` com controle de concorrência pelo SHA.
+- Deployment atualizado e pronto, 1/1. Kustomization Ready e Healthy na revisão promovida. A sincronização aguardou as dependências existentes; foi solicitada reconciliação somente da homepage. Infraestrutura e Manager preservados.
+- HTML e 45 arquivos referenciados idênticos ao pacote validado, conferidos por HTTPS. Saúde e cadastro público também conferidos. O CTA continua condicionado à disponibilidade do Manager.
+- Leitura local conferida em 320, 390 e 1440 px; revisão visual no domínio público em computador e celular, com imagens carregadas e sem rolagem horizontal.
+- Kit Instagram datado de 11/11/2026, com prompt, 23 WebPs e cópias PNG, exemplos de WhatsApp, artes, logo oficial e referências da homepage. Nenhuma publicação de Instagram ou automação criada.
+
+Evidência: [publicacao-2026-11-11.json](publicacao-2026-11-11.json). Rollback: restaurar `jcometki/luna:homepage-1.13.1@sha256:44ec7ce1b90dfaca765c563912a237e281edc036125a69b887b8ad3a05911b1d` no mesmo manifesto.
+
 ## Publicação de 10/11/2026 — 1.13.1
 
 Sinal pelo WhatsApp, lembrete de retorno e leitura de comprovantes com IA, com capturas reais do LUNA 1.85.4 e revisão de leitura móvel. Veja a [decisão comercial](novidades-comerciais-2026-11-10.md).
